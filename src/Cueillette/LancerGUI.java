@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 public class LancerGUI extends JFrame {
 	
 	public LancerGUI(){
-		super();
+		super("Cueillette exploratoire");
 		
 		setPreferredSize(new Dimension(1000,400));
 		int[][] tab =  {{0,0,0,0,0,0,0,0,0,0,0},
