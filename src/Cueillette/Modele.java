@@ -1,5 +1,6 @@
 package Cueillette;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -46,5 +47,39 @@ public class Modele {
 		mode=s;
 	}
 	
+	public void newMap(){
+		Random rand=new Random();
+			for(int i=0;i<getSizeX();i++){
+				for(int j=0;j<getSizeY();j++){
+					if(rand.nextFloat()>0.5){
+						monde[i][j]=1;
+					}else{
+						monde[i][j]=0;
+					}
+				}
+			}
+		majVues();
+	}
+	
+
+	public void changeSize(String string, String string2) {
+		int x=Integer.parseInt(string);
+		int y=Integer.parseInt(string2);
+		if(x<=0 || y<=0)
+			throw new NumberFormatException();
+		Random rand=new Random();
+		monde=new int[x][y];
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				if(rand.nextFloat()>0.5){
+					monde[i][j]=1;
+				}else{
+					monde[i][j]=0;
+				}
+			}
+		}
+		majVues();
+		
+	}
 	
 }
