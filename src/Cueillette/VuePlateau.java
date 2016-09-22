@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -19,11 +20,11 @@ public class VuePlateau extends JPanel implements Vue {
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
 				if(modele.getCase(i, j)==0){
-					grille[i][j]=new JLabel("0");
+					grille[i][j]=new JLabel(new ImageIcon("/resources/vide.png"));
 				}else if(modele.getCase(i, j)==1){
-					grille[i][j]=new JLabel("1");
+					grille[i][j]=new JLabel(new ImageIcon("/resources/interet.png"));
 				}else if(modele.getCase(i, j)==2){
-					grille[i][j]=new JLabel("2");
+					grille[i][j]=new JLabel(new ImageIcon("/resources/agent.png"));
 				}
 				this.add(grille[i][j]);
 			}

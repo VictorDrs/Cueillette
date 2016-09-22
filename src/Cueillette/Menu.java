@@ -38,7 +38,7 @@ public class Menu extends JMenuBar {
 			volLevy.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					modele.setMode("levy");
+					modele.setMode(true);
 					modele.majVues();
 				}
 			});
@@ -47,7 +47,7 @@ public class Menu extends JMenuBar {
 			alea.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					modele.setMode("alea");
+					modele.setMode(false);
 					modele.majVues();
 					
 				}
