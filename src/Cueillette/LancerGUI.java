@@ -18,8 +18,8 @@ public class LancerGUI extends JFrame {
 						{0,0,0,0,0,0,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
+						{0,0,0,0,0,2,0,0,0,0,0},
+						{0,0,0,0,0,1,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0},
 						{0,0,0,0,0,0,0,0,0,0,0}};
@@ -31,12 +31,12 @@ public class LancerGUI extends JFrame {
 		modele.ajouterVue(vc);
 		modele.ajouterVue(vs);
 		modele.ajouterVue(vp);
-		modele.majVues();
+		
 		add(vs,BorderLayout.SOUTH);
 		add(vp,BorderLayout.CENTER);
 		add(vc,BorderLayout.EAST);
 		setJMenuBar(men);
-		
+		modele.majVues();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);

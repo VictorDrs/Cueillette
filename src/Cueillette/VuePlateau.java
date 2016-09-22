@@ -20,15 +20,16 @@ public class VuePlateau extends JPanel implements Vue {
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
 				if(modele.getCase(i, j)==0){
-					grille[i][j]=new JLabel(new ImageIcon("/resources/vide.png"));
+					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/vide.png")));
 				}else if(modele.getCase(i, j)==1){
-					grille[i][j]=new JLabel(new ImageIcon("/resources/interet.png"));
+					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/interet.png")));
 				}else if(modele.getCase(i, j)==2){
-					grille[i][j]=new JLabel(new ImageIcon("/resources/agent.png"));
+					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/agent.png")));
 				}
 				this.add(grille[i][j]);
 			}
 		}
+		
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
 				grille[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
