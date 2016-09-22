@@ -73,7 +73,7 @@ public class Menu extends JMenuBar {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try{
-						modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"),JOptionPane.showInputDialog("Hauteur de la grille"));
+						modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"));//,JOptionPane.showInputDialog("Hauteur de la grille"));
 					}catch(Exception NumberFormatException){
 						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
 					}

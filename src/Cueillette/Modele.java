@@ -78,12 +78,12 @@ public class Modele {
 	}
 	
 
-	public void changeSize(String string, String string2) {
+	public void changeSize(String string){//, String string2) {
 		int x=Integer.parseInt(string);
-		int y=Integer.parseInt(string2);
-		if(x<=0 || y<=0)
+		//int y=Integer.parseInt(string2);
+		if(x<=0)// || y<=0)
 			throw new NumberFormatException();
-		monde=new int[x][y];
+		monde=new int[x][x];//[y];
 		newMap();
 		majVues();
 	}
@@ -96,7 +96,7 @@ public class Modele {
 			
 			String ligne=filtre.readLine();
 			if(Integer.parseInt(ligne)>0){
-				changeSize(ligne,ligne);
+				changeSize(ligne);//,ligne);
 				while(ligne!=null){
 					//TODO mettre les lignes dans le tableau
 					ligne=filtre.readLine();
