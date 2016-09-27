@@ -3,8 +3,10 @@ package Cueillette;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -34,6 +36,7 @@ public class Menu extends JMenuBar {
 			
 			JMenuItem nouveau=new JMenuItem("Nouvelle grille");
 			JMenuItem size=new JMenuItem("Modifier la taille");
+			JMenuItem ouvrir=new JMenuItem("Ouvrir");
 			
 			
 			volLevy.setSelected(true);
@@ -48,7 +51,7 @@ public class Menu extends JMenuBar {
 			
 			nouveau.setActionCommand("Nouvelle grille");
 			size.setActionCommand("Modifier la taille");
-			
+			ouvrir.setActionCommand("ouvrir");
 			
 			
 			volLevy.addActionListener(new ActionListener(){
@@ -82,14 +85,14 @@ public class Menu extends JMenuBar {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try{
-						modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"));//,JOptionPane.showInputDialog("Hauteur de la grille"));
+						modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"));
 					}catch(Exception NumberFormatException){
 						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
 					}
 					
 				}
 			});
-			
+
 			repartAlea.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -108,6 +111,24 @@ public class Menu extends JMenuBar {
 				}
 			});
 			
+			ouvrir.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						JFileChooser jf = new JFileChooser();
+						int reponse = jf.showOpenDialog(getParent());
+						if (reponse == JFileChooser.APPROVE_OPTION){
+							File  fich = jf.getSelectedFile();
+							modele.ouvrir(fich.getAbsolutePath());
+						}
+					
+						}catch (Exception ex){
+							ex.printStackTrace();
+						}
+						
+					}
+			});
+
 			
 			
 			
@@ -126,6 +147,7 @@ public class Menu extends JMenuBar {
 			menu.addSeparator();
 			menu.add(nouveau);
 			menu.add(size);
+			menu.add(ouvrir);
 			
 			this.add(menu);
 		}
