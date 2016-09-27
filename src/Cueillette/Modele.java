@@ -32,6 +32,7 @@ public class Modele {
 		Pagent=0.01;
 		Pdensite=1;
 		run=false;
+		mode=true;
 		changeSize("20");
 	}
 	
@@ -64,20 +65,17 @@ public class Modele {
 		repartition=r;
 	}
 	public void start(){
-		while(existeInteret()){
+		run=true;
+		while(existeInteret() && run){
 			step();
-			//Ajouter du delay
 		}
 	}
 	public void stop(){
 		run=false;
 	}
 	public void step(){
-		run=true;
-		while(existeInteret() && run){
+		if(existeInteret()){
 			deplacementAgent();
-			System.out.println("Bip\n");
-			run=false;
 		}
 		nbPas++;
 	}
@@ -89,7 +87,6 @@ public class Modele {
 				a.deplacementLevy();
 			}else{
 				a.deplacementAlea();
-				System.out.println(a.getX()+" :x - y: "+a.getY());
 			}
 			monde[a.getX()][a.getY()]=2;
 		}

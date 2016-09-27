@@ -16,11 +16,23 @@ public class Agent {
 	public void deplacementLevy(){
 		Random rand=new Random();
 		if(rand.nextFloat()>0.5){
-			x+=rand.nextInt(15);//-15;15
-			y+=rand.nextInt(15);
+			x+=rand.nextInt(30)-15;//-15;15
+			y+=rand.nextInt(30)-15;
 		}else{
-			x+=rand.nextInt(5);//-3;3
-			y+=rand.nextInt(5);
+			x+=rand.nextInt(10)-5;//-3;3
+			y+=rand.nextInt(10)-5;
+		}
+		if(x>=monde.length){
+			x=0;
+		}
+		if(y>=monde.length){
+			y=0;
+		}
+		if(x<0){
+			x=monde.length-1;
+		}
+		if(y<0){
+			y=monde.length-1;
 		}
 	}
 

@@ -2,6 +2,7 @@ package Cueillette;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,6 +23,10 @@ public class VueControl extends JPanel implements Vue {
 		start=new JButton("Start");
 		stop=new JButton("Stop");
 		step=new JButton("Step");
+		
+		
+		step.setMnemonic(KeyEvent.VK_S);
+		
 		
 		start.addActionListener(new ActionListener(){
 
