@@ -21,6 +21,7 @@ public class Modele {
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected boolean run;
 	
 	public Modele(int[][] tab){
 		monde=tab;
@@ -30,7 +31,8 @@ public class Modele {
 		Pinteret=0.03;
 		Pagent=0.01;
 		Pdensite=1;
-
+		run=false;
+		changeSize("20");
 	}
 	
 	public void ajouterVue(Vue v){
@@ -61,10 +63,55 @@ public class Modele {
 	public void setRepartition(boolean r){
 		repartition=r;
 	}
+	public void start(){
+		while(existeInteret()){
+			step();
+			//Ajouter du delay
+		}
+	}
+	public void stop(){
+		run=false;
+	}
+	public void step(){
+		run=true;
+		while(existeInteret() && run){
+			deplacementAgent();
+			System.out.println("Bip\n");
+			run=false;
+		}
+		nbPas++;
+	}
 	
+	public void deplacementAgent(){
+		for(Agent a : listAgent){
+			monde[a.getX()][a.getY()]=0;
+			if(mode){
+				a.deplacementLevy();
+			}else{
+				a.deplacementAlea();
+				System.out.println(a.getX()+" :x - y: "+a.getY());
+			}
+			monde[a.getX()][a.getY()]=2;
+		}
+		
+	}
+	public void remplirAgent(){
+		
+	}
+	public boolean existeInteret(){
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeX();j++){
+				if(monde[i][j]==1){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	public void newMap(){
 		Random rand=new Random();
 		listAgent.clear();
+		nbPas=0;
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
 					if(rand.nextFloat()<=Pinteret){
@@ -83,7 +130,7 @@ public class Modele {
 					}else{
 						if(rand.nextFloat()<=Pagent){
 							monde[i][j]=2;
-							listAgent.add(new Agent(i,j));
+							listAgent.add(new Agent(i,j,monde));
 						}else{
 							monde[i][j]=0;
 						}
@@ -113,7 +160,7 @@ public class Modele {
 				Random rand=new Random();
 				if(rand.nextFloat()<=Pagent && monde[i][j]!=1){
 					monde[i][j]=2;
-					listAgent.add(new Agent(i,j));
+					listAgent.add(new Agent(i,j,monde));
 				}
 			}
 		}

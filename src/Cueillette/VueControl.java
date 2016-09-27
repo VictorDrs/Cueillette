@@ -26,19 +26,22 @@ public class VueControl extends JPanel implements Vue {
 		start.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO modele.start();
+				modele.start();
+				modele.majVues();
 			}
 		});
 		stop.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO modele.stop();
+				modele.stop();
+				modele.majVues();
 			}
 		});
 		step.addActionListener(new ActionListener(){
 
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO modele.step();
+				modele.step();
+				modele.majVues();
 			}
 		});
 		
