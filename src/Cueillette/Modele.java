@@ -26,7 +26,6 @@ public class Modele {
 		listAgent=new ArrayList<>();
 		nbPas=0;
 		Pinteret=0.05;
-		Pagent=0.01;
 	}
 	
 	public void ajouterVue(Vue v){
@@ -78,12 +77,12 @@ public class Modele {
 	}
 	
 
-	public void changeSize(String string, String string2) {
+	public void changeSize(String string){//, String string2) {
 		int x=Integer.parseInt(string);
-		int y=Integer.parseInt(string2);
-		if(x<=0 || y<=0)
+		//int y=Integer.parseInt(string2);
+		if(x<=0)// || y<=0)
 			throw new NumberFormatException();
-		monde=new int[x][y];
+		monde=new int[x][x];//[y];
 		newMap();
 		majVues();
 	}
@@ -110,7 +109,7 @@ public class Modele {
 			
 			String ligne=filtre.readLine();
 			if(Integer.parseInt(ligne)>0){
-				changeSize(ligne,ligne);
+				changeSize(ligne);
 				int x=Integer.parseInt(ligne);
 				int j=0;
 				ligne=filtre.readLine();
