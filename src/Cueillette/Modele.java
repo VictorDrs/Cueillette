@@ -25,7 +25,7 @@ public class Modele {
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
-		Pinteret=0.25;
+		Pinteret=0.05;
 		Pagent=0.01;
 	}
 	
@@ -87,7 +87,21 @@ public class Modele {
 		newMap();
 		majVues();
 	}
-	
+	public void ajouterAgent(){
+		listAgent.clear();
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				Random rand=new Random();
+				if(rand.nextFloat()<=Pagent && monde[i][j]!=1){
+					monde[i][j]=2;
+					listAgent.add(new Agent(i,j));
+				}
+			}
+		}
+		if(listAgent.isEmpty()){
+			ajouterAgent();
+		}
+	}
 	public void ouvrir(String s){
 		try{
 			FileReader flot= new FileReader(s);
@@ -97,10 +111,25 @@ public class Modele {
 			String ligne=filtre.readLine();
 			if(Integer.parseInt(ligne)>0){
 				changeSize(ligne,ligne);
+				int x=Integer.parseInt(ligne);
+				int j=0;
+				ligne=filtre.readLine();
 				while(ligne!=null){
 					//TODO mettre les lignes dans le tableau
+					for(int i=0;i<x;i++){
+						if(ligne.charAt(i)=='*'){
+							monde[j][i]=1;
+						}else{
+							monde[j][i]=0;
+						}
+					}
+					j++;
+					if(j>=x){
+						j=x;
+					}
 					ligne=filtre.readLine();
 				}
+				ajouterAgent();
 				this.majVues();
 			}else{
 				System.out.println("Fichier illisible");
