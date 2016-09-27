@@ -28,6 +28,10 @@ public class Menu extends JMenuBar {
 			JRadioButtonMenuItem volLevy=new JRadioButtonMenuItem("Vol de levy");
 			JRadioButtonMenuItem alea=new JRadioButtonMenuItem("Aleatoire");
 			
+			ButtonGroup repartGroup= new ButtonGroup();
+			JRadioButtonMenuItem repartAlea=new JRadioButtonMenuItem("Répartition aléatoire");
+			JRadioButtonMenuItem repartPaquet=new JRadioButtonMenuItem("Répartition par paquets");
+			
 			JMenuItem nouveau=new JMenuItem("Nouvelle grille");
 			JMenuItem size=new JMenuItem("Modifier la taille");
 			
@@ -36,6 +40,11 @@ public class Menu extends JMenuBar {
 			volLevy.setActionCommand("Vol de levy");
 			
 			alea.setActionCommand("Aleatoire");
+			
+			repartAlea.setSelected(true);
+			repartAlea.setActionCommand("Répartition aléatoire");
+			
+			repartPaquet.setActionCommand("Répartition par paquets");
 			
 			nouveau.setActionCommand("Nouvelle grille");
 			size.setActionCommand("Modifier la taille");
@@ -81,7 +90,23 @@ public class Menu extends JMenuBar {
 				}
 			});
 			
+			repartAlea.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					modele.setRepartition(false);
+					modele.majVues();
+					
+				}
+			});
 			
+			repartAlea.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					modele.setRepartition(true);
+					modele.majVues();
+					
+				}
+			});
 			
 			
 			
@@ -91,6 +116,13 @@ public class Menu extends JMenuBar {
 			group.add(alea);
 			menu.add(volLevy);
 			menu.add(alea);
+			
+			menu.addSeparator();
+			repartGroup.add(repartAlea);
+			repartGroup.add(repartPaquet);
+			menu.add(repartAlea);
+			menu.add(repartPaquet);
+			
 			menu.addSeparator();
 			menu.add(nouveau);
 			menu.add(size);

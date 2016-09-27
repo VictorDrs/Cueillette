@@ -17,16 +17,19 @@ public class Modele {
 	protected ArrayList<Agent>listAgent;//Liste des agents sur la grille
 	protected int nbPas;//Nombre de pas des agents
 	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
+	protected boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
+	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	
 	public Modele(int[][] tab){
 		monde=tab;
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
-		Pinteret=0.25;
+		Pinteret=0.03;
 		Pagent=0.01;
+		Pdensite=1;
 	}
 	
 	public void ajouterVue(Vue v){
@@ -54,13 +57,28 @@ public class Modele {
 		mode=s;
 	}
 	
+	public void setRepartition(boolean r){
+		repartition=r;
+	}
+	
 	public void newMap(){
 		Random rand=new Random();
 		listAgent.clear();
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
 					if(rand.nextFloat()<=Pinteret){
-						monde[i][j]=1;
+						
+						if(repartition==true){
+							for(int k=i-5;k<i+5;k++){
+								for(int l=j-5;l<j+5;l++){
+									if(rand.nextFloat()<=Pdensite){
+										monde[i][j]=1;
+									}
+								}
+							}
+						}
+						else monde[i][j]=1;
+						
 					}else{
 						if(rand.nextFloat()<=Pagent){
 							monde[i][j]=2;
