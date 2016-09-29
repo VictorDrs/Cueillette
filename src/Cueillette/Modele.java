@@ -1,9 +1,13 @@
 package Cueillette;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.Timer;
 
 
 
@@ -23,10 +27,9 @@ public class Modele {
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	protected boolean run;
+	protected int nombreInteret;//Nombre de point d'interets
 	
-	public Modele(int[][] tab){
-		monde=tab;
-		memoire=tab;
+	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
@@ -35,7 +38,8 @@ public class Modele {
 		Pdensite=0.01;
 		run=false;
 		mode=true;
-		changeSize("70");
+		nombreInteret=0;
+		changeSize("10");
 	}
 	
 	public void ajouterVue(Vue v){
@@ -68,9 +72,18 @@ public class Modele {
 	}
 	public void start(){
 		run=true;
-		while(existeInteret() && run){
-			step();
-		}
+        
+        	ActionListener task = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                	if(run){
+                		step();
+                		majVues();
+                	}
+                }
+            };
+			Timer time=new Timer(100,task);
+			time.setRepeats(true);
+			time.start();
 	}
 	public void stop(){
 		run=false;
@@ -78,8 +91,8 @@ public class Modele {
 	public void step(){
 		if(existeInteret()){
 			deplacementAgent();
+			nbPas++;
 		}
-		nbPas++;
 	}
 	
 	public void deplacementAgent(){
@@ -90,32 +103,28 @@ public class Modele {
 			}else{
 				a.deplacementAlea();
 			}
+			if(monde[a.getX()][a.getY()]==1){
+				nombreInteret-=1;
+			}
 			monde[a.getX()][a.getY()]=2;
 		}
-		
-	}
-	public void remplirAgent(){
-		
 	}
 	public boolean existeInteret(){
-		for(int i=0;i<getSizeX();i++){
-			for(int j=0;j<getSizeX();j++){
-				if(monde[i][j]==1){
-					return true;
-				}
-			}
-		}
+		if(nombreInteret>0)
+			return true;
 		return false;
 	}
 	public void newMap(){
 		Random rand=new Random();
 		listAgent.clear();
 		nbPas=0;
+		nombreInteret=0;
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){					
 					if(!repartition && rand.nextFloat()<=Pinteret){
 						monde[i][j]=1;
 						memoire[i][j]=1;
+						nombreInteret++;
 					}
 					else if(repartition && rand.nextFloat()<=Pdensite){
 						monde[i][j]=3;
@@ -133,7 +142,6 @@ public class Modele {
 
 				}
 			}
-			
 			if(repartition)
 			{
 				for(int i=0;i<getSizeX();i++){
@@ -146,6 +154,7 @@ public class Modele {
 								if(yj>=getSizeX()) yj-=getSizeX();
 								monde[xi][yj]=1;
 								memoire[xi][yj]=1;
+								nombreInteret++;
 							}
 							monde[i][j]=0;
 							memoire[i][j]=0;
@@ -153,15 +162,11 @@ public class Modele {
 					}
 				}
 			}
-			
-			
 		if(listAgent.isEmpty()){
 			newMap();
 		}
 		majVues();
 	}
-	
-
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
 		if(x<=0)

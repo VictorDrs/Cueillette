@@ -12,18 +12,7 @@ public class LancerGUI extends JFrame {
 		super("Cueillette exploratoire");
 		
 		setPreferredSize(new Dimension(1000,400));
-		int[][] tab =  {{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,2,0,0,0,0,0},
-						{0,0,0,0,0,1,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0}};
-		Modele modele=new Modele(tab);
+		Modele modele=new Modele();
 		VueControl vc=new VueControl(modele);
 		VueScore vs=new VueScore(modele);
 		VuePlateau vp=new VuePlateau(modele);
