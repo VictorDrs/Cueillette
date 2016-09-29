@@ -14,6 +14,7 @@ public class Modele {
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	protected ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
+	protected int[][] memoire;//Stockage de chaque nouveau monde
 	protected ArrayList<Agent>listAgent;//Liste des agents sur la grille
 	protected int nbPas;//Nombre de pas des agents
 	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
@@ -25,6 +26,7 @@ public class Modele {
 	
 	public Modele(int[][] tab){
 		monde=tab;
+		memoire=tab;
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
@@ -33,7 +35,7 @@ public class Modele {
 		Pdensite=1;
 		run=false;
 		mode=true;
-		changeSize("20");
+		changeSize("70");
 	}
 	
 	public void ajouterVue(Vue v){
@@ -112,24 +114,29 @@ public class Modele {
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
 					if(rand.nextFloat()<=Pinteret){
-						
 						if(repartition==true){
 							for(int k=i-5;k<i+5;k++){
 								for(int l=j-5;l<j+5;l++){
 									if(rand.nextFloat()<=Pdensite){
 										monde[i][j]=1;
+										memoire[i][j]=1;
 									}
 								}
 							}
 						}
-						else monde[i][j]=1;
+						else{ 
+							monde[i][j]=1;
+							memoire[i][j]=1;
+						}
 						
 					}else{
 						if(rand.nextFloat()<=Pagent){
 							monde[i][j]=2;
+							memoire[i][j]=2;
 							listAgent.add(new Agent(i,j,monde));
 						}else{
 							monde[i][j]=0;
+							memoire[i][j]=0;
 						}
 					}
 				}
@@ -141,12 +148,12 @@ public class Modele {
 	}
 	
 
-	public void changeSize(String string){//, String string2) {
+	public void changeSize(String string){
 		int x=Integer.parseInt(string);
-		//int y=Integer.parseInt(string2);
-		if(x<=0)// || y<=0)
+		if(x<=0)
 			throw new NumberFormatException();
-		monde=new int[x][x];//[y];
+		monde=new int[x][x];
+		memoire=new int[x][x];
 		newMap();
 		majVues();
 	}
@@ -165,6 +172,14 @@ public class Modele {
 			ajouterAgent();
 		}
 	}
+	public void relancer(){
+		nbPas=0;
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				monde[i][j]=memoire[i][j];
+			}
+		}
+	}
 	public void ouvrir(String s){
 		try{
 			FileReader flot= new FileReader(s);
@@ -178,7 +193,6 @@ public class Modele {
 				int j=0;
 				ligne=filtre.readLine();
 				while(ligne!=null){
-					//TODO mettre les lignes dans le tableau
 					for(int i=0;i<x;i++){
 						if(ligne.charAt(i)=='*'){
 							monde[j][i]=1;
