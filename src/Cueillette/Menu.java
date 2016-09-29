@@ -102,7 +102,7 @@ public class Menu extends JMenuBar {
 				}
 			});
 			
-			repartAlea.addActionListener(new ActionListener(){
+			repartPaquet.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modele.setRepartition(true);
