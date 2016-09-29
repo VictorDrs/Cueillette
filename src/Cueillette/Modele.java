@@ -67,15 +67,18 @@ public class Modele {
 		listAgent.clear();
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
+					
+					monde[i][j]=0;
+					
 					if(rand.nextFloat()<=Pinteret){
 						
 						if(repartition==true){
-							for(int k=i-5;k<i+5;k++){
-								for(int l=j-5;l<j+5;l++){
-									if(rand.nextFloat()<=Pdensite){
-										monde[i][j]=1;
-									}
-								}
+							for(int k=0;k<50;k++){
+								int xi=i+rand.nextInt(2);
+								int yj=j+rand.nextInt(2);
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								monde[xi][yj]=1; 
 							}
 						}
 						else monde[i][j]=1;
@@ -84,8 +87,6 @@ public class Modele {
 						if(rand.nextFloat()<=Pagent){
 							monde[i][j]=2;
 							listAgent.add(new Agent(i,j));
-						}else{
-							monde[i][j]=0;
 						}
 					}
 				}
