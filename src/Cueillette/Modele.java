@@ -82,7 +82,7 @@ public class Modele {
 	
 	public void deplacementAgent(){
 		for(Agent a : listAgent){
-			monde[a.getX()][a.getY()]=0;
+			monde[a.getX()][a.getY()]=3;
 			if(mode){
 				a.deplacementLevy();
 			}else{
