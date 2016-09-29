@@ -15,7 +15,7 @@ public class Agent {
 		destY=y;
 		monde=tab;
 	}
-	
+
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
@@ -23,20 +23,19 @@ public class Agent {
 				destX=rand.nextInt(monde.length);
 				destY=rand.nextInt(monde.length);
 			}else{
-				destX=(destX+rand.nextInt(10))%monde.length;
-				destY=(destY+rand.nextInt(10))%monde.length;
+				destX=(destX+rand.nextInt(monde.length/10))%monde.length;
+				destY=(destY+rand.nextInt(monde.length/10))%monde.length;
 			}
 			System.out.println("X : "+destX+" Y : "+destY+" Monde :"+monde.length);
-		}else{
-			if(x>destX){
-				deplacement(1);
-			}else if(x<destX){
-				deplacement(0);
-			}else if(y>destY){
-				deplacement(3);
-			}else if(y<destY){
-				deplacement(2);
-			}
+		}
+		if(x>destX){
+			deplacement(1);
+		}else if(x<destX){
+			deplacement(0);
+		}else if(y>destY){
+			deplacement(3);
+		}else if(y<destY){
+			deplacement(2);
 		}
 		verifDim();
 	}

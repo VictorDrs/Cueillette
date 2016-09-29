@@ -112,30 +112,7 @@ public class Modele {
 		listAgent.clear();
 		nbPas=0;
 			for(int i=0;i<getSizeX();i++){
-				for(int j=0;j<getSizeY();j++){
-
-					/*if(rand.nextFloat()<=Pinteret){
-						if(repartition==true){
-							for(int k=i-5;k<i+5;k++){
-								for(int l=j-5;l<j+5;l++){
-									if(rand.nextFloat()<=Pdensite){
-										monde[i][j]=1;
-										memoire[i][j]=1;
-									}
-								}
-							}
-						}
-						else{ 
-							monde[i][j]=1;
-							memoire[i][j]=1;
-						}
-						
-					}else{
-						if(rand.nextFloat()<=Pagent){
-							monde[i][j]=2;
-							memoire[i][j]=2;*/
-
-					
+				for(int j=0;j<getSizeY();j++){					
 					if(!repartition && rand.nextFloat()<=Pinteret){
 						monde[i][j]=1;
 						memoire[i][j]=1;
