@@ -57,6 +57,8 @@ public class VuePlateau extends JPanel implements Vue {
 					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/interet.png")));
 				}else if(modele.getCase(i, j)==2){
 					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/agent.png")));
+				}else if(modele.getCase(i, j)==3){
+					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/trace.png")));
 				}
 				this.add(grille[i][j]);
 			}
