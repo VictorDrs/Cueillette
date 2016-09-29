@@ -39,7 +39,7 @@ public class Modele {
 		run=false;
 		mode=true;
 		nombreInteret=0;
-		changeSize("10");
+		changeSize("30");
 	}
 	
 	public void ajouterVue(Vue v){
@@ -110,6 +110,7 @@ public class Modele {
 		}
 	}
 	public boolean existeInteret(){
+		//System.out.println("nombre interet : "+nombreInteret);
 		if(nombreInteret>0)
 			return true;
 		return false;

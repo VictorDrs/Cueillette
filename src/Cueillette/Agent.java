@@ -20,11 +20,11 @@ public class Agent {
 		if(x==destX && y==destY){
 			Random rand=new Random();
 			if(rand.nextFloat()>0.75){
-				destX=rand.nextInt(monde.length);
-				destY=rand.nextInt(monde.length);
+				destX=rand.nextInt(monde.length-1)+1;
+				destY=rand.nextInt(monde.length-1)+1;
 			}else{
-				destX=(destX+rand.nextInt(monde.length/10))%monde.length;
-				destY=(destY+rand.nextInt(monde.length/10))%monde.length;
+				destX=(destX+rand.nextInt(monde.length/10)+1)%monde.length;
+				destY=(destY+rand.nextInt(monde.length/10)+1)%monde.length;
 			}
 		}
 		if(x>destX){
@@ -38,7 +38,6 @@ public class Agent {
 		}
 		verifDim();
 	}
-	
 	public void deplacement(int dir){
 		if(dir==0){
 			x+=1;
