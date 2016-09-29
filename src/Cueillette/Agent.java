@@ -19,14 +19,13 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			if(rand.nextFloat()>0.5){
+			if(rand.nextFloat()>0.99){
 				destX=rand.nextInt(monde.length);
 				destY=rand.nextInt(monde.length);
 			}else{
 				destX=(destX+rand.nextInt(monde.length/10))%monde.length;
 				destY=(destY+rand.nextInt(monde.length/10))%monde.length;
 			}
-			System.out.println("X : "+destX+" Y : "+destY+" Monde :"+monde.length);
 		}
 		if(x>destX){
 			deplacement(1);

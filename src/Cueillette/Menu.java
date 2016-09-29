@@ -99,6 +99,7 @@ public class Menu extends JMenuBar {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modele.setRepartition(false);
+					modele.newMap();
 					modele.majVues();
 					
 				}
@@ -108,6 +109,7 @@ public class Menu extends JMenuBar {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					modele.setRepartition(true);
+					modele.newMap();
 					modele.majVues();
 					
 				}
