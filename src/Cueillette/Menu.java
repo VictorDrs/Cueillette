@@ -37,6 +37,7 @@ public class Menu extends JMenuBar {
 			JMenuItem nouveau=new JMenuItem("Nouvelle grille");
 			JMenuItem size=new JMenuItem("Modifier la taille");
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
+			JMenuItem relancer=new JMenuItem("Relancer");
 			
 			
 			volLevy.setSelected(true);
@@ -51,7 +52,8 @@ public class Menu extends JMenuBar {
 			
 			nouveau.setActionCommand("Nouvelle grille");
 			size.setActionCommand("Modifier la taille");
-			ouvrir.setActionCommand("ouvrir");
+			ouvrir.setActionCommand("Ruvrir");
+			relancer.setActionCommand("Relancer");
 			
 			
 			volLevy.addActionListener(new ActionListener(){
@@ -129,7 +131,13 @@ public class Menu extends JMenuBar {
 					}
 			});
 
-			
+			relancer.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					modele.relancer();
+					modele.majVues();
+				}
+			});
 			
 			
 			
@@ -146,6 +154,7 @@ public class Menu extends JMenuBar {
 			
 			menu.addSeparator();
 			menu.add(nouveau);
+			menu.add(relancer);
 			menu.add(size);
 			menu.add(ouvrir);
 			
