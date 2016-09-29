@@ -32,7 +32,7 @@ public class Modele {
 		nbPas=0;
 		Pinteret=0.03;
 		Pagent=0.01;
-		Pdensite=1;
+		Pdensite=0.01;
 		run=false;
 		mode=true;
 		changeSize("70");
@@ -113,7 +113,8 @@ public class Modele {
 		nbPas=0;
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
-					if(rand.nextFloat()<=Pinteret){
+
+					/*if(rand.nextFloat()<=Pinteret){
 						if(repartition==true){
 							for(int k=i-5;k<i+5;k++){
 								for(int l=j-5;l<j+5;l++){
@@ -132,15 +133,51 @@ public class Modele {
 					}else{
 						if(rand.nextFloat()<=Pagent){
 							monde[i][j]=2;
+							memoire[i][j]=2;*/
+
+					
+					if(!repartition && rand.nextFloat()<=Pinteret){
+						monde[i][j]=1;
+						memoire[i][j]=1;
+					}
+					else if(repartition && rand.nextFloat()<=Pdensite){
+						monde[i][j]=3;
+					}
+					else if(rand.nextFloat()<=Pagent){
+							monde[i][j]=2;
 							memoire[i][j]=2;
+
 							listAgent.add(new Agent(i,j,monde));
-						}else{
+					}
+					else{ 
+						monde[i][j]=0;
+						memoire[i][j]=0;
+					}
+
+				}
+			}
+			
+			if(repartition)
+			{
+				for(int i=0;i<getSizeX();i++){
+					for(int j=0;j<getSizeY();j++){
+						if(monde[i][j]==3){
+							for(int k=0;k<10;k++){
+								int xi=i+rand.nextInt(3);
+								int yj=j+rand.nextInt(3);
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								monde[xi][yj]=1;
+								memoire[xi][yj]=1;
+							}
 							monde[i][j]=0;
 							memoire[i][j]=0;
 						}
 					}
 				}
 			}
+			
+			
 		if(listAgent.isEmpty()){
 			newMap();
 		}
