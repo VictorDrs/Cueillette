@@ -12,10 +12,13 @@ import javax.swing.JPanel;
 public class VuePlateau extends JPanel implements Vue {
 	protected Modele modele;
 	protected JLabel[][] grille;
-	int x,y;
+	protected int x,y;
+	protected boolean newGrid;
+	
 	public VuePlateau(Modele mod){
 		super();
 		modele=mod;
+		newGrid=true;
 		changeSize();
 	}
 	
@@ -48,10 +51,11 @@ public class VuePlateau extends JPanel implements Vue {
 	public void mettreAJour() {
 		if(x!=modele.getSizeX() || y!=modele.getSizeX()){
 			changeSize();
+			newGrid=true;
 		}
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
-				if(modele.getCase(i, j)==0){
+				if(modele.getCase(i, j)==0 && newGrid){
 					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/vide.png")));
 				}else if(modele.getCase(i, j)==1){
 					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/interet.png")));

@@ -29,8 +29,7 @@ public class Modele {
 	protected int ninterets;
 	protected int nagents;
 	protected boolean run;
-	protected int nombreInteret;//Nombre de point d'interets
-
+	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
 	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
@@ -44,6 +43,7 @@ public class Modele {
 		nagents=5;
 		ninterets=5;
 		nombreInteret=0;
+		memNbInteret=0;
 		changeSize("30");
 
 	}
@@ -78,18 +78,17 @@ public class Modele {
 	}
 	public void start(){
 		run=true;
-
-		ActionListener task = new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				if(run){
-					step();
-					majVues();
-				}
-			}
-		};
-		Timer time=new Timer(100,task);
-		time.setRepeats(true);
-		time.start();
+        	ActionListener task = new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                	if(run){
+                		step();
+                		majVues();
+                	}
+                }
+            };
+			Timer time=new Timer(100,task);
+			time.setRepeats(true);
+			time.start();
 	}
 	public void stop(){
 		run=false;
@@ -129,7 +128,7 @@ public class Modele {
 		int n = 0 ;
 		int m = 0 ;
 		nombreInteret=0;
-		
+		run=false;
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
 					monde[i][j]=0;
@@ -185,6 +184,7 @@ public class Modele {
 					}
 				}
 			}
+			memNbInteret=nombreInteret;
 		if(listAgent.isEmpty()){
 			newMap();
 		}
@@ -219,6 +219,7 @@ public class Modele {
 	
 	public void relancer(){
 		nbPas=0;
+		nombreInteret=memNbInteret;
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=memoire[i][j];
@@ -261,6 +262,13 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
+	public int getInteret() {
+		return nombreInteret;
+	}
+
+	public int getNbAgent() {
+		return listAgent.size();
+	}
 
 	public void nAgents(String s){
 		int x=Integer.parseInt(s);
@@ -275,5 +283,4 @@ public class Modele {
 			throw new NumberFormatException();
 		ninterets=x ;
 	}
-
 }
