@@ -14,7 +14,7 @@ import javax.swing.Timer;
 
 
 public class Modele {
-	
+
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	protected ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
@@ -26,23 +26,28 @@ public class Modele {
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected int ninterets;
+	protected int nagents;
 	protected boolean run;
 	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
-	
 	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
-		Pinteret=0.03;
-		Pagent=0.01;
-		Pdensite=0.01;
+		Pinteret=0.001;
+		Pagent=0.001;
+		Pdensite=0.001;
 		run=false;
 		mode=true;
+		repartition=false;
+		nagents=5;
+		ninterets=5;
 		nombreInteret=0;
 		memNbInteret=0;
 		changeSize("30");
+
 	}
-	
+
 	public void ajouterVue(Vue v){
 		listVue.add(v);
 	}
@@ -63,11 +68,11 @@ public class Modele {
 	public int getNbPas(){
 		return nbPas;
 	}
-	
+
 	public void setMode(boolean s) {
 		mode=s;
 	}
-	
+
 	public void setRepartition(boolean r){
 		repartition=r;
 	}
@@ -94,7 +99,7 @@ public class Modele {
 			nbPas++;
 		}
 	}
-	
+
 	public void deplacementAgent(){
 		for(Agent a : listAgent){
 			monde[a.getX()][a.getY()]=3;
@@ -109,6 +114,7 @@ public class Modele {
 			monde[a.getX()][a.getY()]=2;
 		}
 	}
+
 	public boolean existeInteret(){
 		//System.out.println("nombre interet : "+nombreInteret);
 		if(nombreInteret>0)
@@ -119,47 +125,61 @@ public class Modele {
 		Random rand=new Random();
 		listAgent.clear();
 		nbPas=0;
+		int n = 0 ;
+		int m = 0 ;
 		nombreInteret=0;
 		run=false;
 			for(int i=0;i<getSizeX();i++){
-				for(int j=0;j<getSizeY();j++){					
-					if(!repartition && rand.nextFloat()<=Pinteret){
-						monde[i][j]=1;
-						memoire[i][j]=1;
-						nombreInteret++;
-					}
-					else if(repartition && rand.nextFloat()<=Pdensite){
-						monde[i][j]=3;
-					}
-					else if(rand.nextFloat()<=Pagent){
-							monde[i][j]=2;
-							memoire[i][j]=2;
-
-							listAgent.add(new Agent(i,j,monde));
-					}
-					else{ 
-						monde[i][j]=0;
-						memoire[i][j]=0;
-					}
-
+				for(int j=0;j<getSizeY();j++){
+					monde[i][j]=0;
+					memoire[i][j]=0;
 				}
 			}
-			if(repartition)
-			{
+			
+			while(n<nagents || m<ninterets){
+				
 				for(int i=0;i<getSizeX();i++){
-					for(int j=0;j<getSizeY();j++){
-						if(monde[i][j]==3){
-							for(int k=0;k<10;k++){
-								int xi=i+rand.nextInt(3);
-								int yj=j+rand.nextInt(3);
-								if(xi>=getSizeX()) xi-=getSizeX();
-								if(yj>=getSizeX()) yj-=getSizeX();
-								monde[xi][yj]=1;
-								memoire[xi][yj]=1;
-								nombreInteret++;
+					for(int j=0;j<getSizeY();j++){					
+						if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
+							monde[i][j]=1;
+							memoire[i][j]=1;
+							m++;
+							nombreInteret++;
+						}
+						else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
+							monde[i][j]=3;
+						}
+						else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
+							monde[i][j]=2;
+							memoire[i][j]=2;
+							n++;
+	
+							listAgent.add(new Agent(i,j,monde));
+						}
+					}
+				}
+				
+				if(repartition)
+				{
+					for(int i=0;i<getSizeX();i++){
+						for(int j=0;j<getSizeY();j++){
+							if(monde[i][j]==3){
+								for(int k=0;k<10;k++){
+									int xi=i+rand.nextInt(3);
+									int yj=j+rand.nextInt(3);
+									if(xi>=getSizeX()) xi-=getSizeX();
+									if(yj>=getSizeX()) yj-=getSizeX();
+									if(monde[xi][yj]==0 && m<ninterets){
+										monde[xi][yj]=1;
+										memoire[xi][yj]=1;
+										m++;
+										nombreInteret++;
+									}
+									
+								}
+								monde[i][j]=0;
+								memoire[i][j]=0;
 							}
-							monde[i][j]=0;
-							memoire[i][j]=0;
 						}
 					}
 				}
@@ -170,6 +190,7 @@ public class Modele {
 		}
 		majVues();
 	}
+	
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
 		if(x<=0)
@@ -179,6 +200,7 @@ public class Modele {
 		newMap();
 		majVues();
 	}
+	
 	public void ajouterAgent(){
 		listAgent.clear();
 		for(int i=0;i<getSizeX();i++){
@@ -194,6 +216,7 @@ public class Modele {
 			ajouterAgent();
 		}
 	}
+	
 	public void relancer(){
 		nbPas=0;
 		nombreInteret=memNbInteret;
@@ -203,12 +226,13 @@ public class Modele {
 			}
 		}
 	}
+	
 	public void ouvrir(String s){
 		try{
 			FileReader flot= new FileReader(s);
 			@SuppressWarnings("resource")
 			BufferedReader filtre=new BufferedReader(flot);
-			
+
 			String ligne=filtre.readLine();
 			if(Integer.parseInt(ligne)>0){
 				changeSize(ligne);
@@ -238,7 +262,6 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
-
 	public int getInteret() {
 		return nombreInteret;
 	}
@@ -247,6 +270,17 @@ public class Modele {
 		return listAgent.size();
 	}
 
-	
-	
+	public void nAgents(String s){
+		int x=Integer.parseInt(s);
+		if(x<=0)
+			throw new NumberFormatException();
+		nagents=x ;
+	}
+
+	public void nPatchs(String s){
+		int x=Integer.parseInt(s);
+		if(x<=0)
+			throw new NumberFormatException();
+		ninterets=x ;
+	}
 }

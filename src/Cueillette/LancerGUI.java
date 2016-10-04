@@ -11,7 +11,8 @@ public class LancerGUI extends JFrame {
 	public LancerGUI(){
 		super("Cueillette exploratoire");
 		
-		setPreferredSize(new Dimension(1000,400));
+
+		setPreferredSize(new Dimension(1000,500));
 		Modele modele=new Modele();
 		VueControl vc=new VueControl(modele);
 		VueScore vs=new VueScore(modele);

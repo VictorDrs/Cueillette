@@ -38,6 +38,8 @@ public class Menu extends JMenuBar {
 			JMenuItem size=new JMenuItem("Modifier la taille");
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
 			JMenuItem relancer=new JMenuItem("Relancer");
+			JMenuItem nagents=new JMenuItem("Modifier le nombre d'agents");
+			JMenuItem npatchs=new JMenuItem("Modifier le nombre de patchs");
 			
 			
 			volLevy.setSelected(true);
@@ -52,9 +54,10 @@ public class Menu extends JMenuBar {
 			
 			nouveau.setActionCommand("Nouvelle grille");
 			size.setActionCommand("Modifier la taille");
-			ouvrir.setActionCommand("Ruvrir");
+			ouvrir.setActionCommand("Ouvrir");
 			relancer.setActionCommand("Relancer");
-			
+			nagents.setActionCommand("Modifier le nombre d'agents");
+			npatchs.setActionCommand("Modifier le nombre de patchs");
 			
 			volLevy.addActionListener(new ActionListener(){
 				@Override
@@ -141,7 +144,27 @@ public class Menu extends JMenuBar {
 				}
 			});
 			
+			nagents.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try{
+						modele.nAgents(JOptionPane.showInputDialog("Nombre d'agents"));
+					}catch(Exception NumberFormatException){
+						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
 			
+			npatchs.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try{
+						modele.nPatchs(JOptionPane.showInputDialog("Nombre de patchs"));
+					}catch(Exception NumberFormatException){
+						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
 			
 			group.add(volLevy);
 			group.add(alea);
@@ -155,9 +178,13 @@ public class Menu extends JMenuBar {
 			menu.add(repartPaquet);
 			
 			menu.addSeparator();
+			menu.add(size);
+			menu.add(nagents);
+			menu.add(npatchs);
+			
+			menu.addSeparator();
 			menu.add(nouveau);
 			menu.add(relancer);
-			menu.add(size);
 			menu.add(ouvrir);
 			
 			this.add(menu);
