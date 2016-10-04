@@ -35,9 +35,9 @@ public class Modele {
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
-		Pinteret=0.001;
-		Pagent=0.001;
-		Pdensite=0.001;
+		Pinteret=0.0001;
+		Pagent=0.0001;
+		Pdensite=0.0001;
 		run=false;
 		mode=true;
 		repartition=false;
