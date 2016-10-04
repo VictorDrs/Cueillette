@@ -92,7 +92,7 @@ public class Menu extends JMenuBar {
 					try{
 						modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"));
 					}catch(Exception NumberFormatException){
-						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Entrez un nombre positif inférieur à 100","Alerte",JOptionPane.ERROR_MESSAGE);
 					}
 					
 				}
@@ -150,7 +150,7 @@ public class Menu extends JMenuBar {
 					try{
 						modele.nAgents(JOptionPane.showInputDialog("Nombre d'agents"));
 					}catch(Exception NumberFormatException){
-						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Entrez un nombre positif inférieur à 100","Alerte",JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -161,7 +161,7 @@ public class Menu extends JMenuBar {
 					try{
 						modele.nPatchs(JOptionPane.showInputDialog("Nombre de patchs"));
 					}catch(Exception NumberFormatException){
-						JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Entrez un nombre positif inférieur à 100","Alerte",JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});

@@ -78,17 +78,17 @@ public class Modele {
 	}
 	public void start(){
 		run=true;
-        	ActionListener task = new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                	if(run){
-                		step();
-                		majVues();
-                	}
-                }
-            };
-			Timer time=new Timer(100,task);
-			time.setRepeats(true);
-			time.start();
+		ActionListener task = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(run){
+					step();
+					majVues();
+				}
+			}
+		};
+		Timer time=new Timer(100,task);
+		time.setRepeats(true);
+		time.start();
 	}
 	public void stop(){
 		run=false;
@@ -129,78 +129,78 @@ public class Modele {
 		int m = 0 ;
 		nombreInteret=0;
 		run=false;
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				monde[i][j]=0;
+				memoire[i][j]=0;
+			}
+		}
+
+		while(n<nagents || m<ninterets){
+
 			for(int i=0;i<getSizeX();i++){
-				for(int j=0;j<getSizeY();j++){
-					monde[i][j]=0;
-					memoire[i][j]=0;
+				for(int j=0;j<getSizeY();j++){					
+					if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
+						monde[i][j]=1;
+						memoire[i][j]=1;
+						m++;
+						nombreInteret++;
+					}
+					else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
+						monde[i][j]=3;
+					}
+					else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
+						monde[i][j]=2;
+						memoire[i][j]=2;
+						n++;
+
+						listAgent.add(new Agent(i,j,monde));
+					}
 				}
 			}
-			
-			while(n<nagents || m<ninterets){
-				
+
+			if(repartition)
+			{
 				for(int i=0;i<getSizeX();i++){
-					for(int j=0;j<getSizeY();j++){					
-						if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
-							monde[i][j]=1;
-							memoire[i][j]=1;
-							m++;
-							nombreInteret++;
-						}
-						else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
-							monde[i][j]=3;
-						}
-						else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
-							monde[i][j]=2;
-							memoire[i][j]=2;
-							n++;
-	
-							listAgent.add(new Agent(i,j,monde));
-						}
-					}
-				}
-				
-				if(repartition)
-				{
-					for(int i=0;i<getSizeX();i++){
-						for(int j=0;j<getSizeY();j++){
-							if(monde[i][j]==3){
-								for(int k=0;k<10;k++){
-									int xi=i+rand.nextInt(3);
-									int yj=j+rand.nextInt(3);
-									if(xi>=getSizeX()) xi-=getSizeX();
-									if(yj>=getSizeX()) yj-=getSizeX();
-									if(monde[xi][yj]==0 && m<ninterets){
-										monde[xi][yj]=1;
-										memoire[xi][yj]=1;
-										m++;
-										nombreInteret++;
-									}
-									
+					for(int j=0;j<getSizeY();j++){
+						if(monde[i][j]==3){
+							for(int k=0;k<10;k++){
+								int xi=i+rand.nextInt(3);
+								int yj=j+rand.nextInt(3);
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								if(monde[xi][yj]==0 && m<ninterets){
+									monde[xi][yj]=1;
+									memoire[xi][yj]=1;
+									m++;
+									nombreInteret++;
 								}
-								monde[i][j]=0;
-								memoire[i][j]=0;
+
 							}
+							monde[i][j]=0;
+							memoire[i][j]=0;
 						}
 					}
 				}
 			}
-			memNbInteret=nombreInteret;
+		}
+		memNbInteret=nombreInteret;
 		if(listAgent.isEmpty()){
 			newMap();
 		}
 		majVues();
 	}
-	
+
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
-		if(x<=0)
+		if(x<=0 || x>100)
 			throw new NumberFormatException();
 		monde=new int[x][x];
 		memoire=new int[x][x];
 		newMap();
 		majVues();
 	}
-	
+
 	public void ajouterAgent(){
 		listAgent.clear();
 		for(int i=0;i<getSizeX();i++){
@@ -216,7 +216,7 @@ public class Modele {
 			ajouterAgent();
 		}
 	}
-	
+
 	public void relancer(){
 		nbPas=0;
 		nombreInteret=memNbInteret;
@@ -226,7 +226,7 @@ public class Modele {
 			}
 		}
 	}
-	
+
 	public void ouvrir(String s){
 		try{
 			FileReader flot= new FileReader(s);
@@ -272,14 +272,14 @@ public class Modele {
 
 	public void nAgents(String s){
 		int x=Integer.parseInt(s);
-		if(x<=0)
+		if(x<=0 || x>100)
 			throw new NumberFormatException();
 		nagents=x ;
 	}
 
 	public void nPatchs(String s){
 		int x=Integer.parseInt(s);
-		if(x<=0)
+		if(x<=0 || x>100)
 			throw new NumberFormatException();
 		ninterets=x ;
 	}
