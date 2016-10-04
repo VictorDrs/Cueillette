@@ -22,19 +22,22 @@ public class Modele {
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected int ninterets;
+	protected int nagents;
 	protected boolean run;
 	
-	public Modele(int[][] tab){
-		monde=tab;
-		memoire=tab;
+	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
 		nbPas=0;
-		Pinteret=0.03;
-		Pagent=0.01;
-		Pdensite=0.01;
+		Pinteret=0.001;
+		Pagent=0.001;
+		Pdensite=0.001;
 		run=false;
 		mode=true;
+		repartition=false;
+		nagents=5;
+		ninterets=5;
 		changeSize("70");
 	}
 	
@@ -97,6 +100,7 @@ public class Modele {
 	public void remplirAgent(){
 		
 	}
+	
 	public boolean existeInteret(){
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeX();j++){
@@ -111,44 +115,58 @@ public class Modele {
 		Random rand=new Random();
 		listAgent.clear();
 		nbPas=0;
+		int n = 0 ;
+		int m = 0 ;
+		
 			for(int i=0;i<getSizeX();i++){
-				for(int j=0;j<getSizeY();j++){					
-					if(!repartition && rand.nextFloat()<=Pinteret){
-						monde[i][j]=1;
-						memoire[i][j]=1;
-					}
-					else if(repartition && rand.nextFloat()<=Pdensite){
-						monde[i][j]=3;
-					}
-					else if(rand.nextFloat()<=Pagent){
-							monde[i][j]=2;
-							memoire[i][j]=2;
-
-							listAgent.add(new Agent(i,j,monde));
-					}
-					else{ 
-						monde[i][j]=0;
-						memoire[i][j]=0;
-					}
-
+				for(int j=0;j<getSizeY();j++){
+					monde[i][j]=0;
+					memoire[i][j]=0;
 				}
 			}
 			
-			if(repartition)
-			{
+			while(n<nagents || m<ninterets){
+				
 				for(int i=0;i<getSizeX();i++){
-					for(int j=0;j<getSizeY();j++){
-						if(monde[i][j]==3){
-							for(int k=0;k<10;k++){
-								int xi=i+rand.nextInt(3);
-								int yj=j+rand.nextInt(3);
-								if(xi>=getSizeX()) xi-=getSizeX();
-								if(yj>=getSizeX()) yj-=getSizeX();
-								monde[xi][yj]=1;
-								memoire[xi][yj]=1;
+					for(int j=0;j<getSizeY();j++){					
+						if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
+							monde[i][j]=1;
+							memoire[i][j]=1;
+							m++;
+						}
+						else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
+							monde[i][j]=3;
+						}
+						else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
+							monde[i][j]=2;
+							memoire[i][j]=2;
+							n++;
+	
+							listAgent.add(new Agent(i,j,monde));
+						}
+					}
+				}
+				
+				if(repartition)
+				{
+					for(int i=0;i<getSizeX();i++){
+						for(int j=0;j<getSizeY();j++){
+							if(monde[i][j]==3){
+								for(int k=0;k<10;k++){
+									int xi=i+rand.nextInt(3);
+									int yj=j+rand.nextInt(3);
+									if(xi>=getSizeX()) xi-=getSizeX();
+									if(yj>=getSizeX()) yj-=getSizeX();
+									if(monde[xi][yj]==0 && m<ninterets){
+										monde[xi][yj]=1;
+										memoire[xi][yj]=1;
+										m++;
+									}
+									
+								}
+								monde[i][j]=0;
+								memoire[i][j]=0;
 							}
-							monde[i][j]=0;
-							memoire[i][j]=0;
 						}
 					}
 				}
@@ -230,5 +248,18 @@ public class Modele {
 		}
 	}
 	
+	public void nAgents(String s){
+		int x=Integer.parseInt(s);
+		if(x<=0)
+			throw new NumberFormatException();
+		nagents=x ;
+	}
+	
+	public void nPatchs(String s){
+		int x=Integer.parseInt(s);
+		if(x<=0)
+			throw new NumberFormatException();
+		ninterets=x ;
+	}
 	
 }
