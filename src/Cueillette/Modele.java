@@ -27,7 +27,7 @@ public class Modele {
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	protected boolean run;
-	protected int nombreInteret;//Nombre de point d'interets
+	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
 	
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -39,6 +39,7 @@ public class Modele {
 		run=false;
 		mode=true;
 		nombreInteret=0;
+		memNbInteret=0;
 		changeSize("30");
 	}
 	
@@ -72,7 +73,6 @@ public class Modele {
 	}
 	public void start(){
 		run=true;
-        
         	ActionListener task = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
                 	if(run){
@@ -120,6 +120,7 @@ public class Modele {
 		listAgent.clear();
 		nbPas=0;
 		nombreInteret=0;
+		run=false;
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){					
 					if(!repartition && rand.nextFloat()<=Pinteret){
@@ -163,6 +164,7 @@ public class Modele {
 					}
 				}
 			}
+			memNbInteret=nombreInteret;
 		if(listAgent.isEmpty()){
 			newMap();
 		}
@@ -194,6 +196,7 @@ public class Modele {
 	}
 	public void relancer(){
 		nbPas=0;
+		nombreInteret=memNbInteret;
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=memoire[i][j];
@@ -235,6 +238,15 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
+
+	public int getInteret() {
+		return nombreInteret;
+	}
+
+	public int getNbAgent() {
+		return listAgent.size();
+	}
+
 	
 	
 }
