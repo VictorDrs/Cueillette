@@ -1,16 +1,20 @@
 package Cueillette;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.Timer;
+
 
 
 
 
 public class Modele {
-	
+
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	protected ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
@@ -25,7 +29,8 @@ public class Modele {
 	protected int ninterets;
 	protected int nagents;
 	protected boolean run;
-	
+	protected int nombreInteret;//Nombre de point d'interets
+
 	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
@@ -38,9 +43,11 @@ public class Modele {
 		repartition=false;
 		nagents=5;
 		ninterets=5;
-		changeSize("70");
+		nombreInteret=0;
+		changeSize("30");
+
 	}
-	
+
 	public void ajouterVue(Vue v){
 		listVue.add(v);
 	}
@@ -61,19 +68,28 @@ public class Modele {
 	public int getNbPas(){
 		return nbPas;
 	}
-	
+
 	public void setMode(boolean s) {
 		mode=s;
 	}
-	
+
 	public void setRepartition(boolean r){
 		repartition=r;
 	}
 	public void start(){
 		run=true;
-		while(existeInteret() && run){
-			step();
-		}
+
+		ActionListener task = new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if(run){
+					step();
+					majVues();
+				}
+			}
+		};
+		Timer time=new Timer(100,task);
+		time.setRepeats(true);
+		time.start();
 	}
 	public void stop(){
 		run=false;
@@ -81,10 +97,10 @@ public class Modele {
 	public void step(){
 		if(existeInteret()){
 			deplacementAgent();
+			nbPas++;
 		}
-		nbPas++;
 	}
-	
+
 	public void deplacementAgent(){
 		for(Agent a : listAgent){
 			monde[a.getX()][a.getY()]=3;
@@ -93,22 +109,17 @@ public class Modele {
 			}else{
 				a.deplacementAlea();
 			}
+			if(monde[a.getX()][a.getY()]==1){
+				nombreInteret-=1;
+			}
 			monde[a.getX()][a.getY()]=2;
 		}
-		
 	}
-	public void remplirAgent(){
-		
-	}
-	
+
 	public boolean existeInteret(){
-		for(int i=0;i<getSizeX();i++){
-			for(int j=0;j<getSizeX();j++){
-				if(monde[i][j]==1){
-					return true;
-				}
-			}
-		}
+		//System.out.println("nombre interet : "+nombreInteret);
+		if(nombreInteret>0)
+			return true;
 		return false;
 	}
 	public void newMap(){
@@ -117,6 +128,7 @@ public class Modele {
 		nbPas=0;
 		int n = 0 ;
 		int m = 0 ;
+		nombreInteret=0;
 		
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){
@@ -133,6 +145,7 @@ public class Modele {
 							monde[i][j]=1;
 							memoire[i][j]=1;
 							m++;
+							nombreInteret++;
 						}
 						else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
 							monde[i][j]=3;
@@ -161,6 +174,7 @@ public class Modele {
 										monde[xi][yj]=1;
 										memoire[xi][yj]=1;
 										m++;
+										nombreInteret++;
 									}
 									
 								}
@@ -171,15 +185,12 @@ public class Modele {
 					}
 				}
 			}
-			
-			
 		if(listAgent.isEmpty()){
 			newMap();
 		}
 		majVues();
 	}
 	
-
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
 		if(x<=0)
@@ -189,6 +200,7 @@ public class Modele {
 		newMap();
 		majVues();
 	}
+	
 	public void ajouterAgent(){
 		listAgent.clear();
 		for(int i=0;i<getSizeX();i++){
@@ -204,6 +216,7 @@ public class Modele {
 			ajouterAgent();
 		}
 	}
+	
 	public void relancer(){
 		nbPas=0;
 		for(int i=0;i<getSizeX();i++){
@@ -212,12 +225,13 @@ public class Modele {
 			}
 		}
 	}
+	
 	public void ouvrir(String s){
 		try{
 			FileReader flot= new FileReader(s);
 			@SuppressWarnings("resource")
 			BufferedReader filtre=new BufferedReader(flot);
-			
+
 			String ligne=filtre.readLine();
 			if(Integer.parseInt(ligne)>0){
 				changeSize(ligne);
@@ -247,19 +261,19 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
-	
+
 	public void nAgents(String s){
 		int x=Integer.parseInt(s);
 		if(x<=0)
 			throw new NumberFormatException();
 		nagents=x ;
 	}
-	
+
 	public void nPatchs(String s){
 		int x=Integer.parseInt(s);
 		if(x<=0)
 			throw new NumberFormatException();
 		ninterets=x ;
 	}
-	
+
 }
