@@ -28,7 +28,7 @@ public class Agent {
 			else if(destY>monde.length-1) horsY=destY - (monde.length-1);
 		}
 
-		if(horsX!=0 && x-1<0){						
+		if(horsX!=0 && x-1<0){			
 			deplacement(1);
 			destX=horsX;
 			horsX=0;
