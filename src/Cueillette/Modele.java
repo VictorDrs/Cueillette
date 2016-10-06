@@ -26,10 +26,10 @@ public class Modele {
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
-	protected int ninterets;
-	protected int nagents;
-	protected boolean run;
-	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
+	protected int ninterets;//Nombre de point d'interet voulu
+	protected int nagents;//Nombre d'agent voulu
+	protected boolean run;//Deplacement des agents
+	protected int nombreInteret,memNbInteret;//Nombre de point d'interets sur la carte
 	protected boolean timer;//Un timer a deja ete lance
 
 
@@ -159,43 +159,43 @@ public class Modele {
 					else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
 						monde[i][j]=2;
 						n++;
-
 						listAgent.add(new Agent(i,j,monde));
 					}
 				}
 			}
+		
+				if(repartition)
+				{
+					for(int i=0;i<getSizeX();i++){
+						for(int j=0;j<getSizeY();j++){
+							if(monde[i][j]==3){
+								for(int k=0;k<10;k++){
+									int xi=i+rand.nextInt(3);
+									int yj=j+rand.nextInt(3);
+									if(xi>=getSizeX()) xi-=getSizeX();
+									if(yj>=getSizeX()) yj-=getSizeX();
+									if(monde[xi][yj]==0 && m<ninterets){
+										monde[xi][yj]=1;
+										m++;
+										nombreInteret++;
+									}
 
-			if(repartition)
-			{
-				for(int i=0;i<getSizeX();i++){
-					for(int j=0;j<getSizeY();j++){
-						if(monde[i][j]==3){
-							for(int k=0;k<10;k++){
-								int xi=i+rand.nextInt(3);
-								int yj=j+rand.nextInt(3);
-								if(xi>=getSizeX()) xi-=getSizeX();
-								if(yj>=getSizeX()) yj-=getSizeX();
-								if(monde[xi][yj]==0 && m<ninterets){
-									monde[xi][yj]=1;
-									m++;
-									nombreInteret++;
 								}
 
 							}
-
+							monde[i][j]=0;
+							memoire[i][j]=0;
 						}
-						monde[i][j]=0;
-						memoire[i][j]=0;
 					}
 				}
 			}
-		}
-
-		if(listAgent.isEmpty()){
-			newMap();
-		}
+			if(listAgent.isEmpty()){
+				newMap();
+			}
+		
 		sauvegarder();
 		majVues();
+
 	}
 
 	public void changeSize(String string){
@@ -204,8 +204,6 @@ public class Modele {
 			throw new NumberFormatException();
 		monde=new int[x][x];
 		memoire=new int[x][x];
-		newMap();
-		majVues();
 	}
 
 	public void ajouterAgent(){
@@ -310,5 +308,10 @@ public class Modele {
 		if(x<=0 || x>100)
 			throw new NumberFormatException();
 		ninterets=x ;
+	}
+
+	public boolean getRun() {
+		// TODO Auto-generated method stub
+		return run;
 	}
 }
