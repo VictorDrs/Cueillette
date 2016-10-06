@@ -20,32 +20,30 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			destX+= (int) Math.round(rand.nextGaussian() * 1);
-			destY+=(int) Math.round(rand.nextGaussian() * 1);           
+			destX+= (int) Math.round(rand.nextGaussian() * 4);
+			destY+=(int) Math.round(rand.nextGaussian() * 4);           
 			if(destX<0) horsX=destX + (monde.length-1);
 			else if(destX>monde.length-1) horsX=destX - (monde.length-1);
 			if(destY<0) horsY=destY + (monde.length-1);
 			else if(destY>monde.length-1) horsY=destY - (monde.length-1);
 		}
-		
-		if(horsX!=0 || horsY!=0){
-			if(horsX!=0 && x-1<0){						
-				deplacement(1);
-				destX=horsX;
-				horsX=0;
-			}else if(horsX!=0 && monde.length-1<x+1){				
-				deplacement(0);
-				destX=horsX;
-				horsX=0;
-			}else if(horsY!=0 && y-1<0){
-				deplacement(3);
-				destY=horsY;
-				horsY=0;
-			}else if(horsY!=0 && monde.length-1<y+1){				
-				deplacement(2);
-				destY=horsY;
-				horsY=0;
-			}
+
+		if(horsX!=0 && x-1<0){						
+			deplacement(1);
+			destX=horsX;
+			horsX=0;
+		}else if(horsX!=0 && monde.length-1<x+1){				
+			deplacement(0);
+			destX=horsX;
+			horsX=0;
+		}else if(horsY!=0 && y-1<0){
+			deplacement(3);
+			destY=horsY;
+			horsY=0;
+		}else if(horsY!=0 && monde.length-1<y+1){				
+			deplacement(2);
+			destY=horsY;
+			horsY=0;
 		}
 
 		else if(x>destX){
@@ -58,7 +56,7 @@ public class Agent {
 			deplacement(2);
 		}
 		verifDim();
-
+		System.out.println(destX +" "+destY);
 	}
 	public void deplacement(int dir){
 		if(dir==0){
