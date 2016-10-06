@@ -25,6 +25,7 @@ public class Menu extends JMenuBar {
 			
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
 			
+
 			
 			ouvrir.addActionListener(new ActionListener(){
 				@Override
@@ -43,8 +44,6 @@ public class Menu extends JMenuBar {
 						
 					}
 			});
-
-			
 			menu.add(ouvrir);
 			
 			this.add(menu);
