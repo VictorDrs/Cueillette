@@ -20,6 +20,7 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
+
 			destX+= (int) Math.round(rand.nextGaussian() * 4);
 			destY+=(int) Math.round(rand.nextGaussian() * 4);           
 			if(destX<0) horsX=destX + (monde.length-1);
@@ -37,6 +38,7 @@ public class Agent {
 				deplacement(0);
 				destX=horsX;
 				horsX=0;
+
 			}
 		}
 		if(horsY!=0){
@@ -109,4 +111,5 @@ public class Agent {
 	public int getY(){
 		return y;
 	}
+	
 }

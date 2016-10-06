@@ -30,6 +30,9 @@ public class Modele {
 	protected int nagents;
 	protected boolean run;
 	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
+	protected boolean timer;//Un timer a deja ete lance
+
+
 	public Modele(){
 		listVue=new ArrayList<>();
 		listAgent=new ArrayList<>();
@@ -41,9 +44,10 @@ public class Modele {
 		mode=true;
 		repartition=false;
 		nagents=5;
-		ninterets=5;
+		ninterets=50;
 		nombreInteret=0;
 		memNbInteret=0;
+		timer=false;
 		changeSize("30");
 
 	}
@@ -78,6 +82,7 @@ public class Modele {
 	}
 	public void start(){
 		run=true;
+
 		ActionListener task = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(run){
@@ -86,9 +91,14 @@ public class Modele {
 				}
 			}
 		};
-		Timer time=new Timer(100,task);
-		time.setRepeats(true);
-		time.start();
+		if(!timer){
+			Timer time=new Timer(100,task);
+			time.setRepeats(true);
+			time.start();
+			timer=true;
+		}
+
+
 	}
 	public void stop(){
 		run=false;
@@ -116,7 +126,6 @@ public class Modele {
 	}
 
 	public boolean existeInteret(){
-		//System.out.println("nombre interet : "+nombreInteret);
 		if(nombreInteret>0)
 			return true;
 		return false;
@@ -132,7 +141,6 @@ public class Modele {
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=0;
-				memoire[i][j]=0;
 			}
 		}
 
@@ -142,7 +150,6 @@ public class Modele {
 				for(int j=0;j<getSizeY();j++){					
 					if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
 						monde[i][j]=1;
-						memoire[i][j]=1;
 						m++;
 						nombreInteret++;
 					}
@@ -151,7 +158,6 @@ public class Modele {
 					}
 					else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
 						monde[i][j]=2;
-						memoire[i][j]=2;
 						n++;
 
 						listAgent.add(new Agent(i,j,monde));
@@ -171,23 +177,24 @@ public class Modele {
 								if(yj>=getSizeX()) yj-=getSizeX();
 								if(monde[xi][yj]==0 && m<ninterets){
 									monde[xi][yj]=1;
-									memoire[xi][yj]=1;
 									m++;
 									nombreInteret++;
 								}
 
 							}
-							monde[i][j]=0;
-							memoire[i][j]=0;
+
 						}
+						monde[i][j]=0;
+						memoire[i][j]=0;
 					}
 				}
 			}
 		}
-		memNbInteret=nombreInteret;
+
 		if(listAgent.isEmpty()){
 			newMap();
 		}
+		sauvegarder();
 		majVues();
 	}
 
@@ -203,28 +210,46 @@ public class Modele {
 
 	public void ajouterAgent(){
 		listAgent.clear();
-		for(int i=0;i<getSizeX();i++){
-			for(int j=0;j<getSizeY();j++){
-				Random rand=new Random();
-				if(rand.nextFloat()<=Pagent && monde[i][j]!=1){
-					monde[i][j]=2;
-					listAgent.add(new Agent(i,j,monde));
+		Random rand=new Random();
+		while(listAgent.size()!=nagents){
+			for(int i=0;i<getSizeX();i++){
+				for(int j=0;j<getSizeY();j++){
+					if(monde[i][j]!=1 && monde[i][j]!=2){
+						monde[i][j]=0;
+					}
+					if(rand.nextFloat()<=Pagent && monde[i][j]!=1 && listAgent.size()<nagents){
+						monde[i][j]=2;
+						listAgent.add(new Agent(i,j,monde));
+					}
 				}
 			}
 		}
-		if(listAgent.isEmpty()){
-			ajouterAgent();
+		sauvegarder();
+	}
+
+	public void sauvegarder(){
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				memoire[i][j]=monde[i][j];
+			}
 		}
+		memNbInteret=nombreInteret;
 	}
 
 	public void relancer(){
 		nbPas=0;
 		nombreInteret=memNbInteret;
+		run=false;
+		listAgent.clear();
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=memoire[i][j];
+				if(memoire[i][j]==2){
+					listAgent.add(new Agent(i,j,memoire));
+				}
 			}
 		}
+		majVues();
 	}
 
 	public void ouvrir(String s){
@@ -238,11 +263,13 @@ public class Modele {
 				changeSize(ligne);
 				int x=Integer.parseInt(ligne);
 				int j=0;
+				nombreInteret=0;
 				ligne=filtre.readLine();
 				while(ligne!=null){
 					for(int i=0;i<x;i++){
 						if(ligne.charAt(i)=='*'){
 							monde[j][i]=1;
+							nombreInteret++;
 						}else{
 							monde[j][i]=0;
 						}
@@ -253,6 +280,7 @@ public class Modele {
 					}
 					ligne=filtre.readLine();
 				}
+				sauvegarder();
 				ajouterAgent();
 				this.majVues();
 			}else{
