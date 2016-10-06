@@ -107,6 +107,8 @@ public class Modele {
 		if(existeInteret()){
 			deplacementAgent();
 			nbPas++;
+		}else{
+			run=false;
 		}
 	}
 
@@ -154,7 +156,7 @@ public class Modele {
 						nombreInteret++;
 					}
 					else if(repartition && rand.nextFloat()<=Pdensite && monde[i][j]==0){
-						monde[i][j]=3;
+						monde[i][j]=4;
 					}
 					else if(rand.nextFloat()<=Pagent && monde[i][j]==0 && n<nagents){
 						monde[i][j]=2;
@@ -168,7 +170,7 @@ public class Modele {
 				{
 					for(int i=0;i<getSizeX();i++){
 						for(int j=0;j<getSizeY();j++){
-							if(monde[i][j]==3){
+							if(monde[i][j]==4){
 								for(int k=0;k<10;k++){
 									int xi=i+rand.nextInt(3);
 									int yj=j+rand.nextInt(3);
@@ -198,10 +200,12 @@ public class Modele {
 
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
-		if(x<=0 || x>100)
+		if(x<=2 || x>100)
 			throw new NumberFormatException();
 		monde=new int[x][x];
 		memoire=new int[x][x];
+		ninterets=x*4;
+		nagents=x;
 	}
 
 	public void ajouterAgent(){
@@ -303,13 +307,12 @@ public class Modele {
 
 	public void nPatchs(String s){
 		int x=Integer.parseInt(s);
-		if(x<=0 || x>100)
+		if(x<=0 || x>monde.length*5)
 			throw new NumberFormatException();
 		ninterets=x ;
 	}
 
 	public boolean getRun() {
-		// TODO Auto-generated method stub
 		return run;
 	}
 }
