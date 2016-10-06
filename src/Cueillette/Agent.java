@@ -19,12 +19,13 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			if(rand.nextFloat()>0.75){
+			if(rand.nextFloat()>0.99){
 				destX=rand.nextInt(monde.length-1)+1;
 				destY=rand.nextInt(monde.length-1)+1;
 			}else{
-				destX=(destX+rand.nextInt(monde.length/10)+1)%monde.length;
-				destY=(destY+rand.nextInt(monde.length/10)+1)%monde.length;
+				deplacementAlea();
+				destX=x;
+				destY=y;
 			}
 		}
 		if(x>destX){
@@ -37,6 +38,7 @@ public class Agent {
 			deplacement(2);
 		}
 		verifDim();
+		
 	}
 	public void deplacement(int dir){
 		if(dir==0){
@@ -66,7 +68,7 @@ public class Agent {
 	}
 	public void deplacementAlea() {
 		Random rand=new Random();
-		int bouge=rand.nextInt(3);
+		int bouge=rand.nextInt(4);
 		if(bouge==0){
 			x+=1;
 		}else if(bouge==1){
@@ -84,4 +86,5 @@ public class Agent {
 	public int getY(){
 		return y;
 	}
+	
 }
