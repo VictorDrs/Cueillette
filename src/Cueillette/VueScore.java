@@ -29,5 +29,4 @@ public class VueScore extends JPanel implements Vue {
 		interet.setText("Nombre de point restant : "+modele.getInteret());
 		agent.setText("Nombre d'agent(s) : "+modele.getNbAgent());
 	}
-
 }

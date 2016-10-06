@@ -26,10 +26,10 @@ public class Modele {
 	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
 	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
 	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
-	protected int ninterets;
-	protected int nagents;
-	protected boolean run;
-	protected int nombreInteret,memNbInteret;//Nombre de point d'interets
+	protected int ninterets;//Nombre de point d'interet voulu
+	protected int nagents;//Nombre d'agent voulu
+	protected boolean run;//Deplacement des agents
+	protected int nombreInteret,memNbInteret;//Nombre de point d'interets sur la carte
 	protected boolean timer;//Un timer a deja ete lance
 	
 	
@@ -141,7 +141,6 @@ public class Modele {
 					monde[i][j]=0;
 				}
 			}
-			
 			while(n<nagents || m<ninterets){
 				
 				for(int i=0;i<getSizeX();i++){
@@ -198,8 +197,6 @@ public class Modele {
 			throw new NumberFormatException();
 		monde=new int[x][x];
 		memoire=new int[x][x];
-		newMap();
-		majVues();
 	}
 	
 	public void ajouterAgent(){
@@ -302,5 +299,10 @@ public class Modele {
 		if(x<=0)
 			throw new NumberFormatException();
 		ninterets=x ;
+	}
+
+	public boolean getRun() {
+		// TODO Auto-generated method stub
+		return run;
 	}
 }
