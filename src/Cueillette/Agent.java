@@ -7,6 +7,7 @@ public class Agent {
 	protected int x,y;//Coord de l'agent
 	protected int monde[][];//Utile pour le deplacement (dimension du monde)
 	protected int destX,destY;
+	protected int horsX=0,horsY=0;
 	
 	public Agent(int x,int y,int[][] tab){
 		this.x=x;
@@ -19,16 +20,38 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			if(rand.nextFloat()>0.99){
-				destX=x+rand.nextInt(monde.length-1)+1;
-				destY=rand.nextInt(monde.length-1)+1;
-			}else{
-				deplacementAlea();
-				destX=x;
-				destY=y;
+			destX+= (int) Math.round(rand.nextGaussian() * 4);
+			destY+=(int) Math.round(rand.nextGaussian() * 4);           
+			if(destX<0) horsX=destX + (monde.length-1);
+			else if(destX>monde.length-1) horsX=destX - (monde.length-1);
+			if(destY<0) horsY=destY + (monde.length-1);
+			else if(destY>monde.length-1) horsY=destY - (monde.length-1);
+		}
+
+		if(horsX!=0){
+			if(x-1<0){						
+				deplacement(1);
+				destX=horsX;
+				horsX=0;
+			}else if(monde.length-1<x+1){				
+				deplacement(0);
+				destX=horsX;
+				horsX=0;
 			}
 		}
-		else if(x>destX){
+		if(horsY!=0){
+			if(y-1<0){
+				deplacement(3);
+				destY=horsY;
+				horsY=0;
+			}else if(monde.length-1<y+1){				
+				deplacement(2);
+				destY=horsY;
+				horsY=0;
+			}
+		}
+		
+		if(x>destX){
 			deplacement(1);
 		}else if(x<destX){
 			deplacement(0);
