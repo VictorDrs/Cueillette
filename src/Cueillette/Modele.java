@@ -183,8 +183,6 @@ public class Modele {
 								}
 
 							}
-							monde[i][j]=0;
-							memoire[i][j]=0;
 						}
 					}
 				}
