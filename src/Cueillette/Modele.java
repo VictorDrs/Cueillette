@@ -165,34 +165,34 @@ public class Modele {
 					}
 				}
 			}
-		
-				if(repartition)
-				{
-					for(int i=0;i<getSizeX();i++){
-						for(int j=0;j<getSizeY();j++){
-							if(monde[i][j]==4){
-								for(int k=0;k<10;k++){
-									int xi=i+rand.nextInt(3);
-									int yj=j+rand.nextInt(3);
-									if(xi>=getSizeX()) xi-=getSizeX();
-									if(yj>=getSizeX()) yj-=getSizeX();
-									if(monde[xi][yj]==0 && m<ninterets){
-										monde[xi][yj]=1;
-										m++;
-										nombreInteret++;
-									}
 
+			if(repartition)
+			{
+				for(int i=0;i<getSizeX();i++){
+					for(int j=0;j<getSizeY();j++){
+						if(monde[i][j]==4){
+							for(int k=0;k<10;k++){
+								int xi=i+rand.nextInt(3);
+								int yj=j+rand.nextInt(3);
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								if(monde[xi][yj]==0 && m<ninterets){
+									monde[xi][yj]=1;
+									m++;
+									nombreInteret++;
 								}
 
 							}
+							monde[i][j]=0;
 						}
 					}
 				}
 			}
-			if(listAgent.isEmpty()){
-				newMap();
-			}
-		
+		}
+		if(listAgent.isEmpty()){
+			newMap();
+		}
+
 		sauvegarder();
 		majVues();
 
