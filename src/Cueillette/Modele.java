@@ -249,6 +249,7 @@ public class Modele {
 		nbPas=0;
 		nombreInteret=memNbInteret;
 		run=false;
+		news=true;
 		listAgent.clear();
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){

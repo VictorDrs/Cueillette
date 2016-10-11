@@ -20,8 +20,8 @@ public class Agent {
 	public void deplacementLevy(){
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1)) % monde.length);		
-			destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1)) % monde.length);	
+			destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);		
+			destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);	
 			if(destX<0) horsX=destX + (monde.length-1);
 			else if(destX>monde.length-1) horsX=destX - (monde.length-1);
 			if(destY<0) horsY=destY + (monde.length-1);
@@ -97,7 +97,29 @@ public class Agent {
 		}
 	}
 	public void deplacementAlea() {
-		Random rand=new Random();
+		if(x==destX && y==destY){
+			Random rand=new Random();
+			destX+= (int) Math.round((rand.nextGaussian()));		
+			destY+=(int) Math.round((rand.nextGaussian()));	
+			if(destX<0) horsX=destX + (monde.length-1);
+			else if(destX>monde.length-1) horsX=destX - (monde.length-1);
+			if(destY<0) horsY=destY + (monde.length-1);
+			else if(destY>monde.length-1) horsY=destY - (monde.length-1);
+			System.out.println("destX: "+destX+" - destY: "+ destY);
+		}
+		if(horsX!=0){
+			destX=horsX;
+			horsX=0;
+		}
+		x=destX;
+		
+		if(horsY!=0){
+			destY=horsY;
+			horsY=0;
+		}
+		y=destY;
+		
+		/*Random rand=new Random();
 		int bouge=rand.nextInt(4);
 		if(bouge==0){
 			x+=1;
@@ -107,7 +129,7 @@ public class Agent {
 			y+=1;
 		}else if(bouge==3){
 			y-=1;
-		}
+		}*/
 		verifDim();
 	}
 	public int getX(){
