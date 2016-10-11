@@ -64,7 +64,6 @@ public class VueControl extends JPanel implements Vue {
 			}
 		});
 		step.addActionListener(new ActionListener(){
-
 			public void actionPerformed(ActionEvent arg0) {
 				modele.step();
 				modele.majVues();
@@ -73,15 +72,12 @@ public class VueControl extends JPanel implements Vue {
 		levy.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
 				modele.setMode(true);
-				modele.majVues();
 			}
 		});
 		alea.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modele.setMode(false);
-				modele.majVues();
-				
+				modele.setMode(false);				
 			}
 		});
 		
@@ -99,7 +95,7 @@ public class VueControl extends JPanel implements Vue {
 				try{
 					modele.changeSize(JOptionPane.showInputDialog("Largeur de la grille"));
 				}catch(Exception NumberFormatException){
-					JOptionPane.showMessageDialog(null,"Entrez un nombre positif","Alerte",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null,"Entrez un nombre positif (100>taille>6)","Alerte",JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
@@ -134,18 +130,14 @@ public class VueControl extends JPanel implements Vue {
 		interetAlea.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modele.setRepartition(false);
-				modele.majVues();
-				
+				modele.setRepartition(false);				
 			}
 		});
 		
 		interetPaquet.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modele.setRepartition(true);
-				modele.majVues();
-				
+				modele.setRepartition(true);				
 			}
 		});
 		this.add(start);
