@@ -31,7 +31,7 @@ public class Modele {
 	protected boolean run;//Deplacement des agents
 	protected int nombreInteret,memNbInteret;//Nombre de point d'interets sur la carte
 	protected boolean timer;//Un timer a deja ete lance
-
+	protected boolean news;//accelere l'interface
 
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -43,12 +43,13 @@ public class Modele {
 		run=false;
 		mode=true;
 		repartition=false;
-		nagents=5;
-		ninterets=50;
+		nagents=50;
+		ninterets=500;
 		nombreInteret=0;
 		memNbInteret=0;
 		timer=false;
-		changeSize("30");
+		news=false;
+		changeSize("100");
 
 	}
 
@@ -72,7 +73,12 @@ public class Modele {
 	public int getNbPas(){
 		return nbPas;
 	}
-
+	public void setNews(boolean b){
+		news=b;
+	}
+	public boolean getNews(){
+		return news;
+	}
 	public void setMode(boolean s) {
 		mode=s;
 	}
@@ -140,14 +146,13 @@ public class Modele {
 		int m = 0 ;
 		nombreInteret=0;
 		run=false;
+		news=true;
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=0;
 			}
 		}
-
 		while(n<nagents || m<ninterets){
-
 			for(int i=0;i<getSizeX();i++){
 				for(int j=0;j<getSizeY();j++){					
 					if(!repartition && rand.nextFloat()<=Pinteret && monde[i][j]==0 && m<ninterets){
@@ -183,7 +188,7 @@ public class Modele {
 									}
 
 								}
-
+								monde[i][j]=0;
 							}
 						}
 					}
@@ -200,12 +205,16 @@ public class Modele {
 
 	public void changeSize(String string){
 		int x=Integer.parseInt(string);
-		if(x<=2 || x>100)
+		if(x<=5 || x>100)
 			throw new NumberFormatException();
+		if(ninterets>x*5)
+			ninterets=x*5;
+		if(nagents>x)
+			nagents=x;
+		listAgent.clear();
 		monde=new int[x][x];
 		memoire=new int[x][x];
-		ninterets=x*4;
-		nagents=x;
+		
 	}
 
 	public void ajouterAgent(){
@@ -300,7 +309,7 @@ public class Modele {
 
 	public void nAgents(String s){
 		int x=Integer.parseInt(s);
-		if(x<=0 || x>100)
+		if(x<=0 || x>monde.length)
 			throw new NumberFormatException();
 		nagents=x ;
 	}
