@@ -29,7 +29,7 @@ public class Agent {
 		}
 		somme = somme/Math.pow(n,alpha);
 		
-		//angle(somme);
+		angle(somme);
 /*		
 		destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),2))%monde.length);		
 		destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),2))%monde.length);
