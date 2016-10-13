@@ -102,8 +102,6 @@ public class Modele {
 			time.start();
 			timer=true;
 		}
-
-
 	}
 	public void stop(){
 		run=false;

@@ -101,6 +101,22 @@ public class Agent {
 		verifDim();
 */
 	}
+	public void angle(double dist){
+		Random rand=new Random();
+		int x=(int)dist;
+		double reste=dist - x;
+		if(rand.nextFloat()<reste){
+			x++;
+		}
+		for(int i=0; i<x;i++){
+			if(rand.nextBoolean()){
+				this.x++;
+			}else{
+				this.y++;
+			}
+		}
+		verifDim();
+	}
 	public void deplacement(int dir){
 		if(dir==0){
 			x+=1;
