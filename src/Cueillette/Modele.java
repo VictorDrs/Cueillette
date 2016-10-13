@@ -44,12 +44,12 @@ public class Modele {
 		mode=true;
 		repartition=false;
 		nagents=1;
-		ninterets=1;
+		ninterets=500;
 		nombreInteret=0;
 		memNbInteret=0;
 		timer=false;
 		news=false;
-		changeSize("30");
+		changeSize("100");
 	}
 
 	public void ajouterVue(Vue v){
@@ -97,7 +97,7 @@ public class Modele {
 			}
 		};
 		if(!timer){
-			Timer time=new Timer(100,task);
+			Timer time=new Timer(0,task);
 			time.setRepeats(true);
 			time.start();
 			timer=true;
