@@ -17,7 +17,7 @@ public class VueScore extends JPanel implements Vue {
 		
 		
 		score=new JLabel("Nombre de pas : "+modele.getNbPas());
-		interet=new JLabel("Nombre de point restant : "+modele.getInteret());
+		interet=new JLabel("Nombre de point restant : "+modele.getInteret()+" ("+(modele.getInteretPourcent()+"%)"));
 		agent=new JLabel("Nombre d'agent(s) : "+modele.getNbAgent());
 		this.add(score);
 		this.add(interet);
@@ -26,7 +26,7 @@ public class VueScore extends JPanel implements Vue {
 	@Override
 	public void mettreAJour() {
 		score.setText("Nombre de pas : "+modele.getNbPas());
-		interet.setText("Nombre de point restant : "+modele.getInteret());
+		interet.setText("Nombre de point restant : "+modele.getInteret()+" ("+(modele.getInteretPourcent()+"%)"));
 		agent.setText("Nombre d'agent(s) : "+modele.getNbAgent());
 	}
 }
