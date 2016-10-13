@@ -21,14 +21,14 @@ public class Agent {
 		Random rand=new Random();
 		
 		int n = 100;
-		double alpha = 1.5;
+		double alpha = 2;
 		double somme = 0;
 		
 		for(int i=1;i<=n;i++){
 			somme += (rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),alpha));
 		}
 		somme = somme/Math.pow(n,alpha);
-		
+		System.out.println("somme: "+somme);
 		angle(somme);
 /*		
 		destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),2))%monde.length);		
