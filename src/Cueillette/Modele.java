@@ -43,14 +43,13 @@ public class Modele {
 		run=false;
 		mode=true;
 		repartition=false;
-		nagents=50;
-		ninterets=500;
+		nagents=1;
+		ninterets=1;
 		nombreInteret=0;
 		memNbInteret=0;
 		timer=false;
 		news=false;
-		changeSize("100");
-
+		changeSize("30");
 	}
 
 	public void ajouterVue(Vue v){
@@ -98,7 +97,7 @@ public class Modele {
 			}
 		};
 		if(!timer){
-			Timer time=new Timer(100,task);
+			Timer time=new Timer(1,task);
 			time.setRepeats(true);
 			time.start();
 			timer=true;
@@ -188,7 +187,6 @@ public class Modele {
 									m++;
 									nombreInteret++;
 								}
-								//monde[i][j]=0;
 							}
 							monde[i][j]=0;
 						}
@@ -216,7 +214,7 @@ public class Modele {
 		listAgent.clear();
 		monde=new int[x][x];
 		memoire=new int[x][x];
-		
+
 	}
 
 	public void ajouterAgent(){
@@ -326,5 +324,11 @@ public class Modele {
 
 	public boolean getRun() {
 		return run;
+	}
+
+	public int getInteretPourcent() {
+		// TODO Auto-generated method stub
+		float x= (float) nombreInteret/ninterets;
+		return (int) (x*100);
 	}
 }
