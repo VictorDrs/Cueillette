@@ -102,20 +102,48 @@ public class Agent {
 */
 	}
 	public void angle(double dist){
+		dist=(Math.abs(dist)%monde.length);
+		if((int)dist==0){
+			dist++;
+		}
 		Random rand=new Random();
 		int x=(int)dist;
 		double reste=dist - x;
 		if(rand.nextFloat()<reste){
 			x++;
 		}
+		int r=rand.nextInt(4);
+		boolean rb=rand.nextBoolean();
 		for(int i=0; i<x;i++){
-			if(rand.nextBoolean()){
-				this.x++;
-			}else{
-				this.y++;
+			if(r==0){
+				if(rb){
+					this.x++;
+				}else{
+					this.y++;
+				}
+			}else if(r==1){
+				if(rb){
+					this.x--;
+				}else{
+					this.y++;
+				}
+			}else if(r==2){
+				if(rb){
+					this.x--;
+				}else{
+					this.y--;
+				}
+			}else if(r==3){
+				if(rb){
+					this.x++;
+				}else{
+					this.y--;
+				}
 			}
+			rb=rand.nextBoolean();
 		}
 		verifDim();
+		System.out.println("x : "+x+" y : "+y+" Dist : "+dist);
 	}
 	public void deplacement(int dir){
 		if(dir==0){
@@ -131,16 +159,16 @@ public class Agent {
 	}
 	public void verifDim(){
 		if(x>=monde.length){
-			x=monde.length-x;
+			x=x-monde.length;
 		}
 		if(y>=monde.length){
-			y=monde.length-y;
+			y=y-monde.length;
 		}
 		if(x<0){
-			x=monde.length-1;
+			x=monde.length+x;
 		}
 		if(y<0){
-			y=monde.length-1;
+			y=monde.length+y;
 		}
 	}
 	public void deplacementAlea() {
