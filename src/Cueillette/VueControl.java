@@ -46,7 +46,14 @@ public class VueControl extends JPanel implements Vue {
 		relancer=new JButton("Relancer");
 		
 		
-		step.setMnemonic(KeyEvent.VK_S);
+		start.setMnemonic(KeyEvent.VK_S);
+		stop.setMnemonic(KeyEvent.VK_T);
+		newGrid.setMnemonic(KeyEvent.VK_N);
+		step.setMnemonic(KeyEvent.VK_E);
+		nbInteret.setMnemonic(KeyEvent.VK_I);
+		nbAgent.setMnemonic(KeyEvent.VK_A);
+		relancer.setMnemonic(KeyEvent.VK_R);
+		taille.setMnemonic(KeyEvent.VK_L);
 		
 		
 		start.addActionListener(new ActionListener(){

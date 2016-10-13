@@ -44,7 +44,7 @@ public class VuePlateau extends JPanel implements Vue {
 		}
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
-				grille[i][j].setBorder(BorderFactory.createLineBorder(Color.blue));
+				grille[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 			}
 		}
 		setLayout(new GridLayout(modele.getSizeX(),modele.getSizeY()));

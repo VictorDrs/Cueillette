@@ -23,9 +23,9 @@ public class Modele {
 	protected int nbPas;//Nombre de pas des agents
 	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
 	protected boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
-	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
-	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
-	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected double Pinteret;//Probabilitï¿½ de chaque case d'ï¿½tre un point d'interet (0<=Pinteret<=1)
+	protected double Pagent;//Probabilitï¿½ d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
+	protected double Pdensite;//Probabilitï¿½ d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	protected int ninterets;//Nombre de point d'interet voulu
 	protected int nagents;//Nombre d'agent voulu
 	protected boolean run;//Deplacement des agents
@@ -43,14 +43,13 @@ public class Modele {
 		run=false;
 		mode=true;
 		repartition=false;
-		nagents=50;
-		ninterets=500;
+		nagents=1;
+		ninterets=1;
 		nombreInteret=0;
 		memNbInteret=0;
 		timer=false;
 		news=false;
-		changeSize("100");
-
+		changeSize("30");
 	}
 
 	public void ajouterVue(Vue v){
@@ -179,16 +178,15 @@ public class Modele {
 							for(int k=0;k<10;k++){
 								int xi=i+rand.nextInt(3);
 								int yj=j+rand.nextInt(3);
-								if(xi>=getSizeX()) xi-=getSizeX()-1;
-								if(yj>=getSizeX()) yj-=getSizeX()-1;
-								if(yj<=0) yj+=getSizeX()-1;
-								if(xi<=0) xi+=getSizeX()-1;
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								if(yj<0) yj+=getSizeX()-1;
+								if(xi<0) xi+=getSizeX()-1;
 								if(monde[xi][yj]==0 && m<ninterets){
 									monde[xi][yj]=1;
 									m++;
 									nombreInteret++;
 								}
-								//monde[i][j]=0;
 							}
 							monde[i][j]=0;
 						}
@@ -216,7 +214,7 @@ public class Modele {
 		listAgent.clear();
 		monde=new int[x][x];
 		memoire=new int[x][x];
-		
+
 	}
 
 	public void ajouterAgent(){
@@ -327,5 +325,11 @@ public class Modele {
 
 	public boolean getRun() {
 		return run;
+	}
+
+	public int getInteretPourcent() {
+		// TODO Auto-generated method stub
+		float x= (float) nombreInteret/ninterets;
+		return (int) (x*100);
 	}
 }

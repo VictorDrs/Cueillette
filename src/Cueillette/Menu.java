@@ -19,13 +19,10 @@ public class Menu extends JMenuBar {
 			
 			modele=mod;
 			
-			
 			JMenu menu=new JMenu("Options");
 			menu.setMnemonic(KeyEvent.VK_O);
 			
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
-			
-
 			
 			ouvrir.addActionListener(new ActionListener(){
 				@Override
