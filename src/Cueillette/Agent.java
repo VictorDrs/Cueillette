@@ -19,8 +19,20 @@ public class Agent {
 
 	public void deplacementLevy(){
 		Random rand=new Random();
-		destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);		
-		destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);
+		
+		int n = 100;
+		double alpha = 1.5;
+		double somme = 0;
+		
+		for(int i=1;i<=n;i++){
+			somme += (rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),alpha));
+		}
+		somme = somme/Math.pow(n,alpha);
+		
+		//angle(somme);
+/*		
+		destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),2))%monde.length);		
+		destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),2))%monde.length);
 
 		if(destX<0) destX+=(monde.length-1);
 		else if(destX>monde.length-1) destX-=(monde.length-1);
@@ -30,9 +42,11 @@ public class Agent {
 
 		x=destX;
 		y=destY;
-
-		verifDim();
 		
+		System.out.println("x: "+x+" - y: "+y);
+		
+		verifDim();
+*/		
 		/*
 		if(x==destX && y==destY){
 			Random rand=new Random();
