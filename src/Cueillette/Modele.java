@@ -23,9 +23,9 @@ public class Modele {
 	protected int nbPas;//Nombre de pas des agents
 	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
 	protected boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
-	protected double Pinteret;//Probabilité de chaque case d'être un point d'interet (0<=Pinteret<=1)
-	protected double Pagent;//Probabilité d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
-	protected double Pdensite;//Probabilité d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected double Pinteret;//Probabilitï¿½ de chaque case d'ï¿½tre un point d'interet (0<=Pinteret<=1)
+	protected double Pagent;//Probabilitï¿½ d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
+	protected double Pdensite;//Probabilitï¿½ d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	protected int ninterets;//Nombre de point d'interet voulu
 	protected int nagents;//Nombre d'agent voulu
 	protected boolean run;//Deplacement des agents
@@ -98,7 +98,7 @@ public class Modele {
 			}
 		};
 		if(!timer){
-			Timer time=new Timer(100,task);
+			Timer time=new Timer(1,task);
 			time.setRepeats(true);
 			time.start();
 			timer=true;
