@@ -18,6 +18,22 @@ public class Agent {
 	}
 
 	public void deplacementLevy(){
+		Random rand=new Random();
+		destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);		
+		destY+=(int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);
+
+		if(destX<0) destX+=(monde.length-1);
+		else if(destX>monde.length-1) destX-=(monde.length-1);
+
+		if(destY<0) destY+=(monde.length-1);
+		else if(destY>monde.length-1) destY-=(monde.length-1);
+
+		x=destX;
+		y=destY;
+
+		verifDim();
+		
+		/*
 		if(x==destX && y==destY){
 			Random rand=new Random();
 			destX+= (int) Math.round((rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1.5)) % monde.length);		
@@ -40,7 +56,7 @@ public class Agent {
 		}
 		y=destY;
 		
-/*
+
 		if(horsX!=0 && x-1<0){			
 			deplacement(1);
 			destX=horsX;
@@ -67,8 +83,9 @@ public class Agent {
 			deplacement(3);
 		}else if(y<destY){
 			deplacement(2);
-		}*/
+		}
 		verifDim();
+*/
 	}
 	public void deplacement(int dir){
 		if(dir==0){

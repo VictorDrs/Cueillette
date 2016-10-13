@@ -98,7 +98,7 @@ public class Modele {
 			}
 		};
 		if(!timer){
-			Timer time=new Timer(100,task);
+			Timer time=new Timer(1,task);
 			time.setRepeats(true);
 			time.start();
 			timer=true;
