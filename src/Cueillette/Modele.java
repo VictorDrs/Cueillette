@@ -178,10 +178,10 @@ public class Modele {
 							for(int k=0;k<10;k++){
 								int xi=i+rand.nextInt(3);
 								int yj=j+rand.nextInt(3);
-								if(xi>=getSizeX()) xi-=getSizeX()-1;
-								if(yj>=getSizeX()) yj-=getSizeX()-1;
-								if(yj<=0) yj+=getSizeX()-1;
-								if(xi<=0) xi+=getSizeX()-1;
+								if(xi>=getSizeX()) xi-=getSizeX();
+								if(yj>=getSizeX()) yj-=getSizeX();
+								if(yj<0) yj+=getSizeX()-1;
+								if(xi<0) xi+=getSizeX()-1;
 								if(monde[xi][yj]==0 && m<ninterets){
 									monde[xi][yj]=1;
 									m++;
