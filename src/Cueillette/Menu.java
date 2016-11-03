@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Menu extends JMenuBar {
-		protected Modele modele;
+		protected final Modele modele;
 		
 		public Menu(Modele mod){
 			super();

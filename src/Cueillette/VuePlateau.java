@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class VuePlateau extends JPanel implements Vue {
-	protected Modele modele;
+	protected final Modele modele;
 	protected JLabel[][] grille;
 	protected int x,y;
 	protected boolean[][] memoire;
@@ -51,7 +51,7 @@ public class VuePlateau extends JPanel implements Vue {
 	}
 
 	public void redraw(){
-		int temp=-1;
+		int temp;
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
 				temp=modele.getCase(i, j);
@@ -73,7 +73,7 @@ public class VuePlateau extends JPanel implements Vue {
 			changeSize();
 		}
 		if(modele.getNews()){
-			int temp=-1;
+			int temp;
 			for(int i=0;i<modele.getSizeX();i++){
 				for(int j=0;j<modele.getSizeY();j++){
 					temp=modele.getCase(i, j);

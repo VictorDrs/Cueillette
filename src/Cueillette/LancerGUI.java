@@ -3,7 +3,7 @@ package Cueillette;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class LancerGUI extends JFrame {
@@ -27,7 +27,7 @@ public class LancerGUI extends JFrame {
 		add(vc,BorderLayout.EAST);
 		setJMenuBar(men);
 		modele.majVues();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		pack();
 		setVisible(true);
 	}

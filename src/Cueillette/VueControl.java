@@ -13,19 +13,19 @@ import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
 public class VueControl extends JPanel implements Vue {
-	protected Modele modele;
-	protected JButton start;
-	protected JButton stop;
-	protected JButton step;
-	protected JRadioButton levy;
-	protected JRadioButton alea;
-	protected JRadioButton interetAlea;
-	protected JRadioButton interetPaquet;
-	protected JButton taille;
-	protected JButton nbAgent;
-	protected JButton nbInteret;
-	protected JButton newGrid;
-	protected JButton relancer;
+	protected final Modele modele;
+	protected final JButton start;
+	protected final JButton stop;
+	protected final JButton step;
+	protected final JRadioButton levy;
+	protected final JRadioButton alea;
+	protected final JRadioButton interetAlea;
+	protected final JRadioButton interetPaquet;
+	protected final JButton taille;
+	protected final JButton nbAgent;
+	protected final JButton nbInteret;
+	protected final JButton newGrid;
+	protected final JButton relancer;
 	
 	public VueControl(Modele mod){
 		super();
@@ -93,7 +93,6 @@ public class VueControl extends JPanel implements Vue {
 			public void actionPerformed(ActionEvent e) {
 				modele.newMap();
 				modele.majVues();
-				
 			}
 		});
 		taille.addActionListener(new ActionListener(){

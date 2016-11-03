@@ -5,10 +5,10 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class VueScore extends JPanel implements Vue {
-	protected Modele modele;
-	protected JLabel score;
-	protected JLabel interet;
-	protected JLabel agent;
+	protected final Modele modele;
+	protected final JLabel score;
+	protected final JLabel interet;
+	protected final JLabel agent;
 	
 	
 	public VueScore(Modele mod){

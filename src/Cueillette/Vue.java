@@ -1,5 +1,5 @@
 package Cueillette;
 
 public interface Vue {
-	public void mettreAJour();
+	void mettreAJour();
 }
