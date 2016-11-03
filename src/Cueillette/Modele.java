@@ -16,16 +16,16 @@ import javax.swing.Timer;
 public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
-	protected ArrayList<Vue>listVue;//Liste des vues du MVC
+	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
 	protected int[][] memoire;//Stockage de chaque nouveau monde
-	protected ArrayList<Agent>listAgent;//Liste des agents sur la grille
+	protected final ArrayList<Agent>listAgent;//Liste des agents sur la grille
 	protected int nbPas;//Nombre de pas des agents
 	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
 	protected boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
-	protected double Pinteret;//Probabilit� de chaque case d'�tre un point d'interet (0<=Pinteret<=1)
-	protected double Pagent;//Probabilit� d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
-	protected double Pdensite;//Probabilit� d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	protected final double Pinteret;//Probabilit� de chaque case d'�tre un point d'interet (0<=Pinteret<=1)
+	protected final double Pagent;//Probabilit� d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
+	protected final double Pdensite;//Probabilit� d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
 	protected int ninterets;//Nombre de point d'interet voulu
 	protected int nagents;//Nombre d'agent voulu
 	protected boolean run;//Deplacement des agents
@@ -45,22 +45,21 @@ public class Modele {
 		mode=true;
 		repartition=false;
 		nagents=1;
-		ninterets=500;
+		ninterets=1;
 		nombreInteret=0;
 		memNbInteret=0;
 		timer=false;
 		news=false;
 		switchAffichage=false;
 		changeSize("100");
+
 	}
 
 	public void ajouterVue(Vue v){
 		listVue.add(v);
 	}
 	public void majVues(){
-		for(Vue v : listVue){
-			v.mettreAJour();
-		}
+		listVue.forEach(Vue::mettreAJour);
 	}
 	public int getSizeX(){
 		return monde.length;
@@ -120,6 +119,7 @@ public class Modele {
 	public void deplacementAgent(){
 		for(Agent a : listAgent){
 			monde[a.getX()][a.getY()]=3;
+			//a.returnCenter();
 			if(mode){
 				a.deplacementLevy();
 			}else{
@@ -129,13 +129,12 @@ public class Modele {
 				nombreInteret-=1;
 			}
 			monde[a.getX()][a.getY()]=2;
+			majVues();
 		}
 	}
 
 	public boolean existeInteret(){
-		if(nombreInteret>0)
-			return true;
-		return false;
+		return nombreInteret > 0;
 	}
 	public void newMap(){
 		Random rand=new Random();
@@ -197,7 +196,6 @@ public class Modele {
 		if(listAgent.isEmpty()){
 			newMap();
 		}
-
 		sauvegarder();
 		majVues();
 
@@ -238,9 +236,7 @@ public class Modele {
 
 	public void sauvegarder(){
 		for(int i=0;i<getSizeX();i++){
-			for(int j=0;j<getSizeY();j++){
-				memoire[i][j]=monde[i][j];
-			}
+			System.arraycopy(monde[i], 0, memoire[i], 0, getSizeY());
 		}
 		memNbInteret=nombreInteret;
 	}
@@ -301,7 +297,7 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
-	
+
 	public int getInteret() {
 		return nombreInteret;
 	}

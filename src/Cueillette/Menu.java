@@ -12,7 +12,7 @@ import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
 public class Menu extends JMenuBar {
-		protected Modele modele;
+		protected final Modele modele;
 		
 		public Menu(Modele mod){
 			super();
@@ -25,7 +25,6 @@ public class Menu extends JMenuBar {
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
 			JMenuItem parametres=new JMenuItem("Paramètres");
 			JMenuItem switchAffichage=new JMenuItem("Changer d'affichage");
-			
 			ouvrir.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -43,7 +42,7 @@ public class Menu extends JMenuBar {
 						
 					}
 			});
-			
+		
 			parametres.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
 					new Parametres(null, "parametres", true);
