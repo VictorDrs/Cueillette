@@ -8,6 +8,9 @@ public class Agent {
 	protected int monde[][];//Utile pour le deplacement (dimension du monde)
 	protected int destX,destY;
 	protected int horsX=0,horsY=0;
+	protected static double alpha = 2;
+	protected static int n = 100;
+	protected static int dAlea = 10 ;
 	
 	public Agent(int x,int y,int[][] tab){
 		this.x=x;
@@ -19,15 +22,12 @@ public class Agent {
 
 	public void deplacementLevy(){
 		Random rand=new Random();
-		
-		int n = 100;
-		double alpha = 2;
 		double somme = 0;
 		
 		for(int i=1;i<=n;i++){
-			somme += (rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),alpha));
+			somme += (rand.nextGaussian()/ Math.pow(Math.abs(rand.nextGaussian()),1/alpha));
 		}
-		somme = somme/Math.pow(n,alpha);
+		somme = (somme/Math.pow(n,1/alpha));
 		System.out.println("somme: "+somme);
 		angle(somme);
 /*		
@@ -174,8 +174,8 @@ public class Agent {
 	public void deplacementAlea() {
 		if(x==destX && y==destY){
 			Random rand=new Random();
-			destX+= (int) Math.round((rand.nextGaussian()));		
-			destY+=(int) Math.round((rand.nextGaussian()));	
+			destX+= (int) Math.round((rand.nextGaussian())*dAlea);		
+			destY+=(int) Math.round((rand.nextGaussian())*dAlea);	
 			if(destX<0) horsX=destX + (monde.length-1);
 			else if(destX>monde.length-1) horsX=destX - (monde.length-1);
 			if(destY<0) horsY=destY + (monde.length-1);
@@ -213,5 +213,6 @@ public class Agent {
 	public int getY(){
 		return y;
 	}
+	
 	
 }

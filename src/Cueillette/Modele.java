@@ -32,6 +32,7 @@ public class Modele {
 	protected int nombreInteret,memNbInteret;//Nombre de point d'interets sur la carte
 	protected boolean timer;//Un timer a deja ete lance
 	protected boolean news;//accelere l'interface
+	protected boolean switchAffichage;//modifier la vue Plateau
 
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -49,6 +50,7 @@ public class Modele {
 		memNbInteret=0;
 		timer=false;
 		news=false;
+		switchAffichage=false;
 		changeSize("100");
 	}
 
@@ -299,6 +301,7 @@ public class Modele {
 			System.out.println("Erreur lors de l'ouverture");
 		}
 	}
+	
 	public int getInteret() {
 		return nombreInteret;
 	}

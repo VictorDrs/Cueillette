@@ -14,15 +14,26 @@ public class VuePlateau extends JPanel implements Vue {
 	protected JLabel[][] grille;
 	protected int x,y;
 	protected boolean[][] memoire;
-	
-	
+	protected boolean affichage;
+
 	public VuePlateau(Modele mod){
 		super();
 		modele=mod;
 		memoire=new boolean[modele.getSizeX()][modele.getSizeY()];
+		affichage = false;
 		changeSize();
 	}
 
+	public void changeAffichage(){
+		if(affichage){
+			changeSize();
+		}
+		else{
+			removeAll();
+			repaint();
+		}
+		affichage = !affichage ;
+	}
 
 	public void changeSize(){
 		this.removeAll();
@@ -69,29 +80,34 @@ public class VuePlateau extends JPanel implements Vue {
 	}
 	@Override
 	public void mettreAJour() {
-		if(x!=modele.getSizeX() || y!=modele.getSizeX()){
-			changeSize();
+		if(modele.switchAffichage){
+			changeAffichage();
+			modele.switchAffichage = false;
 		}
-		if(modele.getNews()){
-			int temp=-1;
-			for(int i=0;i<modele.getSizeX();i++){
-				for(int j=0;j<modele.getSizeY();j++){
-					temp=modele.getCase(i, j);
-					if(temp==0){
-						grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/vide.png")));
-					}else if(temp==1){
-						grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/interet.png")));
-					}else if(temp==2){
-						grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/agent.png")));
-					}else if(temp==3){
-						grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/trace.png")));
+		else{
+			if(x!=modele.getSizeX() || y!=modele.getSizeX()){
+				changeSize();
+			}
+			if(modele.getNews()){
+				int temp=-1;
+				for(int i=0;i<modele.getSizeX();i++){
+					for(int j=0;j<modele.getSizeY();j++){
+						temp=modele.getCase(i, j);
+						if(temp==0){
+							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/vide.png")));
+						}else if(temp==1){
+							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/interet.png")));
+						}else if(temp==2){
+							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/agent.png")));
+						}else if(temp==3){
+							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/trace.png")));
+						}
 					}
 				}
+				modele.setNews(false);
+			}else{
+				redraw();
 			}
-			modele.setNews(false);
-		}else{
-			redraw();
 		}
-
 	}
 }
