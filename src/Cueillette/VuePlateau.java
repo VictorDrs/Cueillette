@@ -25,14 +25,20 @@ public class VuePlateau extends JPanel implements Vue {
 	}
 
 	public void changeAffichage(){
-		if(affichage){
+		affichage = !affichage ;
+		if(!affichage){
+			modele.changeSize(Modele.SIZE_DEFAUT);
 			changeSize();
+			System.out.println("on affiche");
 		}
 		else{
 			removeAll();
 			repaint();
+			System.out.println("on efface");
 		}
-		affichage = !affichage ;
+		modele.raz();
+		modele.majVues();
+		System.out.println("affichage: "+affichage);
 	}
 
 	public void changeSize(){
@@ -81,8 +87,8 @@ public class VuePlateau extends JPanel implements Vue {
 	@Override
 	public void mettreAJour() {
 		if(modele.switchAffichage){
-			changeAffichage();
 			modele.switchAffichage = false;
+			changeAffichage();
 		}
 		else{
 			if(x!=modele.getSizeX() || y!=modele.getSizeX()){

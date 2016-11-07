@@ -16,6 +16,7 @@ import javax.swing.Timer;
 public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
+	public static final String SIZE_DEFAUT="100";
 	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
 	protected int[][] memoire;//Stockage de chaque nouveau monde
@@ -51,8 +52,7 @@ public class Modele {
 		timer=false;
 		news=false;
 		switchAffichage=false;
-		changeSize("100");
-
+		changeSize(SIZE_DEFAUT);
 	}
 
 	public void ajouterVue(Vue v){
@@ -136,15 +136,25 @@ public class Modele {
 	public boolean existeInteret(){
 		return nombreInteret > 0;
 	}
-	public void newMap(){
-		Random rand=new Random();
+	
+	public void raz(){
 		listAgent.clear();
 		nbPas=0;
-		int n = 0 ;
-		int m = 0 ;
 		nombreInteret=0;
 		run=false;
 		news=true;
+		for(int i=0;i<getSizeX();i++){
+			for(int j=0;j<getSizeY();j++){
+				monde[i][j]=0;
+			}
+		}
+	}
+	
+	public void newMap(){
+		raz();
+		Random rand=new Random();
+		int n = 0 ;
+		int m = 0 ;
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=0;
