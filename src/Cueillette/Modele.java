@@ -16,7 +16,7 @@ import javax.swing.Timer;
 public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
-	public static final String SIZE_DEFAUT="100";
+	public static final String SIZE_DEFAUT="100";//Constante taille map par défaut
 	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
 	protected int[][] memoire;//Stockage de chaque nouveau monde
