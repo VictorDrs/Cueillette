@@ -16,7 +16,7 @@ import javax.swing.Timer;
 public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
-	public static final String SIZE_DEFAUT="100";//Constante taille map par défaut
+	public static final String SIZE_DEFAUT="100";//Constante taille map par dï¿½faut
 	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
 	protected int[][] memoire;//Stockage de chaque nouveau monde
@@ -136,7 +136,7 @@ public class Modele {
 	public boolean existeInteret(){
 		return nombreInteret > 0;
 	}
-	
+
 	public void raz(){
 		listAgent.clear();
 		nbPas=0;
@@ -149,7 +149,7 @@ public class Modele {
 			}
 		}
 	}
-	
+
 	public void newMap(){
 		raz();
 		Random rand=new Random();

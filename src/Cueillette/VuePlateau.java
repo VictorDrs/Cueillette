@@ -7,6 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class VuePlateau extends JPanel implements Vue {
@@ -15,6 +16,10 @@ public class VuePlateau extends JPanel implements Vue {
 	protected int x,y;
 	protected boolean[][] memoire;
 	protected boolean affichage;
+	protected ImageIcon imgAgent;
+	protected ImageIcon imgVide;
+	protected ImageIcon imgInteret;
+	protected ImageIcon imgTrace;
 
 	public VuePlateau(Modele mod){
 		super();
@@ -22,6 +27,11 @@ public class VuePlateau extends JPanel implements Vue {
 		memoire=new boolean[modele.getSizeX()][modele.getSizeY()];
 		affichage = false;
 		changeSize();
+		imgAgent=new ImageIcon(getClass().getResource("/resources/agent.png"));
+		imgVide=new ImageIcon(getClass().getResource("/resources/vide.png"));
+		imgInteret=new ImageIcon(getClass().getResource("/resources/interet.png"));
+		imgTrace=new ImageIcon(getClass().getResource("/resources/trace.png"));
+
 	}
 
 	public void changeAffichage(){
@@ -50,11 +60,11 @@ public class VuePlateau extends JPanel implements Vue {
 		for(int i=0;i<modele.getSizeX();i++){
 			for(int j=0;j<modele.getSizeY();j++){
 				if(modele.getCase(i, j)==0){
-					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/vide.png")));
+					grille[i][j]=new JLabel(imgVide);
 				}else if(modele.getCase(i, j)==1){
-					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/interet.png")));
+					grille[i][j]=new JLabel(imgInteret);
 				}else if(modele.getCase(i, j)==2){
-					grille[i][j]=new JLabel(new ImageIcon(getClass().getResource("/resources/agent.png")));
+					grille[i][j]=new JLabel(imgAgent);
 				}
 				this.add(grille[i][j]);
 			}
@@ -73,11 +83,11 @@ public class VuePlateau extends JPanel implements Vue {
 			for(int j=0;j<modele.getSizeY();j++){
 				temp=modele.getCase(i, j);
 				if(temp==2){
-					grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/agent.png")));
+					grille[i][j].setIcon(imgAgent);
 					memoire[i][j]=false;
 				}else if(temp==3){
 					if(!memoire[i][j]){
-						grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/trace.png")));
+						grille[i][j].setIcon(imgTrace);
 						memoire[i][j]=true;
 					}
 				}
@@ -95,18 +105,18 @@ public class VuePlateau extends JPanel implements Vue {
 				changeSize();
 			}
 			if(modele.getNews()){
-				int temp=-1;
+				int temp;
 				for(int i=0;i<modele.getSizeX();i++){
 					for(int j=0;j<modele.getSizeY();j++){
 						temp=modele.getCase(i, j);
 						if(temp==0){
-							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/vide.png")));
+							grille[i][j].setIcon(imgVide);
 						}else if(temp==1){
-							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/interet.png")));
+							grille[i][j].setIcon(imgInteret);
 						}else if(temp==2){
-							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/agent.png")));
+							grille[i][j].setIcon(imgAgent);
 						}else if(temp==3){
-							grille[i][j].setIcon(new ImageIcon(getClass().getResource("/resources/trace.png")));
+							grille[i][j].setIcon(imgTrace);
 						}
 					}
 				}
