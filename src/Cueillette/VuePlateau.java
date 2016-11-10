@@ -94,6 +94,7 @@ public class VuePlateau extends JPanel implements Vue {
 			}
 		}
 	}
+
 	@Override
 	public void mettreAJour() {
 		if(modele.switchAffichage){
