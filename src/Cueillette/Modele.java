@@ -34,6 +34,7 @@ public class Modele {
 	protected boolean timer;//Un timer a deja ete lance
 	protected boolean news;//accelere l'interface
 	protected boolean switchAffichage;//modifier la vue Plateau
+	protected int distance = 15 ;
 
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -185,8 +186,8 @@ public class Modele {
 					for(int j=0;j<getSizeY();j++){
 						if(monde[i][j]==4){
 							for(int k=0;k<10;k++){
-								int xi=i+rand.nextInt(3);
-								int yj=j+rand.nextInt(3);
+								int xi=i+rand.nextInt(getSizeX()/distance);
+								int yj=j+rand.nextInt(getSizeX()/distance);
 								if(xi>=getSizeX()) xi-=getSizeX();
 								if(yj>=getSizeX()) yj-=getSizeX();
 								if(yj<0) yj+=getSizeX()-1;

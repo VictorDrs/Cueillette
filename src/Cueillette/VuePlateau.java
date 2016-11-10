@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+//import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class VuePlateau extends JPanel implements Vue {
