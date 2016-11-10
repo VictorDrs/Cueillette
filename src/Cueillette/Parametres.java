@@ -29,8 +29,8 @@ public class Parametres extends JDialog{
 	private JTextField nLevy;
 	private JTextField dAlea;
 
-	public Parametres(JFrame parent, String title, boolean modal){
-		super(parent, title, modal);
+	public Parametres(){
+		super((JFrame) null, "parametres", true);
 		this.setSize(700, 270);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -67,7 +67,7 @@ public class Parametres extends JDialog{
 		JPanel aleatoire = new JPanel();
 		aleatoire.setBackground(Color.white);
 		aleatoire.setPreferredSize(new Dimension(320, 110));
-		aleatoire.setBorder(BorderFactory.createTitledBorder("Déplacement aléatoire"));
+		aleatoire.setBorder(BorderFactory.createTitledBorder("Dï¿½placement alï¿½atoire"));
 		
 		formuleAleaLabel = new JTextArea("formule : \nGaussien * d");
 		formuleAleaLabel.setPreferredSize(new Dimension(300, 50));
@@ -135,7 +135,7 @@ public class Parametres extends JDialog{
 	private int getDAlea(){
 		int d=Integer.parseInt(dAlea.getText());
 		if(d<=0)
-			throw new NumberFormatException("Déplacement aléatoire - d");
+			throw new NumberFormatException("Dï¿½placement alï¿½atoire - d");
 		return d;
 	}
 }

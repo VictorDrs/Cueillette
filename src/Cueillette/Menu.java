@@ -23,7 +23,7 @@ public class Menu extends JMenuBar {
 			menu.setMnemonic(KeyEvent.VK_O);
 			
 			JMenuItem ouvrir=new JMenuItem("Ouvrir");
-			JMenuItem parametres=new JMenuItem("Paramètres");
+			JMenuItem parametres=new JMenuItem("ParamÃ¨tres");
 			JMenuItem switchAffichage=new JMenuItem("Changer d'affichage");
 			ouvrir.addActionListener(new ActionListener(){
 				@Override
@@ -45,7 +45,7 @@ public class Menu extends JMenuBar {
 		
 			parametres.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					new Parametres(null, "parametres", true);
+					new Parametres();
 				}
 			});
 			
