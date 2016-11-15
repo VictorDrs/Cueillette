@@ -7,7 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-//import javax.swing.border.Border;
 
 @SuppressWarnings("serial")
 public class VuePlateau extends JPanel implements Vue {
@@ -37,8 +36,8 @@ public class VuePlateau extends JPanel implements Vue {
 	public void changeAffichage(){
 		affichage = !affichage ;
 		if(!affichage){
-			modele.changeSize(Modele.SIZE_DEFAUT);
-			changeSize();
+			modele.setNews(true);
+			modele.majVues();
 			System.out.println("on affiche");
 		}
 		else{
@@ -47,7 +46,6 @@ public class VuePlateau extends JPanel implements Vue {
 			System.out.println("on efface");
 		}
 		modele.raz();
-		modele.majVues();
 		System.out.println("affichage: "+affichage);
 	}
 
@@ -95,6 +93,12 @@ public class VuePlateau extends JPanel implements Vue {
 		}
 	}
 
+	public void mapVide(){
+            this.removeAll();
+            repaint();
+            changeSize();
+    }
+
 	@Override
 	public void mettreAJour() {
 		if(modele.switchAffichage){
@@ -106,21 +110,7 @@ public class VuePlateau extends JPanel implements Vue {
 				changeSize();
 			}
 			if(modele.getNews()){
-				int temp;
-				for(int i=0;i<modele.getSizeX();i++){
-					for(int j=0;j<modele.getSizeY();j++){
-						temp=modele.getCase(i, j);
-						if(temp==0){
-							grille[i][j].setIcon(imgVide);
-						}else if(temp==1){
-							grille[i][j].setIcon(imgInteret);
-						}else if(temp==2){
-							grille[i][j].setIcon(imgAgent);
-						}else if(temp==3){
-							grille[i][j].setIcon(imgTrace);
-						}
-					}
-				}
+                mapVide();
 				modele.setNews(false);
 			}else{
 				redraw();

@@ -29,8 +29,8 @@ public class Parametres extends JDialog{
 	private JTextField nLevy;
 	private JTextField dAlea;
 
-	public Parametres(JFrame parent, String title, boolean modal){
-		super(parent, title, modal);
+	public Parametres(){
+		super((JFrame) null, "parametres", true);
 		this.setSize(700, 270);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

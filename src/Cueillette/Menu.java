@@ -45,7 +45,7 @@ public class Menu extends JMenuBar {
 		
 			parametres.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e) {
-					new Parametres(null, "parametres", true);
+					new Parametres();
 				}
 			});
 			

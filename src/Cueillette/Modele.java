@@ -17,6 +17,8 @@ public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	public static final String SIZE_DEFAUT="100";//Constante taille map par d�faut
+	protected static int distance = 10 ;//Diametre dans lequel apparaissent les points d'interets repartis par paquets
+	protected static int densite = 10 ;//Densite des points d'interets repartis par paquets au sein d'un paquet
 	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
 	protected int[][] monde;//Stockage de la grille
 	protected int[][] memoire;//Stockage de chaque nouveau monde
@@ -34,7 +36,6 @@ public class Modele {
 	protected boolean timer;//Un timer a deja ete lance
 	protected boolean news;//accelere l'interface
 	protected boolean switchAffichage;//modifier la vue Plateau
-	protected int distance = 15 ;
 
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -143,7 +144,6 @@ public class Modele {
 		nbPas=0;
 		nombreInteret=0;
 		run=false;
-		news=true;
 		for(int i=0;i<getSizeX();i++){
 			for(int j=0;j<getSizeY();j++){
 				monde[i][j]=0;
@@ -153,6 +153,7 @@ public class Modele {
 
 	public void newMap(){
 		raz();
+		news=true;
 		Random rand=new Random();
 		int n = 0 ;
 		int m = 0 ;
@@ -185,7 +186,7 @@ public class Modele {
 				for(int i=0;i<getSizeX();i++){
 					for(int j=0;j<getSizeY();j++){
 						if(monde[i][j]==4){
-							for(int k=0;k<10;k++){
+							for(int k=0;k<densite;k++){
 								int xi=i+rand.nextInt(getSizeX()/distance);
 								int yj=j+rand.nextInt(getSizeX()/distance);
 								if(xi>=getSizeX()) xi-=getSizeX();
