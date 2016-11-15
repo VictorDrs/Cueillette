@@ -78,13 +78,13 @@ public class VueControl extends JPanel implements Vue {
 		});
 		levy.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0) {
-				modele.setMode(true);
+				modele.setMode(2);
 			}
 		});
 		alea.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modele.setMode(false);				
+				modele.setMode(1);
 			}
 		});
 		

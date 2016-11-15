@@ -17,23 +17,24 @@ public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	public static final String SIZE_DEFAUT="100";//Constante taille map par d�faut
-	protected final ArrayList<Vue>listVue;//Liste des vues du MVC
-	protected int[][] monde;//Stockage de la grille
-	protected int[][] memoire;//Stockage de chaque nouveau monde
-	protected final ArrayList<Agent>listAgent;//Liste des agents sur la grille
-	protected int nbPas;//Nombre de pas des agents
-	protected boolean mode;//Designe le mode de recherche (Levy/aleatoire)
-	protected boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
-	protected final double Pinteret;//Probabilit� de chaque case d'�tre un point d'interet (0<=Pinteret<=1)
-	protected final double Pagent;//Probabilit� d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
-	protected final double Pdensite;//Probabilit� d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
-	protected int ninterets;//Nombre de point d'interet voulu
-	protected int nagents;//Nombre d'agent voulu
-	protected boolean run;//Deplacement des agents
-	protected int nombreInteret,memNbInteret;//Nombre de point d'interets sur la carte
-	protected boolean timer;//Un timer a deja ete lance
-	protected boolean news;//accelere l'interface
-	protected boolean switchAffichage;//modifier la vue Plateau
+	private final ArrayList<Vue>listVue;//Liste des vues du MVC
+	private int[][] monde;//Stockage de la grille
+	private int[][] memoire;//Stockage de chaque nouveau monde
+	private final ArrayList<Agent>listAgent;//Liste des agents sur la grille
+	private int nbPas;//Nombre de pas des agents
+	private int mode;//Designe le mode de recherche (Levy/aleatoire)
+	private boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
+	private final double Pinteret;//Probabilit� de chaque case d'�tre un point d'interet (0<=Pinteret<=1)
+	private final double Pagent;//Probabilit� d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
+	private final double Pdensite;//Probabilit� d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
+	private int ninterets;//Nombre de point d'interet voulu
+	private int nagents;//Nombre d'agent voulu
+	private boolean run;//Deplacement des agents
+	private int nombreInteret;
+	private int memNbInteret;//Nombre de point d'interets sur la carte
+	private boolean timer;//Un timer a deja ete lance
+	private boolean news;//accelere l'interface
+	boolean switchAffichage;//modifier la vue Plateau
 
 	public Modele(){
 		listVue=new ArrayList<>();
@@ -43,7 +44,7 @@ public class Modele {
 		Pagent=0.0001;
 		Pdensite=0.0001;
 		run=false;
-		mode=true;
+		mode=1;
 		repartition=false;
 		nagents=1;
 		ninterets=1;
@@ -79,7 +80,7 @@ public class Modele {
 	public boolean getNews(){
 		return news;
 	}
-	public void setMode(boolean s) {
+	public void setMode(int s) {
 		mode=s;
 	}
 
@@ -116,15 +117,12 @@ public class Modele {
 		}
 	}
 
-	public void deplacementAgent(){
+	private void deplacementAgent(){
 		for(Agent a : listAgent){
 			monde[a.getX()][a.getY()]=3;
 			//a.returnCenter();
-			if(mode){
-				a.deplacementLevy();
-			}else{
-				a.deplacementAlea();
-			}
+			a.changerDeplacement(mode);
+			a.deplacement();
 			if(monde[a.getX()][a.getY()]==1){
 				nombreInteret-=1;
 			}
@@ -133,7 +131,7 @@ public class Modele {
 		}
 	}
 
-	public boolean existeInteret(){
+	private boolean existeInteret(){
 		return nombreInteret > 0;
 	}
 
@@ -225,7 +223,7 @@ public class Modele {
 
 	}
 
-	public void ajouterAgent(){
+	private void ajouterAgent(){
 		listAgent.clear();
 		Random rand=new Random();
 		while(listAgent.size()!=nagents){
@@ -244,7 +242,7 @@ public class Modele {
 		sauvegarder();
 	}
 
-	public void sauvegarder(){
+	private void sauvegarder(){
 		for(int i=0;i<getSizeX();i++){
 			System.arraycopy(monde[i], 0, memoire[i], 0, getSizeY());
 		}

@@ -6,9 +6,9 @@ import java.awt.Dimension;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class LancerGUI extends JFrame {
+class LancerGUI extends JFrame {
 	
-	public LancerGUI(){
+	private LancerGUI(){
 		super("Cueillette exploratoire");
 		
 

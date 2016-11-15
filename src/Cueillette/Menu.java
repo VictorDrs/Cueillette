@@ -11,8 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
-public class Menu extends JMenuBar {
-		protected final Modele modele;
+class Menu extends JMenuBar {
+		private final Modele modele;
 		
 		public Menu(Modele mod){
 			super();
