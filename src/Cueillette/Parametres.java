@@ -1,5 +1,8 @@
 package Cueillette;
 
+import Deplacement.DeplacementAlea;
+import Deplacement.DeplacementLevy;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +33,7 @@ public class Parametres extends JDialog{
 	private JTextField dAlea;
 
 	public Parametres(){
-		super((JFrame) null, "parametres", true);
+		super((JFrame) null, "paramÃ¨tres", true);
 		this.setSize(700, 270);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -53,13 +56,13 @@ public class Parametres extends JDialog{
 		volLevy.add(formuleLevyLabel);
 		
 		alphaLevyLabel = new JLabel("alpha : ");
-		alphaLevy = new JTextField(Agent.alpha +"");
+		alphaLevy = new JTextField(DeplacementLevy.getAlpha() +"");
 		alphaLevy.setPreferredSize(new Dimension(100, 25));
 		volLevy.add(alphaLevyLabel);
 		volLevy.add(alphaLevy);
 		
 		nLevyLabel = new JLabel("n : ");
-		nLevy = new JTextField(Agent.n +"");
+		nLevy = new JTextField(DeplacementLevy.getN() +"");
 		nLevy.setPreferredSize(new Dimension(100, 25));
 		volLevy.add(nLevyLabel);
 		volLevy.add(nLevy);
@@ -68,7 +71,7 @@ public class Parametres extends JDialog{
 		aleatoire.setBackground(Color.white);
 		aleatoire.setPreferredSize(new Dimension(320, 110));
 		aleatoire.setBorder(BorderFactory.createTitledBorder("Déplacement aléatoire"));
-		
+
 		formuleAleaLabel = new JTextArea("formule : \nGaussien * d");
 		formuleAleaLabel.setPreferredSize(new Dimension(300, 50));
 		formuleAleaLabel.setEditable(false);
@@ -76,7 +79,7 @@ public class Parametres extends JDialog{
 		aleatoire.add(formuleAleaLabel);
 		
 		dAleaLabel = new JLabel("d : ");
-		dAlea = new JTextField(Agent.dAlea +"");
+		dAlea = new JTextField(DeplacementAlea.getdAlea() +"");
 		dAlea.setPreferredSize(new Dimension(100, 25));
 		aleatoire.add(dAleaLabel);
 		aleatoire.add(dAlea);
@@ -94,9 +97,9 @@ public class Parametres extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				setVisible(true);
 				try{
-					Agent.alpha = getAlphaLevy();
-					Agent.n = getNLevy();
-					Agent.dAlea = getDAlea();
+					DeplacementLevy.setAlpha(getAlphaLevy());
+					DeplacementLevy.setN(getNLevy());
+					DeplacementAlea.setdAlea(getDAlea());
 					setVisible(false);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
