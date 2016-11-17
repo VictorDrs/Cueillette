@@ -1,5 +1,7 @@
 package Deplacement;
 
+import Cueillette.Monde;
+
 import java.util.Random;
 
 /**
@@ -9,13 +11,13 @@ public class DeplacementLevy extends Deplacement{
     public static double alpha = 2;
     static int n = 100;
 
-    public DeplacementLevy(int[][] monde,int x,int y) {
+    public DeplacementLevy(Monde monde, int x, int y) {
         super(monde,x,y);
     }
 
 
     private void deplacement(double dist){
-        dist = (Math.abs(dist) % monde.length);
+        dist = (Math.abs(dist) % monde.getSizeX());
         if ((int) dist == 0) {
             dist++;
         }

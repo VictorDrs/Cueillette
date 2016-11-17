@@ -91,6 +91,7 @@ public class VuePlateau extends JPanel implements Vue {
 				}
 			}
 		}
+
 	}
 
 	public void mapVide(){
@@ -116,5 +117,7 @@ public class VuePlateau extends JPanel implements Vue {
 				redraw();
 			}
 		}
+
 	}
+
 }
