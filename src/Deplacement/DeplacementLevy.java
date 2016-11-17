@@ -6,7 +6,9 @@ import java.util.Random;
  * Created by Victor on 15/11/2016.
  */
 public class DeplacementLevy extends Deplacement{
-    public static double alpha = 2;
+    public static final double ALPHA = 2;
+    public static final int N = 100;
+	public static double alpha = 2;
     static int n = 100;
 
     public DeplacementLevy(int[][] monde,int x,int y) {
@@ -130,5 +132,6 @@ public class DeplacementLevy extends Deplacement{
     public static void setN(int n) {
         DeplacementLevy.n = n;
     }
+    
 }
 

@@ -32,7 +32,7 @@ public class Modele {
 	private int ninterets;//Nombre de point d'interet voulu
 	private int nagents;//Nombre d'agent voulu
 	private boolean run;//Deplacement des agents
-	private int nombreInteret;
+	private int nombreInteret;//Nombre d'interets au cours de la partie
 	private int memNbInteret;//Nombre de point d'interets sur la carte
 	private boolean timer;//Un timer a deja ete lance
 	private boolean news;//accelere l'interface

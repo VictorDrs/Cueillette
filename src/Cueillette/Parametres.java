@@ -28,13 +28,14 @@ public class Parametres extends JDialog{
 	private JLabel alphaLevyLabel;
 	private JLabel nLevyLabel;
 	private JLabel dAleaLabel;
+	private JLabel retablirLabel;
 	private JTextField alphaLevy;
 	private JTextField nLevy;
 	private JTextField dAlea;
 
 	public Parametres(){
-		super((JFrame) null, "paramÃ¨tres", true);
-		this.setSize(700, 270);
+		super((JFrame) null, "parametres", true);
+		this.setSize(700, 300);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -84,12 +85,27 @@ public class Parametres extends JDialog{
 		aleatoire.add(dAleaLabel);
 		aleatoire.add(dAlea);
 		
+		JPanel defaut = new JPanel();
+		defaut.setBackground(Color.white);
+		defaut.setPreferredSize(new Dimension(640, 60));
+		defaut.setBorder(BorderFactory.createTitledBorder("Défaut"));
+
+		retablirLabel = new JLabel("rétablir les valeurs par défaut: ");
+		JButton retablir = new JButton("rétablir");
+		retablir.addActionListener(new ActionListener(){
+		      public void actionPerformed(ActionEvent arg0) {
+		        //TODO
+		      }
+		});
+		retablir.setPreferredSize(new Dimension(100, 25));
+		defaut.add(retablirLabel);
+		defaut.add(retablir);
+		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
 		content.add(volLevy);
 		content.add(aleatoire);
-
-		JPanel control = new JPanel();
+		content.add(defaut);
 		
 		JButton okBouton = new JButton("OK");
 		okBouton.addActionListener(new ActionListener(){
@@ -113,7 +129,8 @@ public class Parametres extends JDialog{
 	        setVisible(false);
 	      }      
 	    });
-
+	    
+	    JPanel control = new JPanel();
 	    control.add(okBouton);
 	    control.add(cancelBouton);
 

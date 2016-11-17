@@ -1,5 +1,6 @@
 package Cueillette;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -19,6 +20,7 @@ public class VuePlateau extends JPanel implements Vue {
 	protected ImageIcon imgVide;
 	protected ImageIcon imgInteret;
 	protected ImageIcon imgTrace;
+	protected Resultats resultats;
 
 	public VuePlateau(Modele mod){
 		super();
@@ -30,7 +32,7 @@ public class VuePlateau extends JPanel implements Vue {
 		imgVide=new ImageIcon(getClass().getResource("/resources/vide.png"));
 		imgInteret=new ImageIcon(getClass().getResource("/resources/interet.png"));
 		imgTrace=new ImageIcon(getClass().getResource("/resources/trace.png"));
-
+		resultats=new Resultats();
 	}
 
 	public void changeAffichage(){
@@ -38,12 +40,15 @@ public class VuePlateau extends JPanel implements Vue {
 		if(!affichage){
 			modele.setNews(true);
 			modele.majVues();
-			System.out.println("on affiche");
+			System.out.println("plateau");
 		}
 		else{
 			removeAll();
+			setLayout(new BorderLayout());
+			add(resultats, BorderLayout.CENTER);
 			repaint();
-			System.out.println("on efface");
+			validate();
+			System.out.println("resultats");
 		}
 		modele.raz();
 		System.out.println("affichage: "+affichage);
@@ -105,7 +110,7 @@ public class VuePlateau extends JPanel implements Vue {
 			modele.switchAffichage = false;
 			changeAffichage();
 		}
-		else{
+		else if(!affichage){
 			if(x!=modele.getSizeX() || y!=modele.getSizeX()){
 				changeSize();
 			}
