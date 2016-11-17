@@ -1,5 +1,7 @@
 package Deplacement;
 
+import Cueillette.Monde;
+
 import java.util.Random;
 
 /**
@@ -13,7 +15,7 @@ public class DeplacementAlea extends Deplacement{
     private int horsY=0;
 
 
-    public DeplacementAlea(int[][] monde, int x, int y) {
+    public DeplacementAlea(Monde monde, int x, int y) {
         super(monde,x,y);
     }
 
@@ -23,10 +25,10 @@ public class DeplacementAlea extends Deplacement{
                 Random rand=new Random();
                 destX+= (int) Math.round((rand.nextGaussian())*dAlea);
                 destY+=(int) Math.round((rand.nextGaussian())*dAlea);
-                if(destX<0) horsX=destX + (monde.length-1);
-                else if(destX>monde.length-1) horsX=destX - (monde.length-1);
-                if(destY<0) horsY=destY + (monde.length-1);
-                else if(destY>monde.length-1) horsY=destY - (monde.length-1);
+                if(destX<0) horsX=destX + (monde.getSizeX()-1);
+                else if(destX>monde.getSizeX()-1) horsX=destX - (monde.getSizeX()-1);
+                if(destY<0) horsY=destY + (monde.getSizeX()-1);
+                else if(destY>monde.getSizeX()-1) horsY=destY - (monde.getSizeX()-1);
                 //System.out.println("destX: "+destX+" - destY: "+ destY);
             }
             if(horsX!=0){

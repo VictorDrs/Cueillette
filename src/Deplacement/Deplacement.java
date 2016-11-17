@@ -1,13 +1,15 @@
 package Deplacement;
 
+import Cueillette.Monde;
+
 /**
  * Created by Victor on 15/11/2016.
  */
 public abstract class Deplacement {
-    protected final int[][] monde;
+    protected final Monde monde;
     protected int coordX,coordY;
 
-    protected Deplacement(int[][] monde,int x,int y) {
+    protected Deplacement(Monde monde,int x,int y) {
         this.monde = monde;
         coordX=x;
         coordY=y;
@@ -18,19 +20,19 @@ public abstract class Deplacement {
 
     protected void verifDim(){
         do{
-            if(coordX>=monde.length){
-                coordX=coordX-monde.length;
+            if(coordX>=monde.getSizeX()){
+                coordX=coordX-monde.getSizeX();
             }
-            if(coordY>=monde.length){
-                coordY=coordY-monde.length;
+            if(coordY>=monde.getSizeX()){
+                coordY=coordY-monde.getSizeX();
             }
             if(coordX<0){
-                coordX=monde.length+coordX;
+                coordX=monde.getSizeX()+coordX;
             }
             if(coordY<0){
-                coordY=monde.length+coordY;
+                coordY=monde.getSizeX()+coordY;
             }
-        }while(coordY<0 || coordX<0 || coordY>=monde.length || coordX>=monde.length);
+        }while(coordY<0 || coordX<0 || coordY>=monde.getSizeX() || coordX>=monde.getSizeX());
     }
     public int getCoordX() {
         return coordX;
@@ -39,4 +41,5 @@ public abstract class Deplacement {
     public int getCoordY() {
         return coordY;
     }
+
 }

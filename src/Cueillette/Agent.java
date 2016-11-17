@@ -5,17 +5,18 @@ import Deplacement.*;
 class Agent {
 	private int x;
 	private int y;//Coord de l'agent
-	private final int[][] monde;//Utile pour le deplacement (dimension du monde)
+	private final Monde monde;//Utile pour le deplacement (dimension du monde)
 	private Deplacement dep;
 	private int memDep;
 
 
-	public Agent(int x,int y,int[][] tab){
+
+	public Agent(int x,int y,Monde tab){
 		this.x=x;
 		this.y=y;
 		monde=tab;
-		memDep=1;
-		dep=new DeplacementAlea(monde,x,y);
+		memDep=3;
+		dep=new DeplacementPerso(monde,x,y);
 	}
 
 
@@ -37,7 +38,6 @@ class Agent {
 			}
 		}
 	}
-
 
 	public void returnCenter(){
 		x=50;
