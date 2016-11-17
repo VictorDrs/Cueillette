@@ -39,7 +39,6 @@ class Agent {
 		}
 	}
 
-
 	public void returnCenter(){
 		x=50;
 		y=50;
