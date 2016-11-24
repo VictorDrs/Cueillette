@@ -22,6 +22,7 @@ public class Resultats extends JPanel{
 	private JPanel lancerPartie;
 	private JLabel nbPartiesLabel;
 	private JTextField nbParties;
+	private Statistiques stat;
 	
 	public Resultats(){
 		super();
@@ -33,7 +34,7 @@ public class Resultats extends JPanel{
 		lancerPartie.setBackground(Color.white);
 		lancerPartie.setPreferredSize(new Dimension(500, 110));
 		lancerPartie.setBorder(BorderFactory.createTitledBorder("Lancer les parties"));
-		
+		stat=new Statistiques();
 		nbPartiesLabel = new JLabel("Nombre de parties à lancer: ");
 		nbParties = new JTextField();
 		nbParties.setPreferredSize(new Dimension(100, 25));
@@ -53,8 +54,7 @@ public class Resultats extends JPanel{
 				setVisible(true);
 				try{
 					setN(getNbParties());
-					// LANCER LES PARTIES
-					String[] s = {"ligne 1", "ligne 2", "ligne 3", "ligne 4", "ligne 5", "ligne 6", "ligne 7", "ligne 8", "ligne 9", "ligne 10"};
+					String[] s=stat.run(n);
 					afficheStats(s);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);

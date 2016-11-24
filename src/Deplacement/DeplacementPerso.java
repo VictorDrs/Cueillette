@@ -17,13 +17,13 @@ public class DeplacementPerso extends Deplacement{
 
     @Override
     public void mouvement() {
+        int nbPas=0;
         Random rand = new Random();
-        coordY+=1;
-        verifDim();
-        while (dejaVu[coordX][coordY]) {
-            coordY-=1;
-            coordX+=rand.nextInt(3)-1;
+        while (dejaVu[coordX][coordY] &&  nbPas<350) {
+            coordY+=rand.nextInt(monde.getSizeX());
+            coordX+=rand.nextInt(monde.getSizeX());
             verifDim();
+            nbPas++;
         }
         dejaVu[coordX][coordY]=true;
         verifDim();

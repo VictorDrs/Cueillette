@@ -14,8 +14,6 @@ public class VueScore extends JPanel implements Vue {
 	public VueScore(Modele mod){
 		super();
 		modele=mod;
-		
-		
 		score=new JLabel("Nombre de pas : "+modele.getNbPas());
 		interet=new JLabel("Nombre de point restant : "+modele.getInteret()+" ("+(modele.getInteretPourcent()+"%)"));
 		agent=new JLabel("Nombre d'agent(s) : "+modele.getNbAgent());

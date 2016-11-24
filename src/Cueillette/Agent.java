@@ -8,12 +8,15 @@ class Agent {
 	private final Monde monde;//Utile pour le deplacement (dimension du monde)
 	private Deplacement dep;
 	private int memDep;
-
+	private int memX;
+	private int memY;
 
 
 	public Agent(int x,int y,Monde tab){
 		this.x=x;
 		this.y=y;
+		memX=x;
+		memY=y;
 		monde=tab;
 		memDep=3;
 		dep=new DeplacementPerso(monde,x,y);
@@ -52,9 +55,18 @@ class Agent {
 		return y;
 	}
 
+	public int getMemX() {
+		return memX;
+	}
+
+	public int getMemY() {
+		return memY;
+	}
 
 	public void deplacement() {
 		dep.mouvement();
+		memX=x;
+		memY=y;
 		x=dep.getCoordX();
 		y=dep.getCoordY();
 	}

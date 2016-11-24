@@ -19,7 +19,6 @@ public class Modele {
 	private final ArrayList<Vue>listVue;//Liste des vues du MVC
 	private Monde monde;//Stockage de la grille
 	private Monde memoire;//Stockage de chaque nouveau monde
-	private int nbPas;//Nombre de pas des agents
 	private int mode;//Designe le mode de recherche (Levy/aleatoire)
 	private boolean run;//Deplacement des agents
 	private boolean timer;//Un timer a deja ete lance
@@ -32,7 +31,7 @@ public class Modele {
 		listAgent=new ArrayList<>();
 		monde=new Monde();
 		memoire=new Monde();
-		nbPas=0;
+		monde.setNbPas(0);
 		run=false;
 		mode=1;
 		timer=false;
@@ -48,7 +47,7 @@ public class Modele {
 		listVue.forEach(Vue::mettreAJour);
 	}
 	public int getNbPas(){
-		return nbPas;
+		return monde.getNbPas();
 	}
 	public void setNews(boolean b){
 		news=b;
@@ -95,18 +94,15 @@ public class Modele {
 	}
 
 	public void step(){
-		long tim=System.currentTimeMillis();
 		if(existeInteret()){
 			deplacementAgent();
-			nbPas++;
+			monde.nbPasPlusUn();
 		}else{
 			run=false;
 		}
-		System.out.println(System.currentTimeMillis()-tim);
 	}
 
 	private void deplacementAgent(){
-
 		for(Agent a : listAgent){
 			monde.setCase(a.getX(),a.getY(),3);
 			a.changerDeplacement(mode);
@@ -114,7 +110,6 @@ public class Modele {
 			monde.checkInteret(a.getX(),a.getY());
 			monde.setCase(a.getX(),a.getY(),2);
 		}
-		majVues();
 	}
 
 	private boolean existeInteret(){
@@ -123,7 +118,7 @@ public class Modele {
 
 	public void raz(){
 		listAgent.clear();
-		nbPas=0;
+		monde.setNbPas(0);
 		run=false;
 		monde.raz();
 	}
@@ -143,6 +138,7 @@ public class Modele {
 		listAgent.clear();
 		monde=new Monde(x,x);
 		memoire=new  Monde(x,x);
+		newMap();
 	}
 
 	private void ajouterAgent(){
@@ -162,7 +158,7 @@ public class Modele {
 
 	public void relancer(){
 		news=true;
-		nbPas=0;
+		monde.setNbPas(0);
 		monde.setNinterets(memoire.getNinterets());
 		run=false;
 		news=true;
@@ -205,9 +201,10 @@ public class Modele {
 					}
 					ligne=filtre.readLine();
 				}
-				sauvegarder();
+
 				ajouterAgent();
 				monde.cmpInteret();
+				sauvegarder();
 				this.majVues();
 			}else{
 				System.out.println("Fichier illisible");
@@ -246,5 +243,13 @@ public class Modele {
 	public int getInteretPourcent() {
 		float x= (float) monde.getNombreInteret()/monde.getNinterets();
 		return (int) (x*100);
+	}
+
+	public ArrayList<Agent> getAgent() {
+		return listAgent;
+	}
+
+	public boolean isRunning() {
+		return monde.existeInteret();
 	}
 }
