@@ -8,10 +8,10 @@ import java.util.Random;
  * Created by Victor on 15/11/2016.
  */
 public class DeplacementLevy extends Deplacement{
-    public static final double ALPHA = 2;
-    public static final int N = 100;
-	public static double alpha = 2;
-    static int n = 100;
+    private static final double ALPHA = 2;
+    private static final int N = 100;
+	private static double alpha = ALPHA;
+    private static int n = N;
 
     public DeplacementLevy(Monde monde, int x, int y) {
         super(monde,x,y);
@@ -119,14 +119,22 @@ public class DeplacementLevy extends Deplacement{
 		verifDim();
     */}
 
-    public static double getAlpha() {
+	public static double getAlpha() {
         return alpha;
     }
-
+	
+	public static double getAlphaDefaut() {
+        return ALPHA;
+    }
+	
     public static int getN() {
         return n;
     }
 
+    public static int getNDefaut(){
+    	return N;
+    }
+    
     public static void setAlpha(double alpha) {
         DeplacementLevy.alpha = alpha;
     }

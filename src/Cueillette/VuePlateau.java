@@ -37,6 +37,7 @@ public class VuePlateau extends JPanel implements Vue {
 
 	public void changeAffichage(){
 		affichage = !affichage ;
+		modele.raz();
 		if(!affichage){
 			modele.setNews(true);
 			modele.majVues();
@@ -50,7 +51,6 @@ public class VuePlateau extends JPanel implements Vue {
 			validate();
 			System.out.println("resultats");
 		}
-		modele.raz();
 		System.out.println("affichage: "+affichage);
 	}
 

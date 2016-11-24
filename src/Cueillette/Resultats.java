@@ -11,23 +11,25 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 
 @SuppressWarnings("serial")
 public class Resultats extends JPanel{
 	
 	private int n;
+	private JPanel lancerPartie;
 	private JLabel nbPartiesLabel;
 	private JTextField nbParties;
 	
 	public Resultats(){
 		super();
-		this.setSize(700, 500);
 		this.initComponent();
 	}
 	
 	public void initComponent(){
-		JPanel lancerPartie = new JPanel();
+		lancerPartie = new JPanel();
 		lancerPartie.setBackground(Color.white);
 		lancerPartie.setPreferredSize(new Dimension(500, 110));
 		lancerPartie.setBorder(BorderFactory.createTitledBorder("Lancer les parties"));
@@ -51,6 +53,9 @@ public class Resultats extends JPanel{
 				setVisible(true);
 				try{
 					setN(getNbParties());
+					// LANCER LES PARTIES
+					String[] s = {"ligne 1", "ligne 2", "ligne 3", "ligne 4", "ligne 5", "ligne 6", "ligne 7", "ligne 8", "ligne 9", "ligne 10"};
+					afficheStats(s);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
 				}
@@ -59,8 +64,22 @@ public class Resultats extends JPanel{
 		
 	    control.add(okBouton);
 		
-		this.add(content, BorderLayout.CENTER);
-		this.add(control, BorderLayout.SOUTH);
+	    this.add(content, BorderLayout.CENTER);
+	    this.add(control, BorderLayout.EAST);
+	}
+	
+	public void afficheStats(String[] stats){
+		JTextArea affiche = new JTextArea("");
+		for(String stat:stats){
+			affiche.setText(affiche.getText()+"\n"+stat);
+		}
+		affiche.setPreferredSize(new Dimension(300, 50+15*stats.length));
+		affiche.setEditable(false);
+		affiche.setOpaque(false);
+		lancerPartie.add(affiche);
+		lancerPartie.setPreferredSize(new Dimension(500, 110+15*stats.length));
+		repaint();
+		validate();
 	}
 	
 	private int getNbParties(){
@@ -73,5 +92,7 @@ public class Resultats extends JPanel{
 	private void setN(int nbParties) {
 		n = nbParties;
 	}
+	
+	
 	
 }
