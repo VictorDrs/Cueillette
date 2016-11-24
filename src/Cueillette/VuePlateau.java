@@ -20,7 +20,7 @@ public class VuePlateau extends JPanel implements Vue {
 	protected ImageIcon imgVide;
 	protected ImageIcon imgInteret;
 	protected ImageIcon imgTrace;
-	protected Resultats resultats;
+	protected VueStatistiques resultats;
 
 	public VuePlateau(Modele mod){
 		super();
@@ -32,7 +32,7 @@ public class VuePlateau extends JPanel implements Vue {
 		imgVide=new ImageIcon(getClass().getResource("/resources/vide.png"));
 		imgInteret=new ImageIcon(getClass().getResource("/resources/interet.png"));
 		imgTrace=new ImageIcon(getClass().getResource("/resources/trace.png"));
-		resultats=new Resultats();
+		resultats=new VueStatistiques();
 	}
 
 	public void changeAffichage(){

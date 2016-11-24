@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 
 @SuppressWarnings("serial")
-public class Resultats extends JPanel{
+public class VueStatistiques extends JPanel{
 	
 	private int n;
 	private JPanel lancerPartie;
@@ -24,7 +24,7 @@ public class Resultats extends JPanel{
 	private JTextField nbParties;
 	private Statistiques stat;
 	
-	public Resultats(){
+	public VueStatistiques(){
 		super();
 		this.initComponent();
 	}
