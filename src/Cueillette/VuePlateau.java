@@ -81,22 +81,10 @@ public class VuePlateau extends JPanel implements Vue {
 	}
 
 	public void redraw(){
-		int temp;
-		for(int i=0;i<modele.getSizeX();i++){
-			for(int j=0;j<modele.getSizeY();j++){
-				temp=modele.getCase(i, j);
-				if(temp==2){
-					grille[i][j].setIcon(imgAgent);
-					memoire[i][j]=false;
-				}else if(temp==3){
-					if(!memoire[i][j]){
-						grille[i][j].setIcon(imgTrace);
-						memoire[i][j]=true;
-					}
-				}
-			}
+		for(Agent a : modele.getAgent()){
+			grille[a.getMemX()][a.getMemY()].setIcon(imgTrace);
+			grille[a.getX()][a.getY()].setIcon(imgAgent);
 		}
-
 	}
 
 	public void mapVide(){

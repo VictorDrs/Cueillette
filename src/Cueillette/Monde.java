@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * Created by Victor on 17/11/2016.
  */
-public class Monde {
+public class Monde{
     protected int[][] monde;
     private boolean repartition;//Designe le mode de repartition des patchs (aleatoire/paquets)
     private final double Pinteret;//Probabilit? de chaque case d'?tre un point d'interet (0<=Pinteret<=1)
@@ -17,6 +17,7 @@ public class Monde {
     private int ninterets;//Nombre de point d'interet voulu
     private int nagents;//Nombre d'agent voulu
     private int nombreInteret;
+    private int nbPas;
 
     public Monde(){
         monde=new int[100][100];
@@ -27,6 +28,7 @@ public class Monde {
         nagents=10;
         ninterets=10;
         nombreInteret=0;
+        nbPas=0;
     }
 
     public Monde(int x, int y){
@@ -35,11 +37,14 @@ public class Monde {
         Pagent=0.0001;
         Pdensite=0.0001;
         repartition=false;
-        //if(ninterets>x*5)
+        ninterets=500;
+        nagents=50;
+        if(ninterets>x*5)
             ninterets=x*5;
-        //if(nagents>x)
+        if(nagents>x)
             nagents=x;
         nombreInteret=0;
+        nbPas=0;
     }
 
     public void raz() {
@@ -61,6 +66,7 @@ public class Monde {
                 monde[i][j]=0;
             }
         }
+
         while(n<nagents || m<ninterets){
             for(int i=0;i<getSizeX();i++){
                 for(int j=0;j<getSizeY();j++){
@@ -134,6 +140,7 @@ public class Monde {
                 }
             }
         }
+        nagents=listAgent.size();
         return listAgent;
     }
 
@@ -149,6 +156,10 @@ public class Monde {
         if(monde[x][y]==1){
             nombreInteret-=1;
         }
+    }
+
+    public void nbPasPlusUn(){
+        nbPas++;
     }
 
     public void setNinterets(int ninterets) {
@@ -172,6 +183,10 @@ public class Monde {
         return ninterets;
     }
 
+    public int getNagents() {
+        return nagents;
+    }
+
     public int getNombreInteret() {
         return nombreInteret;
     }
@@ -180,4 +195,12 @@ public class Monde {
         this.nombreInteret = nombreInteret;
     }
 
+
+    public int getNbPas() {
+        return nbPas;
+    }
+
+    public void setNbPas(int nbPas) {
+        this.nbPas = nbPas;
+    }
 }
