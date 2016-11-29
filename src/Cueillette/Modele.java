@@ -1,4 +1,6 @@
 package Cueillette;
+import Vue.Vue;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -24,11 +26,11 @@ public class Modele {
 	private boolean timer;//Un timer a deja ete lance
 	private boolean news;//accelere l'interface
 	boolean switchAffichage;//modifier la vue Plateau
-	private ArrayList<Agent> listAgent;
+	private Statistiques stat;
 
 	public Modele(){
+		stat=new Statistiques();
 		listVue=new ArrayList<>();
-		listAgent=new ArrayList<>();
 		monde=new Monde();
 		memoire=new Monde();
 		monde.setNbPas(0);
@@ -96,20 +98,13 @@ public class Modele {
 	public void step(){
 		if(existeInteret()){
 			deplacementAgent();
-			monde.nbPasPlusUn();
 		}else{
 			run=false;
 		}
 	}
 
 	private void deplacementAgent(){
-		for(Agent a : listAgent){
-			monde.setCase(a.getX(),a.getY(),3);
-			a.changerDeplacement(mode);
-			a.deplacement();
-			monde.checkInteret(a.getX(),a.getY());
-			monde.setCase(a.getX(),a.getY(),2);
-		}
+		monde.deplacementAgent(mode);
 	}
 
 	private boolean existeInteret(){
@@ -117,7 +112,6 @@ public class Modele {
 	}
 
 	public void raz(){
-		listAgent.clear();
 		monde.setNbPas(0);
 		run=false;
 		monde.raz();
@@ -126,7 +120,7 @@ public class Modele {
 	public void newMap(){
 		raz();
 		news=true;
-		listAgent=monde.newMap();
+		monde.newMap();
 		sauvegarder();
 		majVues();
 	}
@@ -135,15 +129,13 @@ public class Modele {
 		int x=Integer.parseInt(string);
 		if(x<=5 || x>100)
 			throw new NumberFormatException();
-		listAgent.clear();
 		monde=new Monde(x,x);
 		memoire=new  Monde(x,x);
 		newMap();
 	}
 
 	private void ajouterAgent(){
-		listAgent.clear();
-		listAgent=monde.ajouterAgent();
+		monde.ajouterAgent();
 		sauvegarder();
 	}
 
@@ -162,15 +154,7 @@ public class Modele {
 		monde.setNinterets(memoire.getNinterets());
 		run=false;
 		news=true;
-		listAgent.clear();
-		for(int i=0;i<monde.getSizeX();i++){
-			for(int j=0;j<monde.getSizeY();j++){
-				monde.setCase(i,j,memoire.getCase(i,j));
-				if(memoire.getCase(i,j)==2){
-					listAgent.add(new Agent(i,j,memoire));
-				}
-			}
-		}
+		monde.relancer(memoire);
 		monde.cmpInteret();
 		majVues();
 	}
@@ -219,7 +203,7 @@ public class Modele {
 	}
 
 	public int getNbAgent() {
-		return listAgent.size();
+		return monde.getNagents();
 	}
 
 	public void nAgents(String s){
@@ -229,9 +213,9 @@ public class Modele {
 		monde.setNagents(x);
 	}
 
-	public void nPatchs(String s){
-		int x=Integer.parseInt(s);
-		if(x<=0 || x>monde.getSizeY()*5)
+	public void nPatchs(String s) {
+		int x = Integer.parseInt(s);
+		if (x <= 0 || x > monde.getSizeY() * 5)
 			throw new NumberFormatException();
 		monde.setNinterets(x);
 	}
@@ -245,11 +229,24 @@ public class Modele {
 		return (int) (x*100);
 	}
 
-	public ArrayList<Agent> getAgent() {
-		return listAgent;
-	}
-
 	public boolean isRunning() {
 		return monde.existeInteret();
 	}
+
+	public void setSwitchAffichage(boolean switchAffichage) {
+		this.switchAffichage = switchAffichage;
+	}
+
+	public boolean getSwitchAffichage() {
+		return switchAffichage;
+	}
+
+
+	public String[] runStat(int nb){
+		return stat.run(nb,mode);
+	}
+
+    public ArrayList<Agent> getAgent() {
+        return monde.getAgent();
+    }
 }

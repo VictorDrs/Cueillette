@@ -2,7 +2,7 @@ package Cueillette;
 
 import Deplacement.*;
 
-class Agent {
+public class Agent {
 	private int x;
 	private int y;//Coord de l'agent
 	private final Monde monde;//Utile pour le deplacement (dimension du monde)
