@@ -1,7 +1,7 @@
 package Vue;
 
 import Cueillette.Modele;
-import Cueillette.Parametres;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

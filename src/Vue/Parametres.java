@@ -1,5 +1,6 @@
-package Cueillette;
+package Vue;
 
+import Cueillette.Monde;
 import Deplacement.DeplacementAlea;
 import Deplacement.DeplacementLevy;
 
