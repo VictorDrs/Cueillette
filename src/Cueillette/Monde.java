@@ -1,7 +1,5 @@
 package Cueillette;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,8 +12,10 @@ public class Monde{
     private final double Pinteret;//Probabilit? de chaque case d'?tre un point d'interet (0<=Pinteret<=1)
     private final double Pagent;//Probabilit? d'une case qui n'est pas un point d'interet d'etre un agent (0<=Pagent<=1)
     private final double Pdensite;//Probabilit? d'une case d'un spot d'avoir un point d'interet (0<=Pdensite<=1)
-    protected static int distance = 10 ;//Diametre dans lequel apparaissent les points d'interets repartis par paquets
-    protected static int densite = 10 ;//Densite des points d'interets repartis par paquets au sein d'un paquet
+    protected final static int DISTANCE = 10 ;//Valeur par défaut du diamètre
+    protected final static int DENSITE = 10 ;//Valeur par défaut de la densité
+    protected static int distance = DISTANCE ;//Diametre dans lequel apparaissent les points d'interets repartis par paquets
+    protected static int densite = DENSITE ;//Densite des points d'interets repartis par paquets au sein d'un paquet
     private int ninterets;//Nombre de point d'interet voulu
     private int nagents;//Nombre d'agent voulu
     private int nombreInteret;
@@ -71,6 +71,7 @@ public class Monde{
                 monde[i][j]=0;
             }
         }
+
         while(n<nagents || m<ninterets){
             for(int i=0;i<getSizeX();i++){
                 for(int j=0;j<getSizeY();j++){
@@ -89,6 +90,7 @@ public class Monde{
                     }
                 }
             }
+
             if(repartition)
             {
                 for(int i=0;i<getSizeX();i++){
@@ -198,6 +200,29 @@ public class Monde{
         this.nombreInteret = nombreInteret;
     }
 
+	public static int getDistance() {
+		return distance;
+	}
+
+	public static int getDensite() {
+		return densite;
+	}
+
+	public static int getDistanceDefaut() {
+		return DISTANCE;
+	}
+
+	public static int getDensiteDefaut() {
+		return DENSITE;
+	}
+
+	public static void setDistance(int d) {
+		distance = d;
+	}
+
+	public static void setDensite(int d) {
+		densite = d;
+	}
 
     public int getNbPas() {
         return nbPas;

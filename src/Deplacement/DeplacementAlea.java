@@ -8,7 +8,8 @@ import java.util.Random;
  * Created by Victor on 15/11/2016.
  */
 public class DeplacementAlea extends Deplacement{
-    private static int dAlea = 10 ;
+    private static final int DALEA = 10;
+	private static int dAlea = DALEA ;
     private int destX=coordX;
     private int destY=coordY;
     private int horsX=0;
@@ -23,7 +24,7 @@ public class DeplacementAlea extends Deplacement{
     public void mouvement() {
             if(coordX==destX && coordY==destY){
                 Random rand=new Random();
-                destX+= (int) Math.round((rand.nextGaussian())*dAlea);
+                destX+= (int) Math.round(((rand.nextGaussian())*dAlea));
                 destY+=(int) Math.round((rand.nextGaussian())*dAlea);
                 if(destX<0) horsX=destX + (monde.getSizeX()-1);
                 else if(destX>monde.getSizeX()-1) horsX=destX - (monde.getSizeX()-1);
@@ -61,8 +62,12 @@ public class DeplacementAlea extends Deplacement{
        DeplacementAlea.dAlea = dAlea;
     }
 
-    public static int getdAlea() {
+    public static int getDAlea() {
         return dAlea;
 
     }
+
+	public static int getDDefaut() {
+		return DALEA;
+	}
 }

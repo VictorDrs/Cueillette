@@ -1,4 +1,4 @@
-package Vue;
+package Cueillette;
 
 import Deplacement.DeplacementAlea;
 import Deplacement.DeplacementLevy;
@@ -28,14 +28,18 @@ public class Parametres extends JDialog{
 	private JLabel alphaLevyLabel;
 	private JLabel nLevyLabel;
 	private JLabel dAleaLabel;
+	private JLabel distPaquetsLabel;
+	private JLabel densPaquetsLabel;
 	private JLabel retablirLabel;
 	private JTextField alphaLevy;
 	private JTextField nLevy;
 	private JTextField dAlea;
+	private JTextField distPaquets;
+	private JTextField densPaquets;
 
 	public Parametres(){
 		super((JFrame) null, "parametres", true);
-		this.setSize(700, 300);
+		this.setSize(700, 410);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -80,10 +84,27 @@ public class Parametres extends JDialog{
 		aleatoire.add(formuleAleaLabel);
 		
 		dAleaLabel = new JLabel("d : ");
-		dAlea = new JTextField(DeplacementAlea.getdAlea() +"");
+		dAlea = new JTextField(DeplacementAlea.getDAlea() +"");
 		dAlea.setPreferredSize(new Dimension(100, 25));
 		aleatoire.add(dAleaLabel);
 		aleatoire.add(dAlea);
+		
+		JPanel paquets = new JPanel();
+		paquets.setBackground(Color.white);
+		paquets.setPreferredSize(new Dimension(320, 110));
+		paquets.setBorder(BorderFactory.createTitledBorder("Répartiton des  paquets"));
+		
+		distPaquetsLabel = new JLabel("diamètre en case : ");
+		distPaquets = new JTextField(Monde.getDistance() +"");
+		distPaquets.setPreferredSize(new Dimension(100, 25));
+		paquets.add(distPaquetsLabel);
+		paquets.add(distPaquets);
+		
+		densPaquetsLabel = new JLabel("nombre ~ de points/paquet : ");
+		densPaquets = new JTextField(Monde.getDensite() +"");
+		densPaquets.setPreferredSize(new Dimension(100, 25));
+		paquets.add(densPaquetsLabel);
+		paquets.add(densPaquets);
 		
 		JPanel defaut = new JPanel();
 		defaut.setBackground(Color.white);
@@ -94,7 +115,11 @@ public class Parametres extends JDialog{
 		JButton retablir = new JButton("rétablir");
 		retablir.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent arg0) {
-		        //TODO
+		        alphaLevy.setText(DeplacementLevy.getAlphaDefaut() +"");
+		        nLevy.setText(DeplacementLevy.getNDefaut() +"");
+		        dAlea.setText(DeplacementAlea.getDDefaut() +"");
+		        distPaquets.setText(Monde.getDistanceDefaut() +"");
+		        densPaquets.setText(Monde.getDensiteDefaut() +"");
 		      }
 		});
 		retablir.setPreferredSize(new Dimension(100, 25));
@@ -105,6 +130,7 @@ public class Parametres extends JDialog{
 		content.setBackground(Color.white);
 		content.add(volLevy);
 		content.add(aleatoire);
+		content.add(paquets);
 		content.add(defaut);
 		
 		JButton okBouton = new JButton("OK");
@@ -116,6 +142,8 @@ public class Parametres extends JDialog{
 					DeplacementLevy.setAlpha(getAlphaLevy());
 					DeplacementLevy.setN(getNLevy());
 					DeplacementAlea.setdAlea(getDAlea());
+					Monde.setDistance(getDistancePaquets());
+					Monde.setDensite(getDensitePaquets());
 					setVisible(false);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
@@ -156,6 +184,20 @@ public class Parametres extends JDialog{
 		int d=Integer.parseInt(dAlea.getText());
 		if(d<=0)
 			throw new NumberFormatException("Déplacement aléatoire - d");
+		return d;
+	}
+	
+	private int getDistancePaquets(){
+		int d=Integer.parseInt(distPaquets.getText());
+		if(d<=0)
+			throw new NumberFormatException("Répartition paquets - distance");
+		return d;
+	}
+	
+	private int getDensitePaquets(){
+		int d=Integer.parseInt(densPaquets.getText());
+		if(d<=0)
+			throw new NumberFormatException("Répartition paquets - densité");
 		return d;
 	}
 }
