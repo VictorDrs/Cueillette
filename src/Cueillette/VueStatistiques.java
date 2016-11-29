@@ -20,7 +20,6 @@ public class VueStatistiques extends JPanel{
 	
 	private int n;
 	private JPanel lancerPartie;
-	private JLabel nbPartiesLabel;
 	private JTextField nbParties;
 	private Statistiques stat;
 	
@@ -35,7 +34,7 @@ public class VueStatistiques extends JPanel{
 		lancerPartie.setPreferredSize(new Dimension(500, 110));
 		lancerPartie.setBorder(BorderFactory.createTitledBorder("Lancer les parties"));
 		stat=new Statistiques();
-		nbPartiesLabel = new JLabel("Nombre de parties à lancer: ");
+		JLabel nbPartiesLabel = new JLabel("Nombre de parties à lancer: ");
 		nbParties = new JTextField();
 		nbParties.setPreferredSize(new Dimension(100, 25));
 		lancerPartie.add(nbPartiesLabel);
@@ -62,22 +61,41 @@ public class VueStatistiques extends JPanel{
 			}
 		});
 		
+		JButton resetBouton = new JButton("Reset");
+		resetBouton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(true);
+				try{
+					removeAll();
+					initComponent();
+					repaint();
+					validate();
+				}catch(NumberFormatException nfe){
+					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
 	    control.add(okBouton);
+	    control.add(resetBouton);
 		
 	    this.add(content, BorderLayout.CENTER);
 	    this.add(control, BorderLayout.EAST);
 	}
 	
 	public void afficheStats(String[] stats){
+		int height = 50+15*stats.length;
 		JTextArea affiche = new JTextArea("");
+		affiche.setBorder(BorderFactory.createTitledBorder("Résultat"));
 		for(String stat:stats){
 			affiche.setText(affiche.getText()+"\n"+stat);
 		}
-		affiche.setPreferredSize(new Dimension(300, 50+15*stats.length));
+		affiche.setPreferredSize(new Dimension(300, height));
 		affiche.setEditable(false);
 		affiche.setOpaque(false);
 		lancerPartie.add(affiche);
-		lancerPartie.setPreferredSize(new Dimension(500, 110+15*stats.length));
+		lancerPartie.setPreferredSize(new Dimension(lancerPartie.getWidth(), lancerPartie.getHeight() + height));
 		repaint();
 		validate();
 	}
