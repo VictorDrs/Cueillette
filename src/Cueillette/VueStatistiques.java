@@ -53,7 +53,7 @@ public class VueStatistiques extends JPanel{
 				setVisible(true);
 				try{
 					setN(getNbParties());
-					String[] s=stat.run(n);
+					//String[] s=modele.runStats(n);
 					afficheStats(s);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);

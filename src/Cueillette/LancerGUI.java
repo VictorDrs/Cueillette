@@ -1,12 +1,14 @@
 package Cueillette;
 
+import Vue.*;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-class LancerGUI extends JFrame {
+public class LancerGUI extends JFrame {
 	
 	private LancerGUI(){
 		super("Cueillette exploratoire");
@@ -14,17 +16,11 @@ class LancerGUI extends JFrame {
 
 		setPreferredSize(new Dimension(1000,500));
 		Modele modele=new Modele();
-		VueControl vc=new VueControl(modele);
-		VueScore vs=new VueScore(modele);
-		VuePlateau vp=new VuePlateau(modele);
+		ChangeAffichage ca=new ChangeAffichage(modele);
 		Menu men=new Menu(modele);
-		modele.ajouterVue(vc);
-		modele.ajouterVue(vs);
-		modele.ajouterVue(vp);
-		
-		add(vs,BorderLayout.SOUTH);
-		add(vp,BorderLayout.CENTER);
-		add(vc,BorderLayout.EAST);
+		modele.ajouterVue(ca);
+
+		add(ca,BorderLayout.CENTER);
 		setJMenuBar(men);
 		modele.majVues();
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -20,6 +20,7 @@ public class Monde{
     private int nagents;//Nombre d'agent voulu
     private int nombreInteret;
     private int nbPas;
+    private ArrayList<Agent> listAgent;
 
     public Monde(){
         monde=new int[100][100];
@@ -31,6 +32,7 @@ public class Monde{
         ninterets=10;
         nombreInteret=0;
         nbPas=0;
+        listAgent=new ArrayList<>();
     }
 
     public Monde(int x, int y){
@@ -47,6 +49,7 @@ public class Monde{
             nagents=x;
         nombreInteret=0;
         nbPas=0;
+        listAgent=new ArrayList<>();
     }
 
     public void raz() {
@@ -58,11 +61,11 @@ public class Monde{
         }
     }
 
-    public ArrayList<Agent> newMap(){
-        ArrayList<Agent>listAgent=new ArrayList<>();
+    public void newMap(){
         Random rand=new Random();
         int n = 0 ;
         int m = 0 ;
+        listAgent.clear();
         for(int i=0;i<getSizeX();i++){
             for(int j=0;j<getSizeY();j++){
                 monde[i][j]=0;
@@ -112,7 +115,6 @@ public class Monde{
                 }
             }
         }
-        return listAgent;
     }
 
     public void cmpInteret() {
@@ -151,6 +153,7 @@ public class Monde{
     }
 
     public boolean existeInteret() {
+        cmpInteret();
         return nombreInteret>0;
     }
 
@@ -200,15 +203,15 @@ public class Monde{
 	public static int getDistance() {
 		return distance;
 	}
-	
+
 	public static int getDensite() {
 		return densite;
 	}
-	
+
 	public static int getDistanceDefaut() {
 		return DISTANCE;
 	}
-	
+
 	public static int getDensiteDefaut() {
 		return DENSITE;
 	}
@@ -216,7 +219,7 @@ public class Monde{
 	public static void setDistance(int d) {
 		distance = d;
 	}
-	
+
 	public static void setDensite(int d) {
 		densite = d;
 	}
@@ -229,4 +232,36 @@ public class Monde{
         this.nbPas = nbPas;
     }
 
+    public ArrayList<Agent> deplacementAgent(int mode) {
+        for(Agent a : listAgent){
+            a.changerDeplacement(mode);
+            setCase(a.getX(),a.getY(),3);
+            a.deplacement();
+            checkInteret(a.getX(),a.getY());
+            setCase(a.getX(),a.getY(),2);
+        }
+        nbPasPlusUn();
+        return listAgent;
+    }
+
+    public boolean isRunning() {
+        return existeInteret();
+    }
+
+
+    public void relancer(Monde memoire) {
+        listAgent.clear();
+        for(int i=0;i<getSizeX();i++){
+            for(int j=0;j<getSizeY();j++){
+                setCase(i,j,memoire.getCase(i,j));
+                if(memoire.getCase(i,j)==2){
+                    listAgent.add(new Agent(i,j,memoire));
+                }
+            }
+        }
+    }
+
+    public ArrayList<Agent> getAgent() {
+        return listAgent;
+    }
 }
