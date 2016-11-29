@@ -1,6 +1,7 @@
 package Cueillette;
 
 import Vue.*;
+import Vue.Menu;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

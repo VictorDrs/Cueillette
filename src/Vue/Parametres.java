@@ -1,6 +1,5 @@
 package Vue;
 
-import Cueillette.Monde;
 import Deplacement.DeplacementAlea;
 import Deplacement.DeplacementLevy;
 
@@ -21,17 +20,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Cueillette.Monde;
+
 @SuppressWarnings("serial")
 public class Parametres extends JDialog{
 
-	private JTextArea formuleLevyLabel;
-	private JTextArea formuleAleaLabel;
-	private JLabel alphaLevyLabel;
-	private JLabel nLevyLabel;
-	private JLabel dAleaLabel;
-	private JLabel distPaquetsLabel;
-	private JLabel densPaquetsLabel;
-	private JLabel retablirLabel;
 	private JTextField alphaLevy;
 	private JTextField nLevy;
 	private JTextField dAlea;
@@ -50,69 +43,32 @@ public class Parametres extends JDialog{
 
 	private void initComponent(){
 
-		JPanel volLevy = new JPanel();
-		volLevy.setBackground(Color.white);
-		volLevy.setPreferredSize(new Dimension(320, 110));
-		volLevy.setBorder(BorderFactory.createTitledBorder("Vol de Levy"));
-		
-		formuleLevyLabel = new JTextArea("formule : \nsomme = n * GaussienA / (|GaussienB| ^ 1/alpha) \ndistance = somme / (n ^ 1/alpha)");
-		formuleLevyLabel.setPreferredSize(new Dimension(300, 50));
-		formuleLevyLabel.setEditable(false);
-		formuleLevyLabel.setOpaque(false);
-		volLevy.add(formuleLevyLabel);
-		
-		alphaLevyLabel = new JLabel("alpha : ");
-		alphaLevy = new JTextField(DeplacementLevy.getAlpha() +"");
-		alphaLevy.setPreferredSize(new Dimension(100, 25));
-		volLevy.add(alphaLevyLabel);
-		volLevy.add(alphaLevy);
-		
-		nLevyLabel = new JLabel("n : ");
-		nLevy = new JTextField(DeplacementLevy.getN() +"");
-		nLevy.setPreferredSize(new Dimension(100, 25));
-		volLevy.add(nLevyLabel);
+		JPanel volLevy = createJPanel("Vol de Levy");
+		volLevy = addJTextArea(volLevy, "formule : \nsomme = n * GaussienA / (|GaussienB| ^ 1/alpha) \ndistance = somme / (n ^ 1/alpha)");		
+		volLevy = addJLabel(volLevy, "alpha : ");
+		alphaLevy = createField(DeplacementLevy.getAlpha()+"");
+		volLevy.add(alphaLevy);	
+		volLevy = addJLabel(volLevy, "n : ");
+		nLevy = createField(DeplacementLevy.getN()+"");
 		volLevy.add(nLevy);
-
-		JPanel aleatoire = new JPanel();
-		aleatoire.setBackground(Color.white);
-		aleatoire.setPreferredSize(new Dimension(320, 110));
-		aleatoire.setBorder(BorderFactory.createTitledBorder("Déplacement aléatoire"));
-
-		formuleAleaLabel = new JTextArea("formule : \nGaussien * d");
-		formuleAleaLabel.setPreferredSize(new Dimension(300, 50));
-		formuleAleaLabel.setEditable(false);
-		formuleAleaLabel.setOpaque(false);
-		aleatoire.add(formuleAleaLabel);
 		
-		dAleaLabel = new JLabel("d : ");
-		dAlea = new JTextField(DeplacementAlea.getDAlea() +"");
-		dAlea.setPreferredSize(new Dimension(100, 25));
-		aleatoire.add(dAleaLabel);
+		JPanel aleatoire = createJPanel("Déplacement aléatoire");
+		aleatoire = addJTextArea(aleatoire, "formule : \nGaussien * d");
+		aleatoire = addJLabel(aleatoire, "d : ");
+		dAlea = createField(DeplacementAlea.getDAlea() +"");
 		aleatoire.add(dAlea);
 		
-		JPanel paquets = new JPanel();
-		paquets.setBackground(Color.white);
-		paquets.setPreferredSize(new Dimension(320, 110));
-		paquets.setBorder(BorderFactory.createTitledBorder("Répartiton des  paquets"));
-		
-		distPaquetsLabel = new JLabel("diamètre en case : ");
-		distPaquets = new JTextField(Monde.getDistance() +"");
-		distPaquets.setPreferredSize(new Dimension(100, 25));
-		paquets.add(distPaquetsLabel);
+		JPanel paquets = createJPanel("Répartiton des  paquets");
+		paquets = addJLabel(paquets, "diamètre en case : ");
+		distPaquets = createField(Monde.getDistance() +"");
 		paquets.add(distPaquets);
-		
-		densPaquetsLabel = new JLabel("nombre ~ de points/paquet : ");
-		densPaquets = new JTextField(Monde.getDensite() +"");
-		densPaquets.setPreferredSize(new Dimension(100, 25));
-		paquets.add(densPaquetsLabel);
+		paquets = addJLabel(paquets, "nombre ~ de points/paquet : ");
+		densPaquets = createField(Monde.getDensite() +"");
 		paquets.add(densPaquets);
 		
-		JPanel defaut = new JPanel();
-		defaut.setBackground(Color.white);
+		JPanel defaut = createJPanel("Défaut");
 		defaut.setPreferredSize(new Dimension(640, 60));
-		defaut.setBorder(BorderFactory.createTitledBorder("Défaut"));
-
-		retablirLabel = new JLabel("rétablir les valeurs par défaut: ");
+		defaut = addJLabel(defaut, "rétablir les valeurs par défaut: ");
 		JButton retablir = new JButton("rétablir");
 		retablir.addActionListener(new ActionListener(){
 		      public void actionPerformed(ActionEvent arg0) {
@@ -124,7 +80,6 @@ public class Parametres extends JDialog{
 		      }
 		});
 		retablir.setPreferredSize(new Dimension(100, 25));
-		defaut.add(retablirLabel);
 		defaut.add(retablir);
 		
 		JPanel content = new JPanel();
@@ -140,11 +95,11 @@ public class Parametres extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				setVisible(true);
 				try{
-					DeplacementLevy.setAlpha(getAlphaLevy());
-					DeplacementLevy.setN(getNLevy());
-					DeplacementAlea.setdAlea(getDAlea());
-					Monde.setDistance(getDistancePaquets());
-					Monde.setDensite(getDensitePaquets());
+					DeplacementLevy.setAlpha(getDouble(alphaLevy, "Vol de Levy - alpha"));
+					DeplacementLevy.setN(getInt(nLevy, "Vol de Levy - n"));
+					DeplacementAlea.setdAlea(getInt(dAlea, "Déplacement aléatoire - d"));
+					Monde.setDistance(getInt(distPaquets, "Répartition paquets - distance"));
+					Monde.setDensite(getInt(densPaquets, "Répartition paquets - densité"));
 					setVisible(false);
 				}catch(NumberFormatException nfe){
 					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
@@ -167,38 +122,46 @@ public class Parametres extends JDialog{
 	    this.getContentPane().add(control, BorderLayout.SOUTH);
 	}
 	
-	private double getAlphaLevy(){
-		double a=Double.parseDouble(alphaLevy.getText());
+	private JPanel createJPanel(String titre){
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.white);
+		panel.setPreferredSize(new Dimension(320, 110));
+		panel.setBorder(BorderFactory.createTitledBorder(titre));
+		return panel;
+	}
+	
+	private JPanel addJTextArea(JPanel panel, String titre){
+		JTextArea textArea = new JTextArea(titre);
+		textArea.setPreferredSize(new Dimension(300, 50));
+		textArea.setEditable(false);
+		textArea.setOpaque(false);
+		panel.add(textArea);
+		return panel;
+	}
+	
+	private JPanel addJLabel(JPanel panel, String titre){
+		JLabel label = new JLabel(titre);
+		panel.add(label);
+		return panel;
+	}
+	
+	private JTextField createField(String string) {
+		JTextField field = new JTextField(string);
+		field.setPreferredSize(new Dimension(100, 25));
+		return field;
+	}
+	
+	private double getDouble(JTextField champ, String erreur){
+		double a=Double.parseDouble(champ.getText());
 		if(a<=0)
-			throw new NumberFormatException("Vol de Levy - alpha");
+			throw new NumberFormatException(erreur);
 		return a ;
 	}
 	
-	private int getNLevy(){
-		int n=Integer.parseInt(nLevy.getText());
+	private int getInt(JTextField champ, String erreur){
+		int n=Integer.parseInt(champ.getText());
 		if(n<=0)
-			throw new NumberFormatException("Vol de Levy - n");
+			throw new NumberFormatException(erreur);
 		return n;
-	}
-	
-	private int getDAlea(){
-		int d=Integer.parseInt(dAlea.getText());
-		if(d<=0)
-			throw new NumberFormatException("Déplacement aléatoire - d");
-		return d;
-	}
-	
-	private int getDistancePaquets(){
-		int d=Integer.parseInt(distPaquets.getText());
-		if(d<=0)
-			throw new NumberFormatException("Répartition paquets - distance");
-		return d;
-	}
-	
-	private int getDensitePaquets(){
-		int d=Integer.parseInt(densPaquets.getText());
-		if(d<=0)
-			throw new NumberFormatException("Répartition paquets - densité");
-		return d;
 	}
 }
