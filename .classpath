@@ -2,11 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-examples-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-excelant-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-schemas-3.15.jar"/>
-	<classpathentry kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-scratchpad-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Apache Common Collections/commons-collections4-4.1-bin/commons-collections4-4.1/commons-collections4-4.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Apache Common Collections/commons-collections4-4.1-bin/commons-collections4-4.1/commons-collections4-4.1-javadoc.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-examples-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-excelant-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-ooxml-schemas-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/poi-scratchpad-3.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/ooxml-lib/curvesapi-1.04.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/François/Downloads/Java Apache POI/poi-bin-3.15-20160924/poi-3.15/ooxml-lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

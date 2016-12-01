@@ -73,6 +73,7 @@ public class Modele {
 	public void setRepartition(boolean r){
 		monde.setRepartition(r);
 	}
+	
 	public void start(){
 		run=true;
 
@@ -91,6 +92,7 @@ public class Modele {
 			timer=true;
 		}
 	}
+	
 	public void stop(){
 		run=false;
 	}

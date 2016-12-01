@@ -1,48 +1,38 @@
 package Deplacement;
 
 import Cueillette.Monde;
-
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Victor on 15/11/2016.
  */
 public class DeplacementAlea extends Deplacement{
-    private static final int DALEA = 10;
+	private static final int DALEA = 10;
 	private static int dAlea = DALEA ;
-    private int destX=coordX;
-    private int destY=coordY;
-    private int horsX=0;
-    private int horsY=0;
+	private int destX=coordX;
+	private int destY=coordY;
 
 
-    public DeplacementAlea(Monde monde, int x, int y) {
-        super(monde,x,y);
-    }
+	public DeplacementAlea(Monde monde, int x, int y) {
+		super(monde,x,y);
+	}
 
-    @Override
-    public void mouvement() {
-            if(coordX==destX && coordY==destY){
-                Random rand=new Random();
-                destX+= (int) Math.round(((rand.nextGaussian())*dAlea));
-                destY+=(int) Math.round((rand.nextGaussian())*dAlea);
-                if(destX<0) horsX=destX + (monde.getSizeX()-1);
-                else if(destX>monde.getSizeX()-1) horsX=destX - (monde.getSizeX()-1);
-                if(destY<0) horsY=destY + (monde.getSizeX()-1);
-                else if(destY>monde.getSizeX()-1) horsY=destY - (monde.getSizeX()-1);
-                //System.out.println("destX: "+destX+" - destY: "+ destY);
-            }
-            if(horsX!=0){
-                destX=horsX;
-                horsX=0;
-            }
-            coordX=destX;
+	@Override
+	public void mouvement() {
+		if(coordX==destX && coordY==destY){
+			double rand = ThreadLocalRandom.current().nextDouble(-1, 1);
+			destX+= (int) (Math.round((rand*dAlea)%monde.getSizeX()));
+			rand = ThreadLocalRandom.current().nextDouble(-1, 1);
+			destY+=(int) (Math.round((rand*dAlea)%monde.getSizeX()));
+			System.out.println(destX+" "+destY);
+			if(destX<0) destX=destX + (monde.getSizeX());
+			else if(destX>monde.getSizeX()-1) destX=destX - (monde.getSizeX());
+			if(destY<0) destY=destY + (monde.getSizeX());
+			else if(destY>monde.getSizeX()-1) destY=destY - (monde.getSizeX());	
 
-            if(horsY!=0){
-                destY=horsY;
-                horsY=0;
-            }
-            coordY=destY;
+		}
+		coordX=destX;
+		coordY=destY;
 
 		/*Random rand=new Random();
 		int bouge=rand.nextInt(4);
@@ -55,17 +45,17 @@ public class DeplacementAlea extends Deplacement{
 		}else if(bouge==3){
 			y-=1;
 		}*/
-            verifDim();
-        }
+		verifDim();
+	}
 
-    public static void setdAlea(int dAlea) {
-       DeplacementAlea.dAlea = dAlea;
-    }
+	public static void setdAlea(int dAlea) {
+		DeplacementAlea.dAlea = dAlea;
+	}
 
-    public static int getDAlea() {
-        return dAlea;
+	public static int getDAlea() {
+		return dAlea;
 
-    }
+	}
 
 	public static int getDDefaut() {
 		return DALEA;

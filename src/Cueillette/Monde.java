@@ -16,10 +16,10 @@ public class Monde{
     protected final static int DENSITE = 10 ;//Valeur par défaut de la densité
     protected static int distance = DISTANCE ;//Diametre dans lequel apparaissent les points d'interets repartis par paquets
     protected static int densite = DENSITE ;//Densite des points d'interets repartis par paquets au sein d'un paquet
-    private int ninterets;//Nombre de point d'interet voulu
+    private int ninterets;//Nombre de points d'interet voulu
     private int nagents;//Nombre d'agent voulu
-    private int nombreInteret;
-    private int nbPas;
+    private int nombreInteret;//Nombre de points d'interet courant
+    private int nbPas;//Nombre de pas courant
     private ArrayList<Agent> listAgent;
 
     public Monde(){
@@ -247,7 +247,6 @@ public class Monde{
     public boolean isRunning() {
         return existeInteret();
     }
-
 
     public void relancer(Monde memoire) {
         listAgent.clear();
