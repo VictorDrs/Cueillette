@@ -19,11 +19,9 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class VueStatistiques extends JPanel implements Vue{
-	
-	private int n;
+
 	private JPanel lancerPartie;
-	private JLabel nbPartiesLabel;
-	private JTextField nbParties;
+	protected JTextArea affiche;
 	private Modele modele;
 	
 	public VueStatistiques(Modele mod){
@@ -36,61 +34,21 @@ public class VueStatistiques extends JPanel implements Vue{
 		lancerPartie = new JPanel();
 		lancerPartie.setBackground(Color.white);
 		lancerPartie.setPreferredSize(new Dimension(500, 110));
-		lancerPartie.setBorder(BorderFactory.createTitledBorder("Lancer les parties"));
-		nbPartiesLabel = new JLabel("Nombre de parties à lancer: ");
-		nbParties = new JTextField();
-		nbParties.setPreferredSize(new Dimension(100, 25));
-		lancerPartie.add(nbPartiesLabel);
-		lancerPartie.add(nbParties);
+		lancerPartie.setBorder(BorderFactory.createTitledBorder("Resultat de toutes parties"));
 		
 		JPanel content = new JPanel();
 		content.setBackground(Color.white);
 		content.add(lancerPartie);
-		
-		JPanel control = new JPanel();
-		
-		JButton okBouton = new JButton("OK");
-		okBouton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(true);
-				try{
-					setN(getNbParties());
-					String[] s =modele.runStat(n);
-					afficheStats(s);
-				}catch(NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-		JButton resetBouton = new JButton("Reset");
-		resetBouton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setVisible(true);
-				try{
-					removeAll();
-					initComponent();
-					repaint();
-					validate();
-				}catch(NumberFormatException nfe){
-					JOptionPane.showMessageDialog(null,"Valeur invalide dans le champ suivant: "+nfe.getLocalizedMessage(),"Alerte",JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-		
-	    control.add(okBouton);
-	    control.add(resetBouton);
+
 		
 	    this.add(content, BorderLayout.CENTER);
-	    this.add(control, BorderLayout.EAST);
 	}
 
 	public void afficheStats(String[] stats){
 		int height = 50+19*stats.length;
-		JTextArea affiche = new JTextArea("");
-		affiche.setBorder(BorderFactory.createTitledBorder("Résultat"));
+
+		affiche = new JTextArea("");
+		affiche.setBorder(BorderFactory.createTitledBorder("Résultat des derniers test"));
 		for(String stat:stats){
 			affiche.setText(affiche.getText()+"\n"+stat);
 		}
@@ -102,20 +60,19 @@ public class VueStatistiques extends JPanel implements Vue{
 		repaint();
 		validate();
 	}
-	
-	private int getNbParties(){
-		int n=Integer.parseInt(nbParties.getText());
-		if(n<=0)
-			throw new NumberFormatException("Nombre de parties");
-		return n;
-	}
-	
-	private void setN(int nbParties) {
-		n = nbParties;
-	}
 
 	@Override
 	public void mettreAJour() {
 
+		if(modele.getResetStat()){
+			lancerPartie.removeAll();
+			lancerPartie.setPreferredSize(new Dimension(500, 110));
+			repaint();
+			validate();
+			modele.setResetStat(false);
+		}else{
+			if(modele.getNbPartieStat()>=1)
+			afficheStats(modele.runStat());
+		}
 	}
 }

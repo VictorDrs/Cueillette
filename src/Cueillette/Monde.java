@@ -28,8 +28,8 @@ public class Monde{
         Pagent=0.0001;
         Pdensite=0.0001;
         repartition=false;
-        nagents=10;
-        ninterets=10;
+        nagents=100;
+        ninterets=100;
         nombreInteret=0;
         nbPas=0;
         listAgent=new ArrayList<>();
