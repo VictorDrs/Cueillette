@@ -19,23 +19,26 @@ public class Modele {
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
 	public static final String SIZE_DEFAUT="100";//Constante taille map par d�faut
 	private final ArrayList<Vue>listVue;//Liste des vues du MVC
+	private final ArrayList<Vue>listVueStat;//liste vue des stats
 	private Monde monde;//Stockage de la grille
 	private Monde memoire;//Stockage de chaque nouveau monde
 	private int mode;//Designe le mode de recherche (Levy/aleatoire)
 	private boolean run;//Deplacement des agents
 	private boolean timer;//Un timer a deja ete lance
 	private boolean news;//accelere l'interface
-	boolean switchAffichage;//modifier la vue Plateau
+	private boolean switchAffichage;//modifier la vue Plateau
 	private Statistiques stat;
+	private int nbPartieStat;
 
 	public Modele(){
 		stat=new Statistiques();
 		listVue=new ArrayList<>();
+		listVueStat=new ArrayList<>();
 		monde=new Monde();
 		memoire=new Monde();
 		monde.setNbPas(0);
 		run=false;
-		mode=1;
+		mode=2;
 		timer=false;
 		news=false;
 		switchAffichage=false;
@@ -45,6 +48,8 @@ public class Modele {
 	public void ajouterVue(Vue v){
 		listVue.add(v);
 	}
+	public void ajouterVueStat(Vue v){listVueStat.add(v);}
+	public void majVuesStat(){listVueStat.forEach(Vue::mettreAJour);}
 	public void majVues(){
 		listVue.forEach(Vue::mettreAJour);
 	}
@@ -242,11 +247,73 @@ public class Modele {
 	}
 
 
-	public String[] runStat(int nb){
-		return stat.run(nb,mode);
+
+	public String[] runStat(){
+		String[] s =stat.run(nbPartieStat);
+		return s;
 	}
 
     public ArrayList<Agent> getAgent() {
         return monde.getAgent();
     }
+
+	public void nPatchsStat(String s) {
+		int x=Integer.parseInt(s);
+		if(x<=5 || x>500)
+			throw new NumberFormatException();
+		stat.setNbInteret(x);
+	}
+
+	public void nAgentsStat(String s) {
+		int x=Integer.parseInt(s);
+		if(x<=5 || x>100)
+			throw new NumberFormatException();
+		stat.setNbAgent(x);
+	}
+
+	public void changeSizeStat(String s) {
+		int x=Integer.parseInt(s);
+		if(x<=5 || x>100)
+			throw new NumberFormatException();
+		stat.setTaille(x);
+	}
+
+	public void setModeStat(int modeStat) {
+		stat.setMode(modeStat);
+	}
+
+	public int getTailleStat() {
+		return stat.getSize();
+	}
+
+	public int getNbAgentStat(){
+		return stat.getNbAgent();
+	}
+
+	public int getNbInteretStat(){
+		return stat.getNbInteret();
+	}
+
+
+	public void razStat() {
+		stat.raz();
+	}
+
+	public int getNbPartieStat() {
+		return stat.getNbPartie();
+	}
+
+	public void setNbPartieStat(String nbPartieStat) {
+		int x=Integer.parseInt(nbPartieStat);
+		stat.setNbPartie(x);
+		this.nbPartieStat=x;
+	}
+
+	public boolean getResetStat() {
+		return stat.getReset();
+	}
+
+	public void setResetStat(boolean resetStat) {
+		stat.setReset(resetStat);
+	}
 }

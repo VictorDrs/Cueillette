@@ -11,9 +11,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+/*
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+*/
 import Cueillette.Modele;
 
 @SuppressWarnings("serial")
@@ -59,12 +60,12 @@ class Menu extends JMenuBar {
 				jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int reponse = jf.showOpenDialog(getParent());
 				if (reponse == JFileChooser.APPROVE_OPTION){
-					Workbook wb = new XSSFWorkbook();
+					/*Workbook wb = new XSSFWorkbook();
 					try(FileOutputStream fileOut = new FileOutputStream(jf.getSelectedFile()+"workbook.xlsx");) {
 						wb.write(fileOut);
 					}catch (Exception ex) {
 						ex.printStackTrace();
-					}
+					}*/
 				}
 
 

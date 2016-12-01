@@ -25,11 +25,11 @@ public class ChangeAffichage extends JPanel implements Vue{
         vc=new VueControl(mod);
         vs=new VueScore(mod);
         vueStat=new VueStatistiques(mod);
-        modele.ajouterVue(vueStat);
+        modele.ajouterVueStat(vueStat);
         modele.ajouterVue(vp);
         modele.ajouterVue(vc);
         modele.ajouterVue(vs);
-        modele.ajouterVue(vueControlStat);
+        modele.ajouterVueStat(vueControlStat);
         affichage=false;
         changeAffichage();
     }
