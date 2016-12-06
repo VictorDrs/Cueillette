@@ -11,6 +11,10 @@ public class CreationFichier {
 		
 	}
 	
-	
+	public void ajouterParametres(){
+		//recuperer para modele
+		//recup para deplacements
+		//add listeParametres
+	}
 
 }
