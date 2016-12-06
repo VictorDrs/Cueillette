@@ -17,6 +17,8 @@ public class VueStatistiques extends JPanel implements Vue{
 	private JScrollPane lancerPartie;
 	protected JTextArea affiche;
 	private Modele modele;
+
+
 	public VueStatistiques(Modele mod){
 		super();
 		this.initComponent();
@@ -44,9 +46,6 @@ public class VueStatistiques extends JPanel implements Vue{
 	}
 
 	public void afficheStats(String[] stats){
-		int height = 70+2*stats.length;
-		//affiche = new JTextArea("");
-		//affiche.setBorder(BorderFactory.createTitledBorder("Résultat des derniers test"));
 		affiche.setText(affiche.getText()+"Nouvelle partie : \n");
 		int i=0;
 		for(String stat:stats){
@@ -58,11 +57,8 @@ public class VueStatistiques extends JPanel implements Vue{
 			i++;
 		}
 		affiche.setText(affiche.getText()+"\nMoyenne :\n"+modele.getMoyenneStat()+"\n");
-		//affiche.setPreferredSize(new Dimension(600, height));
 		affiche.setEditable(false);
 		affiche.setOpaque(false);
-		//lancerPartie.add(affiche);
-		//lancerPartie.setPreferredSize(new Dimension(lancerPartie.getWidth(), lancerPartie.getHeight() + height));
 		repaint();
 		validate();
 	}
