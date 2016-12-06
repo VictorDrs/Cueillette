@@ -8,22 +8,15 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 @SuppressWarnings("serial")
 public class VueStatistiques extends JPanel implements Vue{
 
-	private JPanel lancerPartie;
+	private JScrollPane lancerPartie;
 	protected JTextArea affiche;
 	private Modele modele;
-	
 	public VueStatistiques(Modele mod){
 		super();
 		this.initComponent();
@@ -31,48 +24,62 @@ public class VueStatistiques extends JPanel implements Vue{
 	}
 	
 	public void initComponent(){
-		lancerPartie = new JPanel();
-		lancerPartie.setBackground(Color.white);
-		lancerPartie.setPreferredSize(new Dimension(500, 110));
-		lancerPartie.setBorder(BorderFactory.createTitledBorder("Resultat de toutes parties"));
-		
-		JPanel content = new JPanel();
-		content.setBackground(Color.white);
-		content.add(lancerPartie);
+		affiche = new JTextArea("");
+		affiche.setBounds(15,60,800,200);
+		affiche.setEditable(false);
+		affiche.setOpaque(false);
 
+
+		lancerPartie = new JScrollPane(affiche);
+		lancerPartie.setBackground(Color.white);
+		lancerPartie.setPreferredSize(new Dimension(800, 610));
+		lancerPartie.setBorder(BorderFactory.createTitledBorder("Resultat de toutes parties"));
+
+		//scroll=new JScrollPane(affiche);
+		lancerPartie.setBounds(10,60,800,610);
+		lancerPartie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		lancerPartie.setOpaque(false);
 		
-	    this.add(content, BorderLayout.CENTER);
+	    this.add(lancerPartie);
 	}
 
 	public void afficheStats(String[] stats){
-		int height = 50+19*stats.length;
-
-		affiche = new JTextArea("");
-		affiche.setBorder(BorderFactory.createTitledBorder("Résultat des derniers test"));
+		int height = 70+2*stats.length;
+		//affiche = new JTextArea("");
+		//affiche.setBorder(BorderFactory.createTitledBorder("Résultat des derniers test"));
+		affiche.setText(affiche.getText()+"Nouvelle partie : \n");
+		int i=0;
 		for(String stat:stats){
-			affiche.setText(affiche.getText()+"\n"+stat);
+			if(i%25==0 && i!=0){
+				affiche.setText(affiche.getText()+"\n"+stat+"-");
+			}else{
+				affiche.setText(affiche.getText()+stat+"-");
+			}
+			i++;
 		}
-		affiche.setPreferredSize(new Dimension(300, height));
+		affiche.setText(affiche.getText()+"\nMoyenne :\n"+modele.getMoyenneStat()+"\n");
+		//affiche.setPreferredSize(new Dimension(600, height));
 		affiche.setEditable(false);
 		affiche.setOpaque(false);
-		lancerPartie.add(affiche);
-		lancerPartie.setPreferredSize(new Dimension(lancerPartie.getWidth(), lancerPartie.getHeight() + height));
+		//lancerPartie.add(affiche);
+		//lancerPartie.setPreferredSize(new Dimension(lancerPartie.getWidth(), lancerPartie.getHeight() + height));
 		repaint();
 		validate();
 	}
+
 
 	@Override
 	public void mettreAJour() {
 
 		if(modele.getResetStat()){
-			lancerPartie.removeAll();
-			lancerPartie.setPreferredSize(new Dimension(500, 110));
+			affiche.setText("");
 			repaint();
 			validate();
 			modele.setResetStat(false);
 		}else{
-			if(modele.getNbPartieStat()>=1)
-			afficheStats(modele.runStat());
+			if(modele.getNbPartieStat()>=1) {
+				afficheStats(modele.runStat());
+			}
 		}
 	}
 }

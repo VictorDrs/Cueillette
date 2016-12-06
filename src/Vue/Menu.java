@@ -10,12 +10,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+/*
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+*/
 import Cueillette.Modele;
 
 @SuppressWarnings("serial")
@@ -62,6 +62,7 @@ class Menu extends JMenuBar {
 				int reponse = jf.showOpenDialog(getParent());
 				if (reponse == JFileChooser.APPROVE_OPTION){
 					//temporaire, seulement des tests de fontionnement
+					/*
 					Workbook wb = new XSSFWorkbook();
 					String safeName = WorkbookUtil.createSafeSheetName("[Statistiques*?]");
 				    Sheet sheet3 = wb.createSheet(safeName);
@@ -69,7 +70,7 @@ class Menu extends JMenuBar {
 						wb.write(fileOut);
 					}catch (Exception ex) {
 						ex.printStackTrace();
-					}
+					}*/
 				}
 
 

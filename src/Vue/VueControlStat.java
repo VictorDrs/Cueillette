@@ -1,7 +1,7 @@
 package Vue;
 
 import Cueillette.Modele;
-import com.sun.javafx.sg.prism.NGShape;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class VueControlStat extends JPanel implements Vue{
         taille=new JButton("Changer la taille");
         nbAgent=new JButton("Nombre d'agent");
         nbInteret=new JButton("Nombre d'interet");
-        lancer=new JButton("Ok");
+        lancer=new JButton("Lancer");
         reset=new JButton("Reset");
         partie=new JButton("Nombre de partie");
 
@@ -49,7 +49,7 @@ public class VueControlStat extends JPanel implements Vue{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    modele.setNbPartieStat(JOptionPane.showInputDialog("Largeur de la grille"));
+                    modele.setNbPartieStat(JOptionPane.showInputDialog("Nombre de partie"));
                     mettreAJour();
                 }catch(Exception NumberFormatException){
                     JOptionPane.showMessageDialog(null,"Entrez un nombre positif (100>taille>6)","Alerte",JOptionPane.ERROR_MESSAGE);
@@ -59,7 +59,6 @@ public class VueControlStat extends JPanel implements Vue{
         lancer.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-                 modele.runStat();
                  modele.majVuesStat();
              }
         });

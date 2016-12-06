@@ -24,7 +24,7 @@ public class DeplacementAlea extends Deplacement{
 			destX+= (int) (Math.round((rand*dAlea)%monde.getSizeX()));
 			rand = ThreadLocalRandom.current().nextDouble(-1, 1);
 			destY+=(int) (Math.round((rand*dAlea)%monde.getSizeX()));
-			System.out.println(destX+" "+destY);
+			//System.out.println(destX+" "+destY);
 			if(destX<0) destX=destX + (monde.getSizeX());
 			else if(destX>monde.getSizeX()-1) destX=destX - (monde.getSizeX());
 			if(destY<0) destY=destY + (monde.getSizeX());
