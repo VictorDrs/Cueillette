@@ -61,18 +61,8 @@ class Menu extends JMenuBar {
 				jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int reponse = jf.showOpenDialog(getParent());
 				if (reponse == JFileChooser.APPROVE_OPTION){
-					//temporaire, seulement des tests de fontionnement
-					Workbook wb = new XSSFWorkbook();
-					String safeName = WorkbookUtil.createSafeSheetName("[Statistiques*?]");
-				    Sheet sheet3 = wb.createSheet(safeName);
-					try(FileOutputStream fileOut = new FileOutputStream(jf.getSelectedFile()+"/workbook.xlsx");) {
-						wb.write(fileOut);
-					}catch (Exception ex) {
-						ex.printStackTrace();
-					}
+					mod.enregistrerStats(jf.getSelectedFile()+"/workbook.xlsx");
 				}
-
-
 			}
 		});
 
