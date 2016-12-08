@@ -20,15 +20,17 @@ public class DeplacementAlea extends Deplacement{
 	@Override
 	public void mouvement() {
 		if(coordX==destX && coordY==destY){
-			double rand = ThreadLocalRandom.current().nextDouble(-1, 1);
-			destX+= (int) (Math.round((rand*dAlea)%monde.getSizeX()));
-			rand = ThreadLocalRandom.current().nextDouble(-1, 1);
-			destY+=(int) (Math.round((rand*dAlea)%monde.getSizeX()));
-			//System.out.println(destX+" "+destY);
-			if(destX<0) destX=destX + (monde.getSizeX());
-			else if(destX>monde.getSizeX()-1) destX=destX - (monde.getSizeX());
-			if(destY<0) destY=destY + (monde.getSizeX());
-			else if(destY>monde.getSizeX()-1) destY=destY - (monde.getSizeX());	
+
+			do{
+				double rand = ThreadLocalRandom.current().nextDouble(-1, 1);
+				destX+= (int) (Math.round((rand*dAlea)%monde.getSizeX()));
+				rand = ThreadLocalRandom.current().nextDouble(-1, 1);
+				destY+=(int) (Math.round((rand*dAlea)%monde.getSizeX()));
+				if(destX<0) destX=destX + (monde.getSizeX());
+				else if(destX>monde.getSizeX()-1) destX=destX - (monde.getSizeX());
+				if(destY<0) destY=destY + (monde.getSizeX());
+				else if(destY>monde.getSizeX()-1) destY=destY - (monde.getSizeX());	
+			}while(coordX==destX && coordY==destY);
 
 		}
 		coordX=destX;

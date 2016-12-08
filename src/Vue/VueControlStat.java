@@ -49,7 +49,7 @@ public class VueControlStat extends JPanel implements Vue{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try{
-                    modele.setNbPartieStat(JOptionPane.showInputDialog("Nombre de partie"));
+                    modele.setNbPartieStat(JOptionPane.showInputDialog("Nombre de parties"));
                     mettreAJour();
                 }catch(Exception NumberFormatException){
                     JOptionPane.showMessageDialog(null,"Entrez un nombre positif (100>taille>6)","Alerte",JOptionPane.ERROR_MESSAGE);

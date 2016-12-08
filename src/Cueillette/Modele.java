@@ -29,9 +29,11 @@ public class Modele {
 	private boolean switchAffichage;//modifier la vue Plateau
 	private Statistiques stat;
 	private int nbPartieStat;
+	private CreationFichier fichier;
 
 	public Modele(){
 		stat=new Statistiques();
+		fichier=new CreationFichier();
 		listVue=new ArrayList<>();
 		listVueStat=new ArrayList<>();
 		monde=new Monde();
@@ -317,6 +319,10 @@ public class Modele {
 
 	public void setResetStat(boolean resetStat) {
 		stat.setReset(resetStat);
+	}
+
+	public void enregistrerStats(String chemin){
+		fichier.enregistrer(chemin);
 	}
 
 	public int getMoyenneStat() {
