@@ -1,5 +1,7 @@
 package Cueillette;
 
+import java.util.ArrayList;
+
 /**
  * Created by Victor on 24/11/2016.
  */
@@ -12,7 +14,19 @@ public class Statistiques{
     protected int mode;
     protected int nbPartie;
     protected boolean reset;
+    public static ArrayList<DonneesStatistiques> donnees;
 
+    public Statistiques(){
+        monde=new Monde[0];
+        nbPas=new int[0];
+        mode=3;
+        taille=10;
+        nbAgent=10;
+        nbInteret=10;
+        reset=false;
+        donnees = new ArrayList<DonneesStatistiques>();
+    }
+    
     public void setReset(boolean reset) {
         this.reset = reset;
     }
@@ -53,6 +67,7 @@ public class Statistiques{
     }
     public void raz(){
         nbPas=null;
+        donnees=new ArrayList<DonneesStatistiques>();
     }
     public int getNbPartie(){
         return nbPartie;
@@ -60,16 +75,6 @@ public class Statistiques{
 
     public void setNbPartie(int nbPartie) {
         this.nbPartie = nbPartie;
-    }
-
-    public Statistiques(){
-        monde=new Monde[0];
-        nbPas=new int[0];
-        mode=3;
-        taille=10;
-        nbAgent=10;
-        nbInteret=10;
-        reset=false;
     }
 
     public String[] run(int n){
@@ -94,6 +99,7 @@ public class Statistiques{
             s[i]=""+nbPas[i];
             System.out.println(s[i]);
         }
+        donnees.add(new DonneesStatistiques(nbPas,taille,nbAgent,nbInteret,mode,nbPartie));
         return s;
     }
 

@@ -1,7 +1,6 @@
 package Cueillette;
 
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
@@ -12,11 +11,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class CreationFichier {
 
-	ArrayList<String[]> listeParametres;
-	String[] parametres;
-
 	public CreationFichier() {
-		
+
 	}
 
 	public void ajouterParametres(){
@@ -31,11 +27,25 @@ public class CreationFichier {
 		Sheet sheet = wb.createSheet(safeName);
 		Row row = sheet.createRow((short)0);
 		CreationHelper createHelper = wb.getCreationHelper();
-		
-		row.createCell(2).setCellValue(
-			createHelper.createRichTextString("This is a string")
-		);
-		
+
+		if(Statistiques.donnees != null && Statistiques.donnees.size()!=0){
+			for(int i=0; i<Statistiques.donnees.size(); i++){
+				int col=i*10-1;
+				if(col<1)col=0;
+				row.createCell(col).setCellValue(createHelper.createRichTextString("nombre parties: "+Statistiques.donnees.get(i).getNbPartie()));
+				
+				//insertion du nombre de pas de chaque partie
+				int[] nbPas = Statistiques.donnees.get(i).getNbPas();
+				for(int j=0; j<nbPas.length; j++){
+					if(sheet.getRow(j+2) != null)sheet.getRow(j+2).createCell(col).setCellValue(nbPas[j]);
+					else sheet.createRow((short)j+2).createCell(col).setCellValue(nbPas[j]);
+				}
+				
+				sheet.autoSizeColumn(i*2);
+			}
+		}
+
+
 		try(FileOutputStream fileOut = new FileOutputStream(chemin);) {
 			wb.write(fileOut);
 			wb.close();
