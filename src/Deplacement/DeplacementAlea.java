@@ -20,6 +20,7 @@ public class DeplacementAlea extends Deplacement{
 	@Override
 	public void mouvement() {
 		if(coordX==destX && coordY==destY){
+
 			do{
 				double rand = ThreadLocalRandom.current().nextDouble(-1, 1);
 				destX+= (int) (Math.round((rand*dAlea)%monde.getSizeX()));
@@ -30,6 +31,7 @@ public class DeplacementAlea extends Deplacement{
 				if(destY<0) destY=destY + (monde.getSizeX());
 				else if(destY>monde.getSizeX()-1) destY=destY - (monde.getSizeX());	
 			}while(coordX==destX && coordY==destY);
+
 		}
 		coordX=destX;
 		coordY=destY;

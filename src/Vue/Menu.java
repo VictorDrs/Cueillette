@@ -10,12 +10,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
+/*
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+*/
 import Cueillette.Modele;
 
 @SuppressWarnings("serial")
@@ -61,7 +61,9 @@ class Menu extends JMenuBar {
 				jf.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int reponse = jf.showOpenDialog(getParent());
 				if (reponse == JFileChooser.APPROVE_OPTION){
+
 					mod.enregistrerStats(jf.getSelectedFile()+"/workbook.xlsx");
+
 				}
 			}
 		});

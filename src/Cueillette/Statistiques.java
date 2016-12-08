@@ -92,8 +92,17 @@ public class Statistiques{
             }
             nbPas[i]=monde[i].getNbPas();
             s[i]=""+nbPas[i];
+            System.out.println(s[i]);
         }
         return s;
+    }
+
+    public int getMoyenne(){
+        int res=0;
+        for(int i : nbPas){
+            res=res+i;
+        }
+        return (res/nbPas.length);
     }
 
 }

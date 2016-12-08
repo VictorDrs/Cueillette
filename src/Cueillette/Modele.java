@@ -263,14 +263,14 @@ public class Modele {
 
 	public void nPatchsStat(String s) {
 		int x=Integer.parseInt(s);
-		if(x<=5 || x>500)
+		if(x<1 || x>500)
 			throw new NumberFormatException();
 		stat.setNbInteret(x);
 	}
 
 	public void nAgentsStat(String s) {
 		int x=Integer.parseInt(s);
-		if(x<=5 || x>100)
+		if(x<1 || x>100)
 			throw new NumberFormatException();
 		stat.setNbAgent(x);
 	}
@@ -320,8 +320,13 @@ public class Modele {
 	public void setResetStat(boolean resetStat) {
 		stat.setReset(resetStat);
 	}
-	
+
 	public void enregistrerStats(String chemin){
 		fichier.enregistrer(chemin);
 	}
+
+	public int getMoyenneStat() {
+		return stat.getMoyenne();
+	}
+
 }
