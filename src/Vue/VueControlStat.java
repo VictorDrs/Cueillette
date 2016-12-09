@@ -42,9 +42,6 @@ public class VueControlStat extends JPanel implements Vue{
         reset=new JButton("Reset");
         partie=new JButton("Nombre de partie");
 
-
-
-
         partie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
