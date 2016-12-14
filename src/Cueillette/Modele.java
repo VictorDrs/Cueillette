@@ -10,14 +10,10 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
-
-
-
-
 public class Modele {
 
 	public static final int VIDE=0,INTERET=1,AGENT=2;//Constantes 
-	public static final String SIZE_DEFAUT="100";//Constante taille map par d�faut
+	public static final String SIZE_DEFAUT="100";//Constante taille map par defaut
 	private final ArrayList<Vue>listVue;//Liste des vues du MVC
 	private final ArrayList<Vue>listVueStat;//liste vue des stats
 	private Monde monde;//Stockage de la grille
