@@ -37,7 +37,7 @@ public class VueStatistiques extends JPanel implements Vue{
 		lancerPartie.setPreferredSize(new Dimension(800, 610));
 		lancerPartie.setBorder(BorderFactory.createTitledBorder("Resultat de toutes parties"));
 
-		//scroll=new JScrollPane(affiche);
+
 		lancerPartie.setBounds(10,60,800,610);
 		lancerPartie.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		lancerPartie.setOpaque(false);

@@ -2,13 +2,14 @@ package Cueillette;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-
+/*
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+*/
 
 public class CreationFichier {
 
@@ -26,6 +27,7 @@ public class CreationFichier {
 	}
 
 	public void enregistrer(String chemin){
+		/*
 		Workbook wb = new XSSFWorkbook();
 		String safeName = WorkbookUtil.createSafeSheetName("[Statistiques*?]");
 		Sheet sheet = wb.createSheet(safeName);
@@ -42,6 +44,7 @@ public class CreationFichier {
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		*/
 
 	}
 
